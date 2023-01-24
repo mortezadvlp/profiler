@@ -5,14 +5,15 @@ export default function CustomButton({ className = '',
     text = 'Click me!', onClick, hasIcon = false, svg=<></>
 }) {
 
-    const class_name = `border border-1 border-primary rounded-pill bg-white custom-button ${className}`;
+    const class_name = `border border-1 border-primary rounded-pill bg-white custom-button fw-bold ${className}`;
 
 
     return (
         <>
         {hasIcon
         ?
-            <button className={`d-flex flex-row justify-content-between gap-3 ${class_name} px-2 py-1`} >
+            <button className={`d-flex flex-row justify-content-between gap-3 ${class_name} px-2 py-1`}
+                onClick={onClick} >
                 <span className='my-auto' >{text}</span>
                 {svg}
             </button>

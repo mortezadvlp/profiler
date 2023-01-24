@@ -1,0 +1,14 @@
+
+.tab-button-light {
+    background-color: rgb(200, 229, 255) !important;
+}
+
+.camera-on-avatar {
+    position: absolute !important;
+    bottom: -15%;
+    left: 50%;
+    transform: translateX(-50%);
+    margin-left: auto;
+    margin-right: auto;
+    z-index: 10;
+}
