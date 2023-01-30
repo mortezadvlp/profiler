@@ -12,10 +12,14 @@
 }
 
 .no-outline {
-  outline: none;
+  outline: none !important;
 }
 .no-outline:focus {
-  outline: none;
+  outline: none !important;
+}
+
+.no-border-onfocus:focus {
+  border: none !important;
 }
 
 .border-transparent {
@@ -24,4 +28,35 @@
 
 .text-gray {
   color: gray;
+}
+
+.z-top {
+  z-index: 100;
+}
+
+@media (max-width:576px) {
+  .w-sm-40 {
+    width: 40% !important;
+  }
+}
+
+.info-card-container {
+  width: 100%;
+}
+@media (min-width:768px) {
+  .info-card-container {
+    width: 80%;
+  }
+}
+
+@media (min-width:992px) {
+  .info-card-container {
+    width: 60%;
+  }
+}
+
+@media (min-width:1200px) {
+  .info-card-container {
+    width: 50%;
+  }
 }

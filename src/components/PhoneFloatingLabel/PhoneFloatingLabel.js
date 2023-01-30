@@ -1,6 +1,7 @@
 
 
 import { useEffect, useState } from 'react';
+import { inputComponentHeight } from '../../app/constants';
 import CustomSelect from '../CustomSelect/CustomSelect';
 import './PhoneFloatingLabel.css'
 
@@ -24,7 +25,8 @@ export default function PhoneFloatingLabel({
     return (
         <div className={className} >
             <div className='w-100 position-relative border border-transparent' >
-                <div className='border border-primary rounded-1 mt-4 p-0' >
+                <div className='border border-primary rounded-1 mt-4 p-0'
+                    style={{minHeighteight: inputComponentHeight}} >
                     <CustomSelect value={value} onChangeValue={onChangeValue} 
                         onFocus={() => onInputFocus(true)} onBlur={() => onInputFocus(false)} />
                 </div>

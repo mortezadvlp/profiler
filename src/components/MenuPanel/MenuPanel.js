@@ -17,7 +17,7 @@ const TabButton = ({ text = 'Tab Button', onClick, isSelected = false, className
     );
 }
 
-export default function MenuPanel({ currentTab = 0, onChangeCurrentTab, onSaveChanges, className = '', avatar = '' }) {
+export default function MenuPanel({ currentTab = 0, onChangeCurrentTab, className = '', avatar = '' }) {
 
     const tabNames = ['Personal Info', 'Educational Info', 'Work Experiances', 'Privacy'];
 
@@ -38,9 +38,6 @@ export default function MenuPanel({ currentTab = 0, onChangeCurrentTab, onSaveCh
                     <TabButton key={index} text={tn} isSelected={currentTab === index} 
                         onClick={() => onChangeCurrentTab(index)} />
                 )}
-                <CustomButton text='Save Changes' hasIcon={true} className='mt-4'
-                    svg={<SvgOK className='text-primary' width='32px' height='32px' />}
-                    onClick={onSaveChanges} />
             </div>
         </aside>
     );

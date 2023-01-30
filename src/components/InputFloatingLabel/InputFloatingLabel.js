@@ -1,6 +1,7 @@
 
 
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
+import { inputComponentHeight } from '../../app/constants';
 import './InputFloatingLabel.css'
 
 export default function InputFloatingLabel({
@@ -9,6 +10,8 @@ export default function InputFloatingLabel({
 
     const [hasFocus, setHasFocus] = useState(false);
     const [showTextHolder, setShowTextHolder] = useState(value === '' && !hasFocus);
+
+    const mainRef = useRef(null);
 
     const onInputFocus = (status) => {
         setHasFocus(status);
@@ -21,14 +24,15 @@ export default function InputFloatingLabel({
     return (
         <div className={className} >
             <div className='w-100 position-relative border border-transparent' >
-                <div className='d-flex flex-row align-items-center gap-1 mt-4 border border-primary rounded-1' >
+                <div className={`d-flex flex-row align-items-center gap-1 mt-4 border border-primary rounded-1 ${showTextHolder ? '' : 'border-2'}`}
+                    style={{minHeight: inputComponentHeight}} >
                     {Number(lineCount) <= 1
                     ?
-                    <input type={type} value={value} onChange={(e) => onChangeValue(e.target.value)}
+                    <input ref={mainRef} type={type} value={value} onChange={(e) => onChangeValue(e.target.value)}
                         className='no-outline border-0 w-100 p-1'
                         onFocus={() => onInputFocus(true)} onBlur={() => onInputFocus(false)} />
                     :
-                    <textarea rows={String(lineCount)} value={value} onChange={(e) => onChangeValue(e.target.value)}
+                    <textarea ref={mainRef} rows={String(lineCount)} value={value} onChange={(e) => onChangeValue(e.target.value)}
                         className='no-outline border-0 w-100 p-1'
                         onFocus={() => onInputFocus(true)} onBlur={() => onInputFocus(false)} />
                     }
@@ -36,7 +40,8 @@ export default function InputFloatingLabel({
                         {icon}
                     </div>
                 </div>
-                <span className={`position-absolute start-0 top-0 ms-1 ${showTextHolder ? 'input-label-blur text-gray' : 'input-label-focus text-primary'}`} >{label}</span>
+                <span className={`position-absolute start-0 top-0 ms-1 ${showTextHolder ? 'input-label-blur text-gray' : 'input-label-focus text-primary'}`}
+                    onClick={() => mainRef.current.focus()} >{label}</span>
             </div>
         </div>
         

@@ -1,6 +1,9 @@
 
 import { getList } from 'country-list-with-dial-code-and-flag'
 
+export const primaryColor = '#0d6efd';
+export const inputComponentHeight = '38px';
+
 export const countries0 = [
     {value: 0, label: 'Afghanistan'},
     {value: 1, label: 'Albania'},
@@ -230,3 +233,12 @@ const countryCodesFunction = () => {
 
 export const countryCodes = countryCodesFunction();
 
+export const DegreeList = [
+    {value: "Diploma", label: "Diploma"},
+    {value: "Associate", label: "Associate's Degree"},
+    {value: "Bachelor", label: "Bachelor's Degree"},
+    {value: "Master", label: "Master's Degree"},
+    {value: "Doctoral", label: "Doctoral"},
+    {value: "PhD", label: "Doctor of Philosophy"},
+    {value: "PostDoc", label: "Postdoctoral"},
+]
