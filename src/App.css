@@ -45,17 +45,23 @@
 }
 @media (min-width:768px) {
   .info-card-container {
-    width: 80%;
+    width: 100%;
   }
 }
 
 @media (min-width:992px) {
   .info-card-container {
-    width: 60%;
+    width: 80%;
   }
 }
 
 @media (min-width:1200px) {
+  .info-card-container {
+    width: 65%;
+  }
+}
+
+@media (min-width:1400px) {
   .info-card-container {
     width: 50%;
   }

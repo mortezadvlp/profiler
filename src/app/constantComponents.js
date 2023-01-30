@@ -134,9 +134,10 @@ export const SvgCamera = ({ width = '24px', height = '24px', fillColor = "curren
     );
 }
 
-export const SvgPageHeader = ({ width = '34px', height = '4px', fillColor = "currentcolor", className = "" }) => {
+export const SvgPageHeader = ({ width = '100%', height = '70px', fillColor = "currentcolor", className = "" }) => {
     return (
-        <svg width={width} height={height} fill={fillColor} className={className} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 34 4" >
+        <svg preserveAspectRatio='none' width={width} height={height} fill={fillColor} className={className} 
+                xmlns="http://www.w3.org/2000/svg" viewBox="0 0 34 4" >
             <path d="M 0 0 L 0 1 C 1 1 1 1 2 2 C 7 5 16 2 17 4 C 18 2 28 5 32 2 C 33 1 33 1 34 1 L 34 0 Z"/>
         </svg>
     );
