@@ -1,4 +1,5 @@
 
+import { useState } from 'react';
 import { SvgOK } from '../../app/constantComponents';
 import CustomButton from '../../components/CustomButton/CustomButton';
 import CustomCheckBox from '../../components/CustomCheckBox/CustomCheckBox';
@@ -8,32 +9,64 @@ import './PrivacyPage.css'
 
 export default function PrivacyPage({ }) {
 
+    const [dataUP, setDataUP] = useState({
+        username: '',
+        password: '',
+        repeatPassword: '',
+    })
+    const [dataOpt, setDataOpt] = useState({
+        dontShowEmail: false,
+        notification: true,
+        adminMessages: true,
+    })
+
+    const setDataUPAsist = (field, value) => {
+        setDataUP({
+            ...dataUP,
+            [field]: value
+        })
+    }
+    const setDataOptAsist = (field, value) => {
+        setDataOpt({
+            ...dataOpt,
+            [field]: value
+        })
+    }
+
+    const onChangePasswordClick = () => {
+
+    }
+
+    const onSaveChangesClick = () => {
+        
+    }
+
     return (
         <PageTemplate title='Privacy' className='' >
             <div className='w-100 row' >
                 <InputFloatingLabel className='col-lg' lineCount='1' label='Username' type='text'
-                    value='' onChangeValue={() => {}} />
+                    value={dataUP.username} />
             </div>
             <div className='w-100 row' >
                 <InputFloatingLabel className='col-lg' lineCount='1' label='New Password' type='password'
-                    value='' onChangeValue={() => {}} />
+                    value={dataUP.password} onChangeValue={(val) => setDataUPAsist("password", val)} />
                 <InputFloatingLabel className='col-lg' lineCount='1' label='Repeat New Password' type='password'
-                    value='' onChangeValue={() => {}} />
+                    value={dataUP.repeatPassword} onChangeValue={(val) => setDataUPAsist("repeatPassword", val)} />
             </div>
             <div className='w-100 row justify-content-center' >
                 <CustomButton text='Change Password' hasIcon={true} className='col-lg mx-4 mt-4' maxWidthPx={200}
                     svg={<SvgOK className='text-primary' width='32px' height='32px' />}
-                    onClick={() => {}} />
+                    onClick={() => onChangePasswordClick()} />
             </div>
             <div className='w-100 d-flex flex-column gap-2 px-3 mt-4' >
-                <CustomCheckBox text='Do not show my email to others (Show only to my contacts)' isChecked={false} onChangeChecked={() => {}} />
-                <CustomCheckBox text='Send me notification' isChecked={true} onChangeChecked={() => {}} />
-                <CustomCheckBox text='Send me important messages from admin' isChecked={true} onChangeChecked={() => {}} />
+                <CustomCheckBox text='Do not show my email to others (Show only to my contacts)' isChecked={dataOpt.dontShowEmail} onChangeChecked={(val) => setDataOptAsist("dontShowEmail", val)} />
+                <CustomCheckBox text='Send me notification' isChecked={dataOpt.notification} onChangeChecked={(val) => setDataOptAsist("notification", val)} />
+                <CustomCheckBox text='Send me important messages from admin' isChecked={dataOpt.adminMessages} onChangeChecked={(val) => setDataOptAsist("adminMessages", val)} />
             </div>
             <div className='w-100 row justify-content-center' >
                 <CustomButton text='Save Changes' hasIcon={true} className='col-lg mx-4 mt-4' maxWidthPx={200}
                     svg={<SvgOK className='text-primary' width='32px' height='32px' />}
-                    onClick={() => {}} />
+                    onClick={() => onSaveChangesClick()} />
             </div>
         </PageTemplate>
     );

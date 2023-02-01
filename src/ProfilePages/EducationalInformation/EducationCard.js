@@ -9,7 +9,7 @@ export default function EducationCard({ data = null, className = '', onEditClick
     useEffect(() => {
         if(!data) {
             setInData({
-                id: 0,
+                id: -1,
                 degree: "Degree",
                 major: 'Major',
                 orientation: 'Orientation',

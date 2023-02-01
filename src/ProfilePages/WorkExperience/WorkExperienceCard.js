@@ -9,7 +9,7 @@ export default function WorkExperienceCard({ data = null, className = '', onEdit
     useEffect(() => {
         if(!data) {
             setInData({
-                id: 0,
+                id: -1,
                 jobTitle: "Job Title",
                 country: 'Country',
                 city: 'City',

@@ -1,4 +1,5 @@
 
+import { useState } from 'react';
 import { SvgCalendar, SvgClear, SvgOK } from '../../app/constantComponents';
 import { countries, primaryColor } from '../../app/constants';
 import CustomButton from '../../components/CustomButton/CustomButton';
@@ -11,6 +12,26 @@ import WorkExperienceCard from './WorkExperienceCard';
 
 export default function WorkExperience({ }) {
 
+    const [data, setData] = useState([])
+    const [tempData, setTempData] = useState({
+        id: -1,
+        jobTitle: "",
+        company: '',
+        country: -1,
+        state: '',
+        city: '',
+        responsibilities: '',
+        startDate: '',
+        endDate: '',
+        stillNow: false,
+    })
+
+    const setDataAsist = (field, value) => {
+        setTempData({
+            ...tempData,
+            [field]: value
+        })
+    }
     const onCardEditClick = (id) => {
 
     }
@@ -23,34 +44,34 @@ export default function WorkExperience({ }) {
         <PageTemplate title='Work Experience' className='' >
             <div className='w-100 row' >
                 <InputFloatingLabel className='col-lg' lineCount='1' label='Job Title' type='text'
-                    value='' onChangeValue={() => {}} />
+                    value={tempData.jobTitle} onChangeValue={(val) => setDataAsist("jobTitle", val)} />
                 <InputFloatingLabel className='col-lg' lineCount='1' label='ompany / Organization' type='text'
-                    value='' onChangeValue={() => {}} />
+                    value={tempData.company} onChangeValue={(val) => setDataAsist("company", val)} />
             </div>
             <div className='w-100 row' >
                 <SelectFloatingLabel className='col-lg' label='Country'
-                    value={-1} onChangeValue={() => {}}
+                    value={tempData.country} onChangeValue={(val) => setDataAsist("country", val)}
                     options={countries()} />
                 <InputFloatingLabel className='col-lg' lineCount='1' label='State' type='text'
-                    value='' onChangeValue={() => {}} />
+                    value={tempData.state} onChangeValue={(val) => setDataAsist("state", val)} />
                 <InputFloatingLabel className='col-lg' lineCount='1' label='City' type='text'
-                    value='' onChangeValue={() => {}} />
+                    value={tempData.city} onChangeValue={(val) => setDataAsist("city", val)} />
             </div>
             <div className='w-100 row' >
-                <InputFloatingLabel className='col-lg' lineCount='7' label='Eesponsibilities / Achievments' type='text'
-                    value='' onChangeValue={() => {}} />
+                <InputFloatingLabel className='col-lg' lineCount='7' label='Responsibilities / Achievments' type='text'
+                    value={tempData.responsibilities} onChangeValue={(val) => setDataAsist("responsibilities", val)} />
                 <div className='col-lg d-flex flex-column' >
                     <InputFloatingLabel className='col-lg' lineCount='1' label='Start Date' type='text'
-                        value='' onChangeValue={() => {}}
+                        value={tempData.startDate} onChangeValue={(val) => setDataAsist("startDate", val)}
                         icon={<SvgCalendar width='32px' height='24px' fillColor={primaryColor} />}
                         iconClickable={false} />
                     <InputFloatingLabel className='col-lg' lineCount='1' label='End Date' type='text'
-                        value='' onChangeValue={() => {}}
+                        value={tempData.endDate} onChangeValue={(val) => setDataAsist("endDate", val)}
                         icon={<SvgCalendar width='32px' height='24px' fillColor={primaryColor} />}
                         iconClickable={false} />
                     <OptionalQuestion className='col-lg pt-4' title="I'm still working at this position"
                         trueOption='Yes' falseOption='No'
-                        value={false} onChangeValue={() => {}} />
+                        value={tempData.stillNow} onChangeValue={(val) => setDataAsist("stillNow", val)} />
                 </div>
             </div>
             <div className='w-75 w-sm-40 row justify-content-center' >
@@ -63,12 +84,11 @@ export default function WorkExperience({ }) {
             </div>
 
             <div className='info-card-container my-4 px-2 d-flex flex-column gap-3' >
-                <WorkExperienceCard className='' data={null} 
-                    onCardEditClick={(id) => onCardEditClick(id)}
-                    onCardRemoveClick={(id) => onCardRemoveClick(id)} />
-                <WorkExperienceCard className='' data={null} 
-                    onEditClick={(id) => onCardEditClick(id)}
-                    onRemoveClick={(id) => onCardRemoveClick(id)} />
+                {data.forEach((element, index) => 
+                    <WorkExperienceCard key={index} className='' data={element} 
+                        onCardEditClick={() => onCardEditClick(element.id)}
+                        onCardRemoveClick={() => onCardRemoveClick(element.id)} />
+                )}
             </div>
         </PageTemplate>
     );
