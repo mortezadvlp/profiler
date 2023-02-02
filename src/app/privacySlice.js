@@ -3,9 +3,9 @@ import { createSlice } from "@reduxjs/toolkit"
 
 export const privacyInitialState = {
     username: '',
-    showEmail: false,
+    dontShowEmail: false,
     notification: false,
-    adminMessages: false
+    adminMessages: false,
 }
 
 export const privacySlice = createSlice({
@@ -13,7 +13,12 @@ export const privacySlice = createSlice({
     initialState: privacyInitialState,
     reducers: {
         updateAll: (state, action) => {
-            state = { ...action.payload };
+            state = {
+                ...state,
+                dontShowEmail: action.payload.dontShowEmail,
+                notification: action.payload.notification,
+                adminMessages: action.payload.adminMessages,
+            }
         },
         update: (state, action) => {    //field, value
             const {field, value} = action.payload;

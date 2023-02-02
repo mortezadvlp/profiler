@@ -16,7 +16,7 @@ export default function WorkExperienceCard({ data = null, className = '', onEdit
                 company: 'Company',
                 startDate: 'StartDate',
                 endDate: 'EndDate',
-                stillNow: false
+                stillWorking: false
             })
         }
     }, [data])
@@ -29,7 +29,7 @@ export default function WorkExperienceCard({ data = null, className = '', onEdit
                     <span className="text-white" >{`${inData?.country} / ${inData?.city}`}</span>
                     <span className="text-white" >{`${inData?.company}`}</span>
                 </div>
-                <span className="text-white" >{`From ${inData?.startDate} to ${inData?.stillNow ? 'Now' : inData?.endDate}`}</span>
+                <span className="text-white" >{`From ${inData?.startDate} to ${inData?.stillWorking ? 'Now' : inData?.endDate}`}</span>
             </div>
             <div className="d-flex flex-column gap-2" >
                 <button className="custom-button bg-white border-0 rounded-circle p-2" onClick={() => onEditClick(inData?.id)} >

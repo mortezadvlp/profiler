@@ -1,11 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 
-export const educationInitialStateCard = {
+export const educationInitialStateSingle = {
     id: -1,
-    degree: '',
+    degree: -1,
     university: '',
-    major: -1,
+    major: '',
     orientation: '',
     country: -1,
     state: '',

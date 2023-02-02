@@ -1,6 +1,8 @@
 
 import { useState } from 'react';
+import { useSelector } from 'react-redux';
 import { SvgOK } from '../../app/constantComponents';
+import { updateAll } from '../../app/privacySlice';
 import CustomButton from '../../components/CustomButton/CustomButton';
 import CustomCheckBox from '../../components/CustomCheckBox/CustomCheckBox';
 import InputFloatingLabel from '../../components/InputFloatingLabel/InputFloatingLabel';
@@ -9,15 +11,16 @@ import './PrivacyPage.css'
 
 export default function PrivacyPage({ }) {
 
+    const data = useSelector(state => state.privacy);
     const [dataUP, setDataUP] = useState({
-        username: '',
+        username: data.username,
         password: '',
         repeatPassword: '',
     })
     const [dataOpt, setDataOpt] = useState({
-        dontShowEmail: false,
-        notification: true,
-        adminMessages: true,
+        dontShowEmail: data.dontShowEmail,
+        notification: data.notification,
+        adminMessages: data.adminMessages,
     })
 
     const setDataUPAsist = (field, value) => {
@@ -38,7 +41,7 @@ export default function PrivacyPage({ }) {
     }
 
     const onSaveChangesClick = () => {
-        
+        updateAll(dataOpt)
     }
 
     return (

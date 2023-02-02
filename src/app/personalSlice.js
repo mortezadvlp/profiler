@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 export const personalInitialState = {
-    firstNam: '',
+    firstName: '',
     lastName: '',
     birthDate: 0,
     nationality: -1,
@@ -9,11 +9,12 @@ export const personalInitialState = {
     state: '',
     city: '',
     married: false,
+    numberOfChildren: 0,
     phone: '',
     mobile: '',
     email: '',
-    postalCode: '',
-    address: ''
+    zipCode: '',
+    address: '',
 }
 
 export const personalSlice = createSlice({

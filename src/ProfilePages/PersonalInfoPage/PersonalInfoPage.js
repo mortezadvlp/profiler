@@ -1,7 +1,9 @@
 
 import { useState } from 'react';
+import { useSelector } from 'react-redux';
 import { SvgCalendar, SvgOK } from '../../app/constantComponents';
 import { countries, primaryColor } from '../../app/constants';
+import { updateAll } from '../../app/personalSlice';
 import CustomButton from '../../components/CustomButton/CustomButton';
 import InputFloatingLabel from '../../components/InputFloatingLabel/InputFloatingLabel';
 import OptionalQuestion from '../../components/OptionalQuestion/OptionalQuestion';
@@ -13,22 +15,7 @@ import './PersonalInfoPage.css';
 
 export default function PersonalInfoPage ({ }) {
 
-    const [data, setData] = useState({
-        firstName: '',
-        lastName: '',
-        birthDate: '',
-        nationality: -1,
-        country: -1,
-        state: '',
-        city: '',
-        married: false,
-        numberOfChildren: 0,
-        mobile: '',
-        phone: '',
-        email: '',
-        zipCode: '',
-        address: '',
-    })
+    const [data, setData] = useState(useSelector(state => state.personal))
 
     const setDataAsist = (field, value) => {
         setData({
@@ -38,7 +25,7 @@ export default function PersonalInfoPage ({ }) {
     }
 
     const onSaveChangesClick = () => {
-        
+        updateAll(data);
     }
 
     return (

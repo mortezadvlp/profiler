@@ -1,7 +1,9 @@
 
 import { useState } from 'react';
-import { SvgCalendar, SvgClear, SvgOK } from '../../app/constantComponents';
+import { useSelector } from 'react-redux';
+import { SvgCalendar, SvgCancel, SvgClear, SvgOK } from '../../app/constantComponents';
 import { countries, DegreeList, primaryColor } from '../../app/constants';
+import { addDegree, deleteDegree, editDegree, educationInitialStateSingle } from '../../app/educationSlice';
 import CustomButton from '../../components/CustomButton/CustomButton';
 import InputFloatingLabel from '../../components/InputFloatingLabel/InputFloatingLabel';
 import OptionalQuestion from '../../components/OptionalQuestion/OptionalQuestion';
@@ -12,21 +14,9 @@ import EducationCard from './EducationCard';
 
 export default function EducationalInformation({ }) {
 
-    const [data, setData] = useState([])
-    const [tempData, setTempData] = useState({
-        id: -1,
-        degree: -1,
-        university: '',
-        major: '',
-        orientation: '',
-        country: -1,
-        state: '',
-        city: '',
-        gpa: '',
-        stillNow: false,
-        startDate: '',
-        endDate: '',
-    })
+    const data = useState(useSelector(state => state.education))
+    const [tempData, setTempData] = useState(educationInitialStateSingle)
+    const [editMode, setEditMode] = useState(false)
 
     const setDataAsist = (field, value) => {
         setTempData({
@@ -35,12 +25,30 @@ export default function EducationalInformation({ }) {
         })
     }
 
-    const onCardEditClick = (id) => {
+    const onClearFormClick = () => {
+        setTempData(educationInitialStateSingle);
+        setEditMode(false);
+    }
 
+    const onAddEditClick = () => {
+        if(editMode) {
+            editDegree(tempData);
+        }
+        else {
+            addDegree(tempData);
+        }
+    }
+
+    const onCardEditClick = (id) => {
+        const dd = data.find(d => d.id === id);
+        if(dd) {
+            setTempData(dd);
+            setEditMode(true);
+        }
     }
 
     const onCardRemoveClick = (id) => {
-        
+        deleteDegree(id);
     }
 
     return(
@@ -72,7 +80,7 @@ export default function EducationalInformation({ }) {
                     value={tempData.gpa} onChangeValue={(val) => setDataAsist("gpa", val)} />
                 <OptionalQuestion className='col-lg pt-4' title="I'm still student"
                     trueOption='Yes' falseOption='No'
-                    value={tempData.stillNow} onChangeValue={(val) => setDataAsist("stillNow", val)} />
+                    value={tempData.stillStudent} onChangeValue={(val) => setDataAsist("stillStudent", val)} />
             </div>
             <div className='w-100 row' >
                 <InputFloatingLabel className='col-lg' lineCount='1' label='Start Date' type='text'
@@ -85,12 +93,12 @@ export default function EducationalInformation({ }) {
                     iconClickable={false} />
             </div>
             <div className='w-75 w-sm-40 row justify-content-center' >
-                <CustomButton text='Add / Edit' hasIcon={true} className='col-lg mx-4 mt-4' maxWidthPx={200}
+                <CustomButton text={`${editMode ? 'Edit' : 'Add'}`} hasIcon={true} className='col-lg mx-4 mt-4' maxWidthPx={200}
                     svg={<SvgOK className='text-primary' width='32px' height='32px' />}
-                    onClick={() => {}} />
-                <CustomButton text='Clear Form' hasIcon={true} className='col-lg mx-4 mt-4' maxWidthPx={200}
-                    svg={<SvgClear className='text-primary' width='32px' height='32px' />}
-                    onClick={() => {}} />
+                    onClick={() => onAddEditClick()} />
+                <CustomButton text={`${editMode ? 'Cancel' : 'Clear Form'}`} hasIcon={true} className='col-lg mx-4 mt-4' maxWidthPx={200}
+                    svg={editMode ? <SvgCancel className='text-primary' width='32px' height='32px' /> : <SvgClear className='text-primary' width='32px' height='32px' />}
+                    onClick={() => onClearFormClick()} />
             </div>
 
             <div className='info-card-container my-4 px-2 d-flex flex-column gap-3' >

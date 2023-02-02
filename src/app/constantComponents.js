@@ -85,6 +85,18 @@ export const SvgClear = ({ width = '24px', height = '24px', fillColor = "current
     );
 }
 
+export const SvgCancel = ({ width = '24px', height = '24px', fillColor = "currentcolor", className = "" }) => {
+    return (
+        <svg width={width} height={height} fill={fillColor} className={className} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 46 46" >
+            <path d="M39.229,6.731c-8.975-8.974-23.523-8.974-32.498,0s-8.974,23.523,0,32.498c8.974,8.974,23.523,8.974,32.497-0.001
+                C48.202,30.254,48.203,15.704,39.229,6.731z M32.363,26.711c1.561,1.561,1.561,4.092,0,5.651c-1.562,1.561-4.092,1.561-5.652,0
+                l-3.748-3.749l-3.74,3.74c-1.561,1.562-4.074,1.578-5.635,0.019c-1.56-1.561-1.542-4.073,0.019-5.635l3.74-3.74L13.6,19.251
+                c-1.561-1.561-1.567-4.098-0.006-5.658s4.096-1.556,5.656,0.005l3.749,3.749l3.74-3.74c1.561-1.561,4.073-1.578,5.634-0.019
+                c1.561,1.561,1.543,4.074-0.019,5.635l-3.739,3.74L32.363,26.711z"/>
+        </svg>
+    );
+}
+
 export const SvgEdit = ({ width = '24px', height = '24px', fillColor = "currentcolor", className = "" }) => {
     return (
         <svg width={width} height={height} fill={fillColor} className={className} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 320" >

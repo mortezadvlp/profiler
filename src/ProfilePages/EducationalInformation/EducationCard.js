@@ -17,7 +17,7 @@ export default function EducationCard({ data = null, className = '', onEditClick
                 university: 'University',
                 startDate: 'StartDate',
                 endDate: 'EndDate',
-                stillNow: false
+                stillStudent: false
             })
         }
     }, [data])
@@ -30,7 +30,7 @@ export default function EducationCard({ data = null, className = '', onEditClick
                     <span className="text-white fw-bold" >{`${inData?.major} / ${inData?.orientation}`}</span>
                 </div>
                 <span className="text-white" >{`${inData?.country} / ${inData?.university}`}</span>
-                <span className="text-white" >{`From ${inData?.startDate} to ${inData?.stillNow ? 'Now' : inData?.endDate}`}</span>
+                <span className="text-white" >{`From ${inData?.startDate} to ${inData?.stillStudent ? 'Now' : inData?.endDate}`}</span>
             </div>
             <div className="d-flex flex-column gap-2" >
                 <button className="custom-button bg-white border-0 rounded-circle p-2" onClick={() => onEditClick(inData?.id)} >

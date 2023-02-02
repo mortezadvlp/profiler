@@ -1,14 +1,14 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 
-export const workExperienceInitialStateCard = {
+export const workExperienceInitialStateSingle = {
     id: -1,
     jobTitle: '',
     company: '',
     country: -1,
     state: '',
     city: '',
-    brief: '',
+    responsibilities: '',
     stillWorking: false,
     startDate: 0,
     endDate: 0,
