@@ -1,8 +1,9 @@
 
 import { useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { SvgCalendar, SvgCancel, SvgClear, SvgOK } from '../../app/constantComponents';
-import { countries, primaryColor } from '../../app/constants';
+import { countries, disabledColor, primaryColor } from '../../app/constants';
+import { fromPersianDateStr, toPersianDateDate } from '../../app/utilities';
 import { addExperience, deleteExperience, editExperience, workExperienceInitialStateSingle } from '../../app/workExperienceSlice';
 import CustomButton from '../../components/CustomButton/CustomButton';
 import InputFloatingLabel from '../../components/InputFloatingLabel/InputFloatingLabel';
@@ -17,6 +18,7 @@ export default function WorkExperience({ }) {
     const data = useState(useSelector(state => state.workExperience))
     const [tempData, setTempData] = useState(workExperienceInitialStateSingle);
     const [editMode, setEditMode] = useState(false)
+    const dispatch = useDispatch();
 
     const setDataAsist = (field, value) => {
         setTempData({
@@ -31,24 +33,34 @@ export default function WorkExperience({ }) {
     }
 
     const onAddEditClick = () => {
+        const temp = {
+            ...tempData,
+            startDate: new Date(fromPersianDateStr(tempData.startDate)).getTime(),
+            endDate: tempData.stillWorking ? 0 : new Date(fromPersianDateStr(tempData.endDate)).getTime()
+        };
         if(editMode) {
-            editExperience(tempData);
+            dispatch(editExperience(temp));
         }
         else {
-            addExperience(tempData);
+            dispatch(addExperience(temp));
         }
     }
 
     const onCardEditClick = (id) => {
         const dd = data.find(d => d.id === id);
         if(dd) {
-            setTempData(dd);
+            const temp = {
+                ...dd,
+                startDate: dd.startDate === 0 ? '' : toPersianDateDate(new Date(dd.startDate)),
+                endDate: dd.endDate === 0 ? '' : toPersianDateDate(new Date(dd.endDate))
+            }
+            setTempData(temp);
             setEditMode(true);
         }
     }
 
     const onCardRemoveClick = (id) => {
-        deleteExperience(id);
+        dispatch(deleteExperience(id));
     }
 
     return (
@@ -72,13 +84,14 @@ export default function WorkExperience({ }) {
                 <InputFloatingLabel className='col-lg' lineCount='7' label='Responsibilities / Achievments' type='text'
                     value={tempData.responsibilities} onChangeValue={(val) => setDataAsist("responsibilities", val)} />
                 <div className='col-lg d-flex flex-column' >
-                    <InputFloatingLabel className='col-lg' lineCount='1' label='Start Date' type='text'
+                    <InputFloatingLabel className='col-lg' lineCount='1' label='Start Date' format='yyyy/mm/dd' type='text'
                         value={tempData.startDate} onChangeValue={(val) => setDataAsist("startDate", val)}
                         icon={<SvgCalendar width='32px' height='24px' fillColor={primaryColor} />}
                         iconClickable={false} />
-                    <InputFloatingLabel className='col-lg' lineCount='1' label='End Date' type='text'
+                    <InputFloatingLabel className='col-lg' lineCount='1' label='End Date' format='yyyy/mm/dd' type='text'
                         value={tempData.endDate} onChangeValue={(val) => setDataAsist("endDate", val)}
-                        icon={<SvgCalendar width='32px' height='24px' fillColor={primaryColor} />}
+                        disabled={tempData.stillWorking}
+                        icon={<SvgCalendar width='32px' height='24px' fillColor={tempData.stillWorking ? disabledColor : primaryColor} />}
                         iconClickable={false} />
                     <OptionalQuestion className='col-lg pt-4' title="I'm still working at this position"
                         trueOption='Yes' falseOption='No'

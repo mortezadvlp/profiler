@@ -1,9 +1,10 @@
 
 import { useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { SvgCalendar, SvgCancel, SvgClear, SvgOK } from '../../app/constantComponents';
-import { countries, DegreeList, primaryColor } from '../../app/constants';
+import { countries, DegreeList, disabledColor, primaryColor } from '../../app/constants';
 import { addDegree, deleteDegree, editDegree, educationInitialStateSingle } from '../../app/educationSlice';
+import { fromPersianDateStr, toPersianDateDate } from '../../app/utilities';
 import CustomButton from '../../components/CustomButton/CustomButton';
 import InputFloatingLabel from '../../components/InputFloatingLabel/InputFloatingLabel';
 import OptionalQuestion from '../../components/OptionalQuestion/OptionalQuestion';
@@ -17,12 +18,13 @@ export default function EducationalInformation({ }) {
     const data = useState(useSelector(state => state.education))
     const [tempData, setTempData] = useState(educationInitialStateSingle)
     const [editMode, setEditMode] = useState(false)
+    const dispatch = useDispatch();
 
     const setDataAsist = (field, value) => {
         setTempData({
             ...tempData,
             [field]: value
-        })
+        });
     }
 
     const onClearFormClick = () => {
@@ -31,24 +33,34 @@ export default function EducationalInformation({ }) {
     }
 
     const onAddEditClick = () => {
+        const temp = {
+            ...tempData,
+            startDate: new Date(fromPersianDateStr(tempData.startDate)).getTime(),
+            endDate: tempData.stillStudent ? 0 : new Date(fromPersianDateStr(tempData.endDate)).getTime()
+        };
         if(editMode) {
-            editDegree(tempData);
+            dispatch(editDegree(temp));
         }
         else {
-            addDegree(tempData);
+            dispatch(addDegree(temp));
         }
     }
 
     const onCardEditClick = (id) => {
         const dd = data.find(d => d.id === id);
         if(dd) {
-            setTempData(dd);
+            const temp = {
+                ...dd,
+                startDate: dd.startDate === 0 ? '' : toPersianDateDate(new Date(dd.startDate)),
+                endDate: dd.endDate === 0 ? '' : toPersianDateDate(new Date(dd.endDate))
+            }
+            setTempData(temp);
             setEditMode(true);
         }
     }
 
     const onCardRemoveClick = (id) => {
-        deleteDegree(id);
+        dispatch(deleteDegree(id));
     }
 
     return(
@@ -83,13 +95,14 @@ export default function EducationalInformation({ }) {
                     value={tempData.stillStudent} onChangeValue={(val) => setDataAsist("stillStudent", val)} />
             </div>
             <div className='w-100 row' >
-                <InputFloatingLabel className='col-lg' lineCount='1' label='Start Date' type='text'
+                <InputFloatingLabel className='col-lg' lineCount='1' label='Start Date' format='yyyy/mm/dd' type='text'
                     value={tempData.startDate} onChangeValue={(val) => setDataAsist("startDate", val)}
                     icon={<SvgCalendar width='32px' height='24px' fillColor={primaryColor} />}
                     iconClickable={false} />
-                <InputFloatingLabel className='col-lg' lineCount='1' label='End Date' type='text'
+                <InputFloatingLabel className='col-lg' lineCount='1' label='End Date' format='yyyy/mm/dd' type='text'
                     value={tempData.endDate} onChangeValue={(val) => setDataAsist("endDate", val)}
-                    icon={<SvgCalendar width='32px' height='24px' fillColor={primaryColor} />}
+                    disabled={tempData.stillStudent}
+                    icon={<SvgCalendar width='32px' height='24px' fillColor={tempData.stillStudent ? disabledColor : primaryColor} />}
                     iconClickable={false} />
             </div>
             <div className='w-75 w-sm-40 row justify-content-center' >

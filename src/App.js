@@ -7,10 +7,10 @@ import PersonalInfoPage from './ProfilePages/PersonalInfoPage/PersonalInfoPage';
 import EducationalInformation from './ProfilePages/EducationalInformation/EducationalInformation';
 import WorkExperience from './ProfilePages/WorkExperience/WorkExperience';
 import PrivacyPage from './ProfilePages/PrivacyPage/PrivacyPage';
+import { fromPersianDateStr } from './app/utilities';
 
 function App() {
   const [currentTab, setCurrentTab] = useState(0);
-
   return (
     <>
     <div className="App d-flex flex-row align-content-stretch vh-100">

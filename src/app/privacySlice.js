@@ -18,11 +18,13 @@ export const privacySlice = createSlice({
                 dontShowEmail: action.payload.dontShowEmail,
                 notification: action.payload.notification,
                 adminMessages: action.payload.adminMessages,
-            }
+            };
+            return state;
         },
         update: (state, action) => {    //field, value
             const {field, value} = action.payload;
-            state = { ...state, [field]: value }
+            state = { ...state, [field]: value };
+            return state;
         }
     }
 })

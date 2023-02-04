@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-export const personalInitialState = {
+const initialState = {
     firstName: '',
     lastName: '',
     birthDate: 0,
@@ -17,16 +17,23 @@ export const personalInitialState = {
     address: '',
 }
 
+export const personalInitialState = {
+    ...initialState,
+    birthDate: ''
+}
+
 export const personalSlice = createSlice({
     name: "personal",
-    initialState: personalInitialState,
+    initialState: initialState,
     reducers: {
         updateAll: (state, action) => {
             state = { ...action.payload };
+            return state;
         },
         update: (state, action) => {    //field, value
             const {field, value} = action.payload;
-            state = { ...state, [field]: value }
+            state = { ...state, [field]: value };
+            return state;
         }
     }
 })

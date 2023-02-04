@@ -10,8 +10,8 @@ export const workExperienceInitialStateSingle = {
     city: '',
     responsibilities: '',
     stillWorking: false,
-    startDate: 0,
-    endDate: 0,
+    startDate: '',
+    endDate: '',
 }
 
 const initialState = [];

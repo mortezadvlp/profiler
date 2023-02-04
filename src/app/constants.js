@@ -2,6 +2,7 @@
 import { getList } from 'country-list-with-dial-code-and-flag'
 
 export const primaryColor = '#0d6efd';
+export const disabledColor = '#A9A9A9';
 export const inputComponentHeight = '38px';
 
 export const countries0 = [

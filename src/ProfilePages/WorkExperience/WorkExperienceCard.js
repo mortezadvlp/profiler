@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
 import { SvgEdit, SvgRemove } from "../../app/constantComponents";
+import { toPersianDateDate } from "../../app/utilities";
 
 
 export default function WorkExperienceCard({ data = null, className = '', onEditClick, onRemoveClick }) {
 
-    const [inData, setInData] = useState(data);
+    const [inData, setInData] = useState(null);
 
     useEffect(() => {
         if(!data) {
@@ -18,6 +19,14 @@ export default function WorkExperienceCard({ data = null, className = '', onEdit
                 endDate: 'EndDate',
                 stillWorking: false
             })
+        }
+        else {
+            const temp = {
+                ...data, 
+                startDate: data.startDate === 0 ? '' : toPersianDateDate(new Date(data.startDate)),
+                endDate: data.endDate === 0 ? '' : toPersianDateDate(new Date(data.endDate))
+            }
+            setInData(temp);
         }
     }, [data])
 

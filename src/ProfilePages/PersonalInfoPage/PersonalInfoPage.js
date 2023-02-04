@@ -1,9 +1,10 @@
 
-import { useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { SvgCalendar, SvgOK } from '../../app/constantComponents';
 import { countries, primaryColor } from '../../app/constants';
-import { updateAll } from '../../app/personalSlice';
+import { personalInitialState, updateAll } from '../../app/personalSlice';
+import { fromPersianDateStr, toPersianDateDate } from '../../app/utilities';
 import CustomButton from '../../components/CustomButton/CustomButton';
 import InputFloatingLabel from '../../components/InputFloatingLabel/InputFloatingLabel';
 import OptionalQuestion from '../../components/OptionalQuestion/OptionalQuestion';
@@ -15,7 +16,17 @@ import './PersonalInfoPage.css';
 
 export default function PersonalInfoPage ({ }) {
 
-    const [data, setData] = useState(useSelector(state => state.personal))
+    const stateData = useSelector(state => state.personal);
+    const [data, setData] = useState(personalInitialState);
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        const temp = {
+            ...stateData,
+            birthDate: stateData.birthDate === 0 ? '' : toPersianDateDate(new Date(stateData.birthDate))
+        }
+        setData(temp);
+    }, [])
 
     const setDataAsist = (field, value) => {
         setData({
@@ -25,7 +36,11 @@ export default function PersonalInfoPage ({ }) {
     }
 
     const onSaveChangesClick = () => {
-        updateAll(data);
+        const temp = {
+            ...data,
+            birthDate: new Date(fromPersianDateStr(data.birthDate)).getTime()
+        };
+        dispatch(updateAll(temp));
     }
 
     return (
@@ -37,7 +52,7 @@ export default function PersonalInfoPage ({ }) {
                     value={data.lastName} onChangeValue={(val) => setDataAsist("lastName", val)} />
             </div>
             <div className='w-100 row' >
-                <InputFloatingLabel className='col-lg' lineCount='1' label='Birth Date' type='text'
+                <InputFloatingLabel className='col-lg' lineCount='1' label='Birth Date' format='yyyy/mm/dd' type='text'
                     value={data.birthDate} onChangeValue={(val) => setDataAsist("birthDate", val)}
                     icon={<SvgCalendar width='32px' height='24px' fillColor={primaryColor} />}
                     iconClickable={false} />

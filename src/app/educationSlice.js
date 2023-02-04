@@ -12,8 +12,8 @@ export const educationInitialStateSingle = {
     city: '',
     gpa: 0.0,
     stillStudent: false,
-    startDate: 0,
-    endDate: 0,
+    startDate: '',
+    endDate: '',
 }
 
 const initialState = [];
