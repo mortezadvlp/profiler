@@ -4,20 +4,22 @@ import { useDispatch, useSelector } from 'react-redux';
 import { SvgCalendar, SvgCancel, SvgClear, SvgOK } from '../../app/constantComponents';
 import { countries, DegreeList, disabledColor, primaryColor } from '../../app/constants';
 import { addDegree, deleteDegree, editDegree, educationInitialStateSingle } from '../../app/educationSlice';
-import { fromPersianDateStr, toPersianDateDate } from '../../app/utilities';
+import { fromPersianDateStr, toPersianDateDate, validatePersianDate, validatePersianDateFormat } from '../../app/utilities';
 import CustomButton from '../../components/CustomButton/CustomButton';
 import InputFloatingLabel from '../../components/InputFloatingLabel/InputFloatingLabel';
+import MessageBox from '../../components/MessageBox/MessageBox';
 import OptionalQuestion from '../../components/OptionalQuestion/OptionalQuestion';
 import PageTemplate from '../../components/PageTemplate/PageTemplate';
 import SelectFloatingLabel from '../../components/SelectFloatingLabel/SelectFloatingLabel';
 import './EducationalInformation.css';
 import EducationCard from './EducationCard';
 
-export default function EducationalInformation({ }) {
+export default function EducationalInformation({ onShowMessage = () => {}, onDone = () => {} }) {
 
-    const data = useState(useSelector(state => state.education))
+    const data = useSelector(state => state.education)
     const [tempData, setTempData] = useState(educationInitialStateSingle)
     const [editMode, setEditMode] = useState(false)
+    const [removeMessage, setRemoveMessage] = useState({text: '', id: null});
     const dispatch = useDispatch();
 
     const setDataAsist = (field, value) => {
@@ -28,11 +30,38 @@ export default function EducationalInformation({ }) {
     }
 
     const onClearFormClick = () => {
-        setTempData(educationInitialStateSingle);
+        if(!editMode) {
+            setTempData(educationInitialStateSingle);
+        }
         setEditMode(false);
     }
 
     const onAddEditClick = () => {
+        if(tempData.degree === '' || tempData.university === '' || tempData.major === ''
+            || tempData.country === '' || tempData.state === '' || tempData.city === ''
+            || tempData.startDate === '' || (!tempData.stillStudent && tempData.endDate === '')) {
+
+            onShowMessage('All fields are needed');
+            return;
+        }
+        
+        if(!validatePersianDateFormat(tempData.startDate)) {
+            onShowMessage('Start date is not in correct format');
+            return;
+        }
+        if(!validatePersianDate(tempData.startDate)) {
+            onShowMessage('Enter a valid start date');
+            return;
+        }
+        if(!tempData.stillStudent && !validatePersianDateFormat(tempData.endDate)) {
+            onShowMessage('End date is not in correct format');
+            return;
+        }
+        if(!tempData.stillStudent && !validatePersianDate(tempData.endDate)) {
+            onShowMessage('Enter a valid end date');
+            return;
+        }
+
         const temp = {
             ...tempData,
             startDate: new Date(fromPersianDateStr(tempData.startDate)).getTime(),
@@ -40,10 +69,14 @@ export default function EducationalInformation({ }) {
         };
         if(editMode) {
             dispatch(editDegree(temp));
+            setTempData(educationInitialStateSingle);
+            setEditMode(false);
         }
         else {
             dispatch(addDegree(temp));
+            setEditMode(false);
         }
+        onDone();
     }
 
     const onCardEditClick = (id) => {
@@ -60,10 +93,17 @@ export default function EducationalInformation({ }) {
     }
 
     const onCardRemoveClick = (id) => {
-        dispatch(deleteDegree(id));
+        setRemoveMessage({text: 'You are going to remove the card.', id: id})
+    }
+    const confirmRemove = () => {
+        dispatch(deleteDegree(removeMessage.id));
+        setRemoveMessage({text: '', id: null});
+        setEditMode(false);
+        onDone();
     }
 
     return(
+        <>
         <PageTemplate title='Educational Information' className='' >
             <div className='w-100 row' >
                 <SelectFloatingLabel className='col-lg' label='Degree'
@@ -115,13 +155,17 @@ export default function EducationalInformation({ }) {
             </div>
 
             <div className='info-card-container my-4 px-2 d-flex flex-column gap-3' >
-                {data.forEach((element, index) => 
+                {data.map((element, index) => 
                     <EducationCard key={index} className='' data={element} 
-                        onCardEditClick={() => onCardEditClick(element.id)}
-                        onCardRemoveClick={() => onCardRemoveClick(element.id)} />
+                        onEditClick={() => onCardEditClick(element.id)}
+                        onRemoveClick={() => onCardRemoveClick(element.id)} />
                 )}
             </div>
             
         </PageTemplate>
+        {removeMessage.text&&
+            <MessageBox text={removeMessage.text} questionMode={true} onClose={() => setRemoveMessage({text: '', id: null})} onDone={() => confirmRemove()} />
+        }
+        </>
     );
 }

@@ -1,6 +1,6 @@
 
 import { useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { SvgOK } from '../../app/constantComponents';
 import { updateAll } from '../../app/privacySlice';
 import CustomButton from '../../components/CustomButton/CustomButton';
@@ -9,7 +9,7 @@ import InputFloatingLabel from '../../components/InputFloatingLabel/InputFloatin
 import PageTemplate from '../../components/PageTemplate/PageTemplate';
 import './PrivacyPage.css'
 
-export default function PrivacyPage({ }) {
+export default function PrivacyPage({ onShowMessage = () => {}, onDone = () => {} }) {
 
     const data = useSelector(state => state.privacy);
     const [dataUP, setDataUP] = useState({
@@ -22,6 +22,7 @@ export default function PrivacyPage({ }) {
         notification: data.notification,
         adminMessages: data.adminMessages,
     })
+    const dispatch = useDispatch();
 
     const setDataUPAsist = (field, value) => {
         setDataUP({
@@ -41,7 +42,8 @@ export default function PrivacyPage({ }) {
     }
 
     const onSaveChangesClick = () => {
-        updateAll(dataOpt)
+        dispatch(updateAll(dataOpt));
+        onDone();
     }
 
     return (

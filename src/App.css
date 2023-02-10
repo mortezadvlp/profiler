@@ -73,3 +73,14 @@
 .text-disable {
   color: rgb(169, 169, 169);
 }
+
+.input-number-no-arrows::-webkit-outer-spin-button,
+.input-number-no-arrows::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+.input-number-no-arrows {
+  -moz-appearance: textfield;
+}

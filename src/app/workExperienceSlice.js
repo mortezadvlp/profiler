@@ -5,7 +5,7 @@ export const workExperienceInitialStateSingle = {
     id: -1,
     jobTitle: '',
     company: '',
-    country: -1,
+    country: '',
     state: '',
     city: '',
     responsibilities: '',
@@ -21,7 +21,16 @@ export const workExperienceSlice = createSlice({
     initialState: initialState,
     reducers: {
         addExperience: (state, action) => {
-            state.push(action.payload);
+            let id = -1;
+            if(state.length > 0) {
+                id = state.at(-1).id;
+            }
+            id++;
+            const newData = {
+                ...action.payload,
+                id: id
+            }
+            state.push(newData);
         },
         editExperience: (state, action) => {
             const temp = state.find((el, i) => {
@@ -34,7 +43,7 @@ export const workExperienceSlice = createSlice({
         deleteExperience: (state, action) => {  //id
             const indx = state.findIndex(el => el.id === action.payload);
             if(indx >= 0) {
-                state.splice(indx, 0);
+                state.splice(indx, 1);
             }
         }
     }

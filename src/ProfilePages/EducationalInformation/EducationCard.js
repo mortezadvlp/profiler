@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { SvgEdit, SvgRemove } from "../../app/constantComponents";
-import { toPersianDateDate } from "../../app/utilities";
+import { getCountryLabel, toPersianDateDate } from "../../app/utilities";
 
 
 export default function EducationCard({ data = null, className = '', onEditClick, onRemoveClick }) {
@@ -36,9 +36,9 @@ export default function EducationCard({ data = null, className = '', onEditClick
             <div className="w-100 d-flex flex-column gap-2" >
                 <div className="d-flex flex-column flex-sm-row gap-2" >
                     <span className="text-white fw-bold" >{`${inData?.degree}`}</span>
-                    <span className="text-white fw-bold" >{`${inData?.major} / ${inData?.orientation}`}</span>
+                    <span className="text-white fw-bold" >{`${inData?.major} ${inData?.orientation && inData?.orientation !== '-' ? ` / ${inData?.orientation}` : ''}`}</span>
                 </div>
-                <span className="text-white" >{`${inData?.country} / ${inData?.university}`}</span>
+                <span className="text-white" >{`${getCountryLabel(inData?.country)} / ${inData?.university}`}</span>
                 <span className="text-white" >{`From ${inData?.startDate} to ${inData?.stillStudent ? 'Now' : inData?.endDate}`}</span>
             </div>
             <div className="d-flex flex-column gap-2" >

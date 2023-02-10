@@ -1,3 +1,4 @@
+import { countries } from "./constants";
 
 export const toPersianDate = (yyyyear, month, day) => {  //Convert Gregorian Date to Solar Date
 
@@ -204,4 +205,70 @@ export const fromPersianDateStr = (strDate) => {
         return '';
     }
     return fromPersianDate(Number(arr[0]), Number(arr[1]), Number(arr[2]));
+}
+
+export const validateEmail = (val) => {
+    const regex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+    return regex.test(val);
+}
+
+export const validatePhone = (val) => {
+    const regex = /^[1-9]{1}[0-9]{9}$/;
+    return regex.test(val);
+}
+
+export const validatePersianDateFormat = (val) => {
+    const regex = /^\d{4}\/\d{2}\/\d{2}$/;
+    return regex.test(val);
+}
+
+export const validatePersianDate = (strDate) => {
+    let dayOfMonth = [
+        0, 31, 31, 31, 31, 31, 31, 30, 30, 30, 30, 30, 29
+    ];
+    let str = strDate.replace("-", "/");
+    if(str.length < 10) {
+        return false;
+    }
+    let arr = str.split("/");
+    if(arr[0].length < 4) {
+        return false;
+    }
+    const y = Number(arr[0]);
+    const m = Number(arr[1]);
+    const d = Number(arr[2]);
+    if(y <= 0) {
+        return false;
+    }
+    if((y + 1) % 4 === 0) {
+        dayOfMonth[12] = 30;
+    }
+    if(m < 1 || m > 12) {
+        return false;
+    }
+    if(d < 1 || d > dayOfMonth[m]) {
+        return false;
+    }
+    return true;
+}
+
+export const separatePhoneAndCode = (val) => {
+    const result = { code: '', number: ''}
+    if(val.length >= 12) {
+        const dcLen = val.length - 10;
+        result.code = val.substring(0, dcLen);
+        result.number = val.replace(result.code, '');
+    }
+    return result;
+}
+
+export const getCountryLabel = (str) => {
+    const data = countries();
+    const result = data.find(d => d.value === str);
+    if(result) {
+        return result.label;
+    }
+    else {
+        return '';
+    }
 }

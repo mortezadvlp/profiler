@@ -1,23 +1,25 @@
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { SvgCalendar, SvgCancel, SvgClear, SvgOK } from '../../app/constantComponents';
 import { countries, disabledColor, primaryColor } from '../../app/constants';
-import { fromPersianDateStr, toPersianDateDate } from '../../app/utilities';
+import { fromPersianDateStr, toPersianDateDate, validatePersianDate, validatePersianDateFormat } from '../../app/utilities';
 import { addExperience, deleteExperience, editExperience, workExperienceInitialStateSingle } from '../../app/workExperienceSlice';
 import CustomButton from '../../components/CustomButton/CustomButton';
 import InputFloatingLabel from '../../components/InputFloatingLabel/InputFloatingLabel';
+import MessageBox from '../../components/MessageBox/MessageBox';
 import OptionalQuestion from '../../components/OptionalQuestion/OptionalQuestion';
 import PageTemplate from '../../components/PageTemplate/PageTemplate';
 import SelectFloatingLabel from '../../components/SelectFloatingLabel/SelectFloatingLabel';
 import './WorkExperience.css';
 import WorkExperienceCard from './WorkExperienceCard';
 
-export default function WorkExperience({ }) {
+export default function WorkExperience({ onShowMessage = () => {}, onDone = () => {} }) {
 
-    const data = useState(useSelector(state => state.workExperience))
+    const data = useSelector(state => state.workExperience);
     const [tempData, setTempData] = useState(workExperienceInitialStateSingle);
-    const [editMode, setEditMode] = useState(false)
+    const [editMode, setEditMode] = useState(false);
+    const [removeMessage, setRemoveMessage] = useState({text: '', id: null});
     const dispatch = useDispatch();
 
     const setDataAsist = (field, value) => {
@@ -28,11 +30,38 @@ export default function WorkExperience({ }) {
     }
 
     const onClearFormClick = () => {
-        setTempData(workExperienceInitialStateSingle);
+        if(!editMode) {
+            setTempData(workExperienceInitialStateSingle);
+        }
         setEditMode(false);
     }
 
     const onAddEditClick = () => {
+        if(tempData.jobTitle === '' || tempData.company === '' || tempData.responsibilities === ''
+            || tempData.country === '' || tempData.state === '' || tempData.city === ''
+            || tempData.startDate === '' || (!tempData.stillWorking && tempData.endDate === '')) {
+
+            onShowMessage('All fields are needed');
+            return;
+        }
+        
+        if(!validatePersianDateFormat(tempData.startDate)) {
+            onShowMessage('Start date is not in correct format');
+            return;
+        }
+        if(!validatePersianDate(tempData.startDate)) {
+            onShowMessage('Enter a valid start date');
+            return;
+        }
+        if(!tempData.stillWorking && !validatePersianDateFormat(tempData.endDate)) {
+            onShowMessage('End date is not in correct format');
+            return;
+        }
+        if(!tempData.stillWorking && !validatePersianDate(tempData.endDate)) {
+            onShowMessage('Enter a valid end date');
+            return;
+        }
+
         const temp = {
             ...tempData,
             startDate: new Date(fromPersianDateStr(tempData.startDate)).getTime(),
@@ -40,10 +69,14 @@ export default function WorkExperience({ }) {
         };
         if(editMode) {
             dispatch(editExperience(temp));
+            setTempData(workExperienceInitialStateSingle);
+            setEditMode(false);
         }
         else {
             dispatch(addExperience(temp));
+            setEditMode(false);
         }
+        onDone();
     }
 
     const onCardEditClick = (id) => {
@@ -60,15 +93,22 @@ export default function WorkExperience({ }) {
     }
 
     const onCardRemoveClick = (id) => {
-        dispatch(deleteExperience(id));
+        setRemoveMessage({text: 'You are going to remove the card.', id: id})
+    }
+    const confirmRemove = () => {
+        dispatch(deleteExperience(removeMessage.id));
+        setRemoveMessage({text: '', id: null});
+        setEditMode(false);
+        onDone();
     }
 
     return (
+        <>
         <PageTemplate title='Work Experience' className='' >
             <div className='w-100 row' >
                 <InputFloatingLabel className='col-lg' lineCount='1' label='Job Title' type='text'
                     value={tempData.jobTitle} onChangeValue={(val) => setDataAsist("jobTitle", val)} />
-                <InputFloatingLabel className='col-lg' lineCount='1' label='ompany / Organization' type='text'
+                <InputFloatingLabel className='col-lg' lineCount='1' label='Company / Organization' type='text'
                     value={tempData.company} onChangeValue={(val) => setDataAsist("company", val)} />
             </div>
             <div className='w-100 row' >
@@ -108,12 +148,16 @@ export default function WorkExperience({ }) {
             </div>
 
             <div className='info-card-container my-4 px-2 d-flex flex-column gap-3' >
-                {data.forEach((element, index) => 
+                {data.map((element, index) => 
                     <WorkExperienceCard key={index} className='' data={element} 
-                        onCardEditClick={() => onCardEditClick(element.id)}
-                        onCardRemoveClick={() => onCardRemoveClick(element.id)} />
+                        onEditClick={() => onCardEditClick(element.id)}
+                        onRemoveClick={() => onCardRemoveClick(element.id)} />
                 )}
             </div>
         </PageTemplate>
+        {removeMessage.text&&
+            <MessageBox text={removeMessage.text} questionMode={true} onClose={() => setRemoveMessage({text: '', id: null})} onDone={() => confirmRemove()} />
+        }
+        </>
     );
 }

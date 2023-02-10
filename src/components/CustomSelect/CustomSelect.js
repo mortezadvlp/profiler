@@ -1,42 +1,41 @@
-import { ReactNode, useEffect, useState } from 'react';
-//import { jsx } from '@emotion/react';
-//import Button from '@atlaskit/button';
+import { useEffect, useRef, useState } from 'react';
 
 import Select, { createFilter, StylesConfig } from 'react-select';
 import { defaultTheme } from 'react-select';
-import { countries, countryCodes } from '../../app/constants';
+import { countryCodes, defaultCountryDialCode } from '../../app/constants';
 
 const { colors } = defaultTheme;
 
-export default function CustomSelect ({ label = '', value = '', onChangeValue, onFocus, onBlur }) {
+export default function CustomSelect ({ countryValue = defaultCountryDialCode, phoneValue = '', setCountryValue = ()=>{}, setPhoneValue = ()=>{}, forceFocus = false, onFocus, onBlur }) {
   const [isOpen, setIsOpen] = useState(false);
-  const [countryValue, setCountryValue] = useState(null);
-  const [phoneValue, setPhoneValue] = useState('')
+  const [countryOption, setCountryOption] = useState('');
+  const inputRef = useRef(null);
 
   useEffect(() => {
-    if(value === '') {
-      let cc = countryCodes.find(c => c.dial_code === "+98");
-      setCountryValue(cc ? cc : '')
-      setPhoneValue('');
+    if(forceFocus) {
+      inputRef.current.focus();
+    }
+  }, [forceFocus])
+
+  useEffect(() => {
+    if(countryValue === countryOption.dial_code) {
       return;
     }
-    if(value.length < 12) {
+
+    if(countryValue === '') {
+      let cc = countryCodes.find(c => c.dial_code === defaultCountryDialCode);
+      setCountryOption(cc ? cc : '')
       return;
     }
-    const dcLen = value.length - 10;
-    const dialCode = value.substring(0, dcLen);
-    const pv = value.replace(dialCode, '');
+    let cc = countryCodes.find(c => c.dial_code === countryValue);
+    setCountryOption(cc ? cc : '')
+  }, [countryValue])
 
-    let cc = countryCodes.find(c => c.dial_code === dialCode);
-    setCountryValue(cc ? cc : '')
-    setPhoneValue(pv);
-  }, [value])
-
-  const changeOnBlur = () => {
-    if(countryValue && phoneValue.length == 10) {
-      onChangeValue(`${countryValue.dial_code}${phoneValue}`)
+  const phoneValueHandler = (val) => {
+    const regex = /^[1-9]{1}[0-9]{0,9}$/;
+    if(val === '' || regex.test(val)) {
+      setPhoneValue(val);
     }
-    onBlur();
   }
   
   const filterCountries = (value) => countryCodes.find(c => c.value === value).filterText;
@@ -51,7 +50,7 @@ export default function CustomSelect ({ label = '', value = '', onChangeValue, o
 
   return (
     
-    <div tabIndex='-1' className='border-0' onBlur={() => changeOnBlur()} onFocus={onFocus}>
+    <div tabIndex='-1' className='border-0' onBlur={() => onBlur()} onFocus={onFocus}>
       <Dropdown
         isOpen={isOpen}
         onClose={() => setIsOpen(false)}
@@ -59,10 +58,10 @@ export default function CustomSelect ({ label = '', value = '', onChangeValue, o
           <div className='d-flex flex-row align-items-stretch'>
             <button style={{width: '90px'}} onClick={() => setIsOpen((prev) => !prev)}
               className='no-outline border-0 border-end'>
-              {countryValue ? countryValue.label2 : 'Choose'}
+              {countryOption ? countryOption.label2 : 'Choose'}
             </button>
-            <input type="text" value={phoneValue} onChange={(e) => setPhoneValue(e.target.value)}
-              className='no-outline border-0 w-100 p-1 py-2'
+            <input ref={inputRef} type="number" value={phoneValue} onChange={(e) => phoneValueHandler(e.target.value)}
+              className='no-outline border-0 w-100 p-1 py-2 input-number-no-arrows'
               /*onFocus={() => onInputFocus(true)} onBlur={() => onInputFocus(false)}*/ />
           </div>
         }
@@ -76,7 +75,7 @@ export default function CustomSelect ({ label = '', value = '', onChangeValue, o
           isClearable={false}
           menuIsOpen
           onChange={(newValue) => {
-            setCountryValue(newValue);
+            setCountryValue(newValue.dial_code);
             setIsOpen(false);
           }}
           onBlur={() => setIsOpen(false)}
@@ -84,7 +83,7 @@ export default function CustomSelect ({ label = '', value = '', onChangeValue, o
           placeholder="Search..."
           //styles={selectStyles}
           tabSelectsValue={false}
-          value={countryValue}
+          value={countryOption}
           filterOption={createFilter(filterConfig)}
         />
       </Dropdown>

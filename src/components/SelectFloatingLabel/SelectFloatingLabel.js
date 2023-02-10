@@ -7,10 +7,10 @@ import './SelectFloatingLabel.css'
 
 export default function SelectFloatingLabel({
         label = 'Title', className = '', options = [],
-        value = -1, onChangeValue }) {
+        value = '', onChangeValue }) {
 
     const [gotFocus, setGotFocus] = useState(false);
-    const [showTextHolder, setShowTextHolder] = useState(value === -1);
+    const [showTextHolder, setShowTextHolder] = useState(value === '');
     const [objValue, setObjValue] = useState(null);
 
     const mainRef = useRef(null);
@@ -18,10 +18,13 @@ export default function SelectFloatingLabel({
     useEffect(() => {
         let obj = null;
         obj = options.find(o => o.value === value);
+        if(obj === null || obj === undefined) {
+            obj = '';
+        }
         setObjValue(obj);
     }, [value])
     useEffect(() => {
-        setShowTextHolder(value === -1 && !gotFocus);
+        setShowTextHolder(value === '' && !gotFocus);
     }, [value, gotFocus])
 
     const onSelectValueChanged = (e) => {
@@ -29,7 +32,7 @@ export default function SelectFloatingLabel({
             onChangeValue(e.value);
         }
         else {
-            onChangeValue(-1);
+            onChangeValue('');
         }
     }
 

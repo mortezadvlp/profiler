@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { SvgCalendar, SvgOK } from '../../app/constantComponents';
 import { countries, primaryColor } from '../../app/constants';
 import { personalInitialState, updateAll } from '../../app/personalSlice';
-import { fromPersianDateStr, toPersianDateDate } from '../../app/utilities';
+import { fromPersianDateStr, separatePhoneAndCode, toPersianDateDate, validateEmail, validatePersianDate, validatePersianDateFormat, validatePhone } from '../../app/utilities';
 import CustomButton from '../../components/CustomButton/CustomButton';
 import InputFloatingLabel from '../../components/InputFloatingLabel/InputFloatingLabel';
 import OptionalQuestion from '../../components/OptionalQuestion/OptionalQuestion';
@@ -14,16 +14,22 @@ import SelectFloatingLabel from '../../components/SelectFloatingLabel/SelectFloa
 import './PersonalInfoPage.css';
 
 
-export default function PersonalInfoPage ({ }) {
+export default function PersonalInfoPage ({ onShowMessage = () => {}, onDone = () => {} }) {
 
     const stateData = useSelector(state => state.personal);
     const [data, setData] = useState(personalInitialState);
     const dispatch = useDispatch();
 
     useEffect(() => {
+        const phone = separatePhoneAndCode(stateData.phone);
+        const mobile = separatePhoneAndCode(stateData.mobile);
         const temp = {
             ...stateData,
-            birthDate: stateData.birthDate === 0 ? '' : toPersianDateDate(new Date(stateData.birthDate))
+            birthDate: stateData.birthDate === 0 ? '' : toPersianDateDate(new Date(stateData.birthDate)),
+            phoneCountryCode: phone.code,
+            phoneValue: phone.number,
+            mobileCountryCode: mobile.code,
+            mobileValue: mobile.number,
         }
         setData(temp);
     }, [])
@@ -36,11 +42,47 @@ export default function PersonalInfoPage ({ }) {
     }
 
     const onSaveChangesClick = () => {
+        if(data.email && !validateEmail(data.email)) {
+            onShowMessage('Enter a valid email address');
+            return;
+        }
+        if(data.mobileValue && !data.mobileCountryCode) {
+            onShowMessage('Select an area code for mobile number');
+            return;
+        }
+        if(data.phoneValue && !data.phoneCountryCode) {
+            onShowMessage('Select an area code for phone number');
+            return;
+        }
+        if(data.mobileValue && !validatePhone(data.mobileValue)) {
+            onShowMessage('Enter a valid mobile number');
+            return;
+        }
+        if(data.phoneValue && !validatePhone(data.phoneValue)) {
+            onShowMessage('Enter a valid phone number');
+            return;
+        }
+        if(data.birthDate && !validatePersianDateFormat(data.birthDate)) {
+            onShowMessage('Birth date is not in correct format');
+            return;
+        }
+        if(data.birthDate && !validatePersianDate(data.birthDate)) {
+            onShowMessage('Enter a valid birth date');
+            return;
+        }
+
         const temp = {
             ...data,
-            birthDate: new Date(fromPersianDateStr(data.birthDate)).getTime()
+            birthDate: data.birthDate === '' ? 0 : new Date(fromPersianDateStr(data.birthDate)).getTime(),
+            mobile: data.mobileValue ? `${data.mobileCountryCode}${data.mobileValue}` : '',
+            phone: data.phoneValue ? `${data.phoneCountryCode}${data.phoneValue}` : '',
         };
+        delete temp.mobileCountryCode;
+        delete temp.mobileValue;
+        delete temp.phoneCountryCode;
+        delete temp.phoneValue;
         dispatch(updateAll(temp));
+        onDone();
     }
 
     return (
@@ -78,9 +120,13 @@ export default function PersonalInfoPage ({ }) {
             </div>
             <div className='w-100 row' >
                 <PhoneFloatingLabel className='col-lg' label='Mobile Number' 
-                    value={data.mobile} onChangeValue={(val) => setDataAsist("mobile", val)} />
-                <PhoneFloatingLabel className='col-lg' label='Phone Number' 
-                    value={data.phone} onChangeValue={(val) => setDataAsist("phone", val)} />
+                    countryValue={data.mobileCountryCode} phoneValue={data.mobileValue}
+                    onChangeCountryValue={(val) => setDataAsist("mobileCountryCode", val)}
+                    onChangePhoneValue={(val) => setDataAsist("mobileValue", val)} />
+                <PhoneFloatingLabel className='col-lg' label='Phone Number'
+                    countryValue={data.phoneCountryCode} phoneValue={data.phoneValue}
+                    onChangeCountryValue={(val) => setDataAsist("phoneCountryCode", val)}
+                    onChangePhoneValue={(val) => setDataAsist("phoneValue", val)} />
             </div>
             <div className='w-100 row' >
                 <InputFloatingLabel className='col-lg' lineCount='1' label='Email Address' type='email'

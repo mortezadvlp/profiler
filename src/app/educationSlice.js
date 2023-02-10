@@ -3,14 +3,14 @@ import { createSlice } from "@reduxjs/toolkit";
 
 export const educationInitialStateSingle = {
     id: -1,
-    degree: -1,
+    degree: '',
     university: '',
     major: '',
     orientation: '',
-    country: -1,
+    country: '',
     state: '',
     city: '',
-    gpa: 0.0,
+    gpa: '',
     stillStudent: false,
     startDate: '',
     endDate: '',
@@ -23,7 +23,16 @@ export const educationSlice = createSlice({
     initialState: initialState,
     reducers: {
         addDegree: (state, action) => {
-            state.push(action.payload);
+            let id = -1;
+            if(state.length > 0) {
+                id = state.at(-1).id;
+            }
+            id++;
+            const newData = {
+                ...action.payload,
+                id: id
+            }
+            state.push(newData);
         },
         editDegree: (state, action) => {
             const temp = state.find((el, i) => {
@@ -36,7 +45,7 @@ export const educationSlice = createSlice({
         deleteDegree: (state, action) => {  //id
             const indx = state.findIndex(el => el.id === action.payload);
             if(indx >= 0) {
-                state.splice(indx, 0);
+                state.splice(indx, 1);
             }
         }
     }

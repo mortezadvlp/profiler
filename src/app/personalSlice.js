@@ -1,11 +1,12 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { defaultCountryDialCode } from "./constants";
 
 const initialState = {
     firstName: '',
     lastName: '',
     birthDate: 0,
-    nationality: -1,
-    country: -1,
+    nationality: '',
+    country: '',
     state: '',
     city: '',
     married: false,
@@ -19,7 +20,11 @@ const initialState = {
 
 export const personalInitialState = {
     ...initialState,
-    birthDate: ''
+    birthDate: '',
+    phoneCountryCode: defaultCountryDialCode,
+    phoneValue: '',
+    mobileCountryCode: defaultCountryDialCode,
+    mobileValue: '',
 }
 
 export const personalSlice = createSlice({
