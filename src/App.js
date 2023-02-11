@@ -1,17 +1,15 @@
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import './App.css';
-import MenuPanel from './components/MenuPanel/MenuPanel';
-import PersonalInfoPage from './ProfilePages/PersonalInfoPage/PersonalInfoPage';
-import EducationalInformation from './ProfilePages/EducationalInformation/EducationalInformation';
-import WorkExperience from './ProfilePages/WorkExperience/WorkExperience';
-import PrivacyPage from './ProfilePages/PrivacyPage/PrivacyPage';
 import MessageBox from './components/MessageBox/MessageBox';
 import IconMessageBox from './components/MessageBox/IconMessageBox';
+import WideView from './views/WideView/WideView';
+import SmallView from './views/SmallView/SmallView';
 
 function App() {
-  const [currentTab, setCurrentTab] = useState(0);
+  const widthBound = 726;
+  const [smallView, setSmallView] = useState(window.innerWidth <= widthBound);
   const [messageToShow, setMessageToShow] = useState('');
   const [showDone, setShowDone] = useState(false);
 
@@ -26,25 +24,28 @@ function App() {
     }, 1000);
   }
 
+  const updateWidth = () => {
+    if(!smallView && window.innerWidth <= widthBound) {
+      setSmallView(true);
+    }
+    else if(smallView && window.innerWidth > widthBound) {
+      setSmallView(false);
+    }
+  }
+
+  useEffect(() => {
+    window.addEventListener("resize", updateWidth);
+    return () => window.removeEventListener("resize", updateWidth);
+  })
+
   return (
     <>
-    <div className="App d-flex flex-row align-content-stretch vh-100 overflow-hidden">
-      <MenuPanel className='h-100' currentTab={currentTab} onChangeCurrentTab={setCurrentTab} />
-      {(currentTab == 0)
-      ?
-        <PersonalInfoPage onShowMessage={(msg) => showMessage(msg)} onDone={() => showDoneHandler()} />
-      :
-      (currentTab == 1)
-      ?
-        <EducationalInformation onShowMessage={(msg) => showMessage(msg)} onDone={() => showDoneHandler()} />
-      :
-      (currentTab == 2)
-      ?
-        <WorkExperience onShowMessage={(msg) => showMessage(msg)} onDone={() => showDoneHandler()} />
-      :
-        <PrivacyPage onShowMessage={(msg) => showMessage(msg)} onDone={() => showDoneHandler()} />
-      }
-    </div>
+    {smallView
+    ?
+      <SmallView showDone={() => showDoneHandler()} showMessage={(msg) => showMessage(msg)} />
+    :
+      <WideView showDone={() => showDoneHandler()} showMessage={(msg) => showMessage(msg)} />
+    }
     {messageToShow&&
       <MessageBox text={messageToShow} onClose={() => showMessage('')} onDone={() => showDoneHandler()} />
     }
