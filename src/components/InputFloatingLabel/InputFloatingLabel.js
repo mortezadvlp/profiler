@@ -24,7 +24,7 @@ export default function InputFloatingLabel({
     return (
         <div className={className} >
             <div className='w-100 position-relative border border-transparent' >
-                <div className={`d-flex flex-row align-items-center gap-1 mt-4 border rounded-1 ${showTextHolder ? '' : 'border-2'} ${disabled ? 'border-disable' : 'border-primary'}`}
+                <div className={`d-flex flex-row align-items-center gap-1 mt-4 border rounded-1 ${showTextHolder || (!hasFocus && value !== '') ? '' : 'border-2'} ${disabled ? 'border-disable' : 'border-primary'}`}
                     style={{minHeight: inputComponentHeight}} >
                     {Number(lineCount) <= 1
                     ?

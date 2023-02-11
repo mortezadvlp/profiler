@@ -1,6 +1,5 @@
 
 import { SvgCamera, SvgOK } from '../../app/constantComponents';
-import CustomButton from '../CustomButton/CustomButton';
 import './MenuPanel.css';
 import user_default from '../../images/user_default.png';
 

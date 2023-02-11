@@ -31,7 +31,7 @@ export default function PhoneFloatingLabel({
     return (
         <div className={className} >
             <div className='w-100 position-relative border border-transparent' >
-                <div className='border border-primary rounded-1 mt-4 p-0'
+                <div className={`border border-primary rounded-1 mt-4 p-0 ${showTextHolder || (!gotFocus && phoneValue !== '') ? '' : 'border-2'}`}
                     style={{minHeighteight: inputComponentHeight}} >
                     <CustomSelect countryValue={countryValue} phoneValue={phoneValue}
                         setCountryValue={onChangeCountryValue} setPhoneValue={onChangePhoneValue}

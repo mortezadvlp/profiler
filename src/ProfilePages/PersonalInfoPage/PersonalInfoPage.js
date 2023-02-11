@@ -6,6 +6,7 @@ import { countries, primaryColor } from '../../app/constants';
 import { personalInitialState, updateAll } from '../../app/personalSlice';
 import { fromPersianDateStr, separatePhoneAndCode, toPersianDateDate, validateEmail, validatePersianDate, validatePersianDateFormat, validatePhone } from '../../app/utilities';
 import CustomButton from '../../components/CustomButton/CustomButton';
+import DateFloatingLabel from '../../components/DateFloatingLabel/DateFloatingLabel';
 import InputFloatingLabel from '../../components/InputFloatingLabel/InputFloatingLabel';
 import OptionalQuestion from '../../components/OptionalQuestion/OptionalQuestion';
 import PageTemplate from '../../components/PageTemplate/PageTemplate';
@@ -94,10 +95,8 @@ export default function PersonalInfoPage ({ onShowMessage = () => {}, onDone = (
                     value={data.lastName} onChangeValue={(val) => setDataAsist("lastName", val)} />
             </div>
             <div className='w-100 row' >
-                <InputFloatingLabel className='col-lg' lineCount='1' label='Birth Date' format='yyyy/mm/dd' type='text'
-                    value={data.birthDate} onChangeValue={(val) => setDataAsist("birthDate", val)}
-                    icon={<SvgCalendar width='32px' height='24px' fillColor={primaryColor} />}
-                    iconClickable={false} />
+                <DateFloatingLabel className='col-lg' label='Birth Date'
+                    value={data.birthDate} onChangeValue={(val) => setDataAsist("birthDate", val)} />
                 <SelectFloatingLabel className='col-lg' label='Nationality'
                     value={data.nationality} onChangeValue={(val) => setDataAsist("nationality", val)}
                     options={countries()} />

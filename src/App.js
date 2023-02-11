@@ -29,8 +29,7 @@ function App() {
   return (
     <>
     <div className="App d-flex flex-row align-content-stretch vh-100 overflow-hidden">
-      <MenuPanel className='h-100' currentTab={currentTab} onChangeCurrentTab={setCurrentTab}
-        onSaveChanges={() => console.log('Changes saved!')} />
+      <MenuPanel className='h-100' currentTab={currentTab} onChangeCurrentTab={setCurrentTab} />
       {(currentTab == 0)
       ?
         <PersonalInfoPage onShowMessage={(msg) => showMessage(msg)} onDone={() => showDoneHandler()} />

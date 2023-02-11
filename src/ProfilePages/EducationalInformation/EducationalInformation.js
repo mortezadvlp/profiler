@@ -6,6 +6,7 @@ import { countries, DegreeList, disabledColor, primaryColor } from '../../app/co
 import { addDegree, deleteDegree, editDegree, educationInitialStateSingle } from '../../app/educationSlice';
 import { fromPersianDateStr, toPersianDateDate, validatePersianDate, validatePersianDateFormat } from '../../app/utilities';
 import CustomButton from '../../components/CustomButton/CustomButton';
+import DateFloatingLabel from '../../components/DateFloatingLabel/DateFloatingLabel';
 import InputFloatingLabel from '../../components/InputFloatingLabel/InputFloatingLabel';
 import MessageBox from '../../components/MessageBox/MessageBox';
 import OptionalQuestion from '../../components/OptionalQuestion/OptionalQuestion';
@@ -135,15 +136,11 @@ export default function EducationalInformation({ onShowMessage = () => {}, onDon
                     value={tempData.stillStudent} onChangeValue={(val) => setDataAsist("stillStudent", val)} />
             </div>
             <div className='w-100 row' >
-                <InputFloatingLabel className='col-lg' lineCount='1' label='Start Date' format='yyyy/mm/dd' type='text'
-                    value={tempData.startDate} onChangeValue={(val) => setDataAsist("startDate", val)}
-                    icon={<SvgCalendar width='32px' height='24px' fillColor={primaryColor} />}
-                    iconClickable={false} />
-                <InputFloatingLabel className='col-lg' lineCount='1' label='End Date' format='yyyy/mm/dd' type='text'
+                <DateFloatingLabel className='col-lg' label='Start Date'
+                    value={tempData.startDate} onChangeValue={(val) => setDataAsist("startDate", val)} />
+                <DateFloatingLabel className='col-lg' label='End Date'
                     value={tempData.endDate} onChangeValue={(val) => setDataAsist("endDate", val)}
-                    disabled={tempData.stillStudent}
-                    icon={<SvgCalendar width='32px' height='24px' fillColor={tempData.stillStudent ? disabledColor : primaryColor} />}
-                    iconClickable={false} />
+                    disabled={tempData.stillStudent} />
             </div>
             <div className='w-75 w-sm-40 row justify-content-center' >
                 <CustomButton text={`${editMode ? 'Edit' : 'Add'}`} hasIcon={true} className='col-lg mx-4 mt-4' maxWidthPx={200}

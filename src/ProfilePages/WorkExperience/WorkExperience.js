@@ -6,6 +6,7 @@ import { countries, disabledColor, primaryColor } from '../../app/constants';
 import { fromPersianDateStr, toPersianDateDate, validatePersianDate, validatePersianDateFormat } from '../../app/utilities';
 import { addExperience, deleteExperience, editExperience, workExperienceInitialStateSingle } from '../../app/workExperienceSlice';
 import CustomButton from '../../components/CustomButton/CustomButton';
+import DateFloatingLabel from '../../components/DateFloatingLabel/DateFloatingLabel';
 import InputFloatingLabel from '../../components/InputFloatingLabel/InputFloatingLabel';
 import MessageBox from '../../components/MessageBox/MessageBox';
 import OptionalQuestion from '../../components/OptionalQuestion/OptionalQuestion';
@@ -124,15 +125,11 @@ export default function WorkExperience({ onShowMessage = () => {}, onDone = () =
                 <InputFloatingLabel className='col-lg' lineCount='7' label='Responsibilities / Achievments' type='text'
                     value={tempData.responsibilities} onChangeValue={(val) => setDataAsist("responsibilities", val)} />
                 <div className='col-lg d-flex flex-column' >
-                    <InputFloatingLabel className='col-lg' lineCount='1' label='Start Date' format='yyyy/mm/dd' type='text'
-                        value={tempData.startDate} onChangeValue={(val) => setDataAsist("startDate", val)}
-                        icon={<SvgCalendar width='32px' height='24px' fillColor={primaryColor} />}
-                        iconClickable={false} />
-                    <InputFloatingLabel className='col-lg' lineCount='1' label='End Date' format='yyyy/mm/dd' type='text'
+                    <DateFloatingLabel className='col-lg' label='Start Date'
+                        value={tempData.startDate} onChangeValue={(val) => setDataAsist("startDate", val)} />
+                    <DateFloatingLabel className='col-lg' label='End Date'
                         value={tempData.endDate} onChangeValue={(val) => setDataAsist("endDate", val)}
-                        disabled={tempData.stillWorking}
-                        icon={<SvgCalendar width='32px' height='24px' fillColor={tempData.stillWorking ? disabledColor : primaryColor} />}
-                        iconClickable={false} />
+                        disabled={tempData.stillWorking} />
                     <OptionalQuestion className='col-lg pt-4' title="I'm still working at this position"
                         trueOption='Yes' falseOption='No'
                         value={tempData.stillWorking} onChangeValue={(val) => setDataAsist("stillWorking", val)} />
