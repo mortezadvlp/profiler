@@ -2,12 +2,14 @@
 
 import { useEffect, useRef, useState } from 'react';
 import { inputComponentHeight } from '../../app/constants';
+import { validateFloatNumber0, validateIntNumber } from '../../app/utilities';
 import './InputFloatingLabel.css'
 
 export default function InputFloatingLabel({
         label = 'Title', className = '', lineCount = '1', format = '', disabled = false, icon = <></>,
         type = 'text', value = '', onChangeValue, iconClickable = false, onIconClick }) {
 
+    const realType = (type === 'IntNumber' || type === 'FloatNumber') ? 'text' : type;
     const [hasFocus, setHasFocus] = useState(false);
     const [showTextHolder, setShowTextHolder] = useState(value === '' && !hasFocus);
 
@@ -21,6 +23,16 @@ export default function InputFloatingLabel({
         setShowTextHolder(value === '' && !hasFocus);
     }, [value, hasFocus])
 
+    const handleChangeValue = (val) => {
+        if(type === 'IntNumber' && val !== '' && !validateIntNumber(val)) {
+            return;
+        }
+        if(type === 'FloatNumber' && val !== '' && !validateFloatNumber0(val)) {
+            return;
+        }
+        onChangeValue(val);
+    }
+
     return (
         <div className={className} >
             <div className='w-100 position-relative border border-transparent' >
@@ -28,7 +40,7 @@ export default function InputFloatingLabel({
                     style={{minHeight: inputComponentHeight}} >
                     {Number(lineCount) <= 1
                     ?
-                    <input ref={mainRef} type={type} value={value} onChange={(e) => onChangeValue(e.target.value)}
+                    <input ref={mainRef} type={realType} value={value} onChange={(e) => handleChangeValue(e.target.value)}
                         className='no-outline border-0 w-100 p-1' disabled={disabled}
                         onFocus={() => onInputFocus(true)} onBlur={() => onInputFocus(false)} />
                     :

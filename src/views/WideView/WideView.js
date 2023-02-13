@@ -12,17 +12,17 @@ export default function WideView({ showDone, showMessage }) {
     const [currentTab, setCurrentTab] = useState(0);
 
     return (
-        <div className="App d-flex flex-row align-content-stretch vh-100 overflow-hidden">
+        <div className="App d-flex flex-row align-content-stretch vh-100 overflow-auto container-md">
             <MenuPanel className='h-100' currentTab={currentTab} onChangeCurrentTab={setCurrentTab} />
-            {(currentTab == 0)
+            {(currentTab === 0)
             ?
             <PersonalInfoPage onShowMessage={(msg) => showMessage(msg)} onDone={() => showDone()} />
             :
-            (currentTab == 1)
+            (currentTab === 1)
             ?
             <EducationalInformation onShowMessage={(msg) => showMessage(msg)} onDone={() => showDone()} />
             :
-            (currentTab == 2)
+            (currentTab === 2)
             ?
             <WorkExperience onShowMessage={(msg) => showMessage(msg)} onDone={() => showDone()} />
             :

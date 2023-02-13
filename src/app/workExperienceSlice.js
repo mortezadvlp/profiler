@@ -1,5 +1,19 @@
 import { createSlice } from "@reduxjs/toolkit";
 
+export const sampleWorkState = [
+    {
+        id: 0,
+        jobTitle: 'Software developer',
+        company: 'Self-employed',
+        country: 'IR',
+        state: 'Tehran',
+        city: 'Tehran',
+        responsibilities: 'C# programmer, ASP.Net programmer, Android programmer, Qt programmer, Front-end developer',
+        stillWorking: true,
+        startDate: 1398038400000,
+        endDate: 0,
+    }
+]
 
 export const workExperienceInitialStateSingle = {
     id: -1,

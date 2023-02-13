@@ -9,7 +9,7 @@ import InputFloatingLabel from '../../components/InputFloatingLabel/InputFloatin
 import PageTemplate from '../../components/PageTemplate/PageTemplate';
 import './PrivacyPage.css'
 
-export default function PrivacyPage({ onShowMessage = () => {}, onDone = () => {} }) {
+export default function PrivacyPage({ smallView = false, onShowMessage = () => {}, onDone = () => {} }) {
 
     const data = useSelector(state => state.privacy);
     const [dataUP, setDataUP] = useState({
@@ -38,7 +38,20 @@ export default function PrivacyPage({ onShowMessage = () => {}, onDone = () => {
     }
 
     const onChangePasswordClick = () => {
-
+        if(dataUP.password.length < 5) {
+            onShowMessage("Password must be at least 5 characters");
+            return;
+        }
+        if(dataUP.password !== dataUP.repeatPassword) {
+            onShowMessage("Password and its repeat are not the same");
+            return;
+        }
+        setDataUP({
+            ...dataUP,
+            password: '',
+            repeatPassword: '',
+        })
+        onDone();
     }
 
     const onSaveChangesClick = () => {
@@ -47,9 +60,9 @@ export default function PrivacyPage({ onShowMessage = () => {}, onDone = () => {
     }
 
     return (
-        <PageTemplate title='Privacy' className='' >
+        <PageTemplate smallView={smallView} title='Privacy' className='' >
             <div className='w-100 row' >
-                <InputFloatingLabel className='col-lg' lineCount='1' label='Username' type='text'
+                <InputFloatingLabel className='col-lg' lineCount='1' label='Username' type='text' disabled
                     value={dataUP.username} />
             </div>
             <div className='w-100 row' >

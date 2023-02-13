@@ -207,6 +207,20 @@ export const fromPersianDateStr = (strDate) => {
     return fromPersianDate(Number(arr[0]), Number(arr[1]), Number(arr[2]));
 }
 
+export const validateIntNumber = (val) => {
+    const regex = /^\d+$/;
+    return regex.test(val);
+}
+
+export const validateFloatNumber0 = (val) => {
+    const regex = /^\d+([\.]{1})?(\d+)?$/;
+    return regex.test(val);
+}
+export const validateFloatNumber = (val) => {
+    const regex = /^\d+([\.]{1}\d+)?$/;
+    return regex.test(val);
+}
+
 export const validateEmail = (val) => {
     const regex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
     return regex.test(val);

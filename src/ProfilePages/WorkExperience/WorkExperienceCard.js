@@ -32,12 +32,10 @@ export default function WorkExperienceCard({ data = null, className = '', onEdit
 
     return (
         <div className={`w-100 bg-primary d-flex flex-row gap-2 p-3 rounded-4 ${className}`} >
-            <div className="w-100 d-flex flex-column gap-2" >
+            <div className="w-100 d-flex flex-column gap-1" >
                 <span className="text-white fw-bold" >{`${inData?.jobTitle}`}</span>
-                <div className="d-flex flex-column flex-sm-row gap-2" >
-                    <span className="text-white" >{`${getCountryLabel(inData?.country)} / ${inData?.city}`}</span>
-                    <span className="text-white" >{`${inData?.company}`}</span>
-                </div>
+                <span className="text-white" >{`${getCountryLabel(inData?.country)} / ${inData?.city}`}</span>
+                <span className="text-white" >{`${inData?.company}`}</span>
                 <span className="text-white" >{`From ${inData?.startDate} to ${inData?.stillWorking ? 'Now' : inData?.endDate}`}</span>
             </div>
             <div className="d-flex flex-column gap-2" >

@@ -15,7 +15,7 @@ import SelectFloatingLabel from '../../components/SelectFloatingLabel/SelectFloa
 import './WorkExperience.css';
 import WorkExperienceCard from './WorkExperienceCard';
 
-export default function WorkExperience({ onShowMessage = () => {}, onDone = () => {} }) {
+export default function WorkExperience({ smallView = false, onShowMessage = () => {}, onDone = () => {} }) {
 
     const data = useSelector(state => state.workExperience);
     const [tempData, setTempData] = useState(workExperienceInitialStateSingle);
@@ -105,7 +105,7 @@ export default function WorkExperience({ onShowMessage = () => {}, onDone = () =
 
     return (
         <>
-        <PageTemplate title='Work Experience' className='' >
+        <PageTemplate smallView={smallView} title='Work Experience' className='' >
             <div className='w-100 row' >
                 <InputFloatingLabel className='col-lg' lineCount='1' label='Job Title' type='text'
                     value={tempData.jobTitle} onChangeValue={(val) => setDataAsist("jobTitle", val)} />

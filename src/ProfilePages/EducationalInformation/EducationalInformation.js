@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { SvgCalendar, SvgCancel, SvgClear, SvgOK } from '../../app/constantComponents';
 import { countries, DegreeList, disabledColor, primaryColor } from '../../app/constants';
 import { addDegree, deleteDegree, editDegree, educationInitialStateSingle } from '../../app/educationSlice';
-import { fromPersianDateStr, toPersianDateDate, validatePersianDate, validatePersianDateFormat } from '../../app/utilities';
+import { fromPersianDateStr, toPersianDateDate, validateFloatNumber, validatePersianDate, validatePersianDateFormat } from '../../app/utilities';
 import CustomButton from '../../components/CustomButton/CustomButton';
 import DateFloatingLabel from '../../components/DateFloatingLabel/DateFloatingLabel';
 import InputFloatingLabel from '../../components/InputFloatingLabel/InputFloatingLabel';
@@ -15,7 +15,7 @@ import SelectFloatingLabel from '../../components/SelectFloatingLabel/SelectFloa
 import './EducationalInformation.css';
 import EducationCard from './EducationCard';
 
-export default function EducationalInformation({ onShowMessage = () => {}, onDone = () => {} }) {
+export default function EducationalInformation({ smallView = false, onShowMessage = () => {}, onDone = () => {} }) {
 
     const data = useSelector(state => state.education)
     const [tempData, setTempData] = useState(educationInitialStateSingle)
@@ -62,6 +62,10 @@ export default function EducationalInformation({ onShowMessage = () => {}, onDon
             onShowMessage('Enter a valid end date');
             return;
         }
+        if(!validateFloatNumber(tempData.gpa)) {
+            onShowMessage('Enter a valid GPA');
+            return;
+        }
 
         const temp = {
             ...tempData,
@@ -105,7 +109,7 @@ export default function EducationalInformation({ onShowMessage = () => {}, onDon
 
     return(
         <>
-        <PageTemplate title='Educational Information' className='' >
+        <PageTemplate smallView={smallView} title='Educational Information' className='' >
             <div className='w-100 row' >
                 <SelectFloatingLabel className='col-lg' label='Degree'
                     value={tempData.degree} onChangeValue={(val) => setDataAsist("degree", val)}
@@ -129,7 +133,7 @@ export default function EducationalInformation({ onShowMessage = () => {}, onDon
                     value={tempData.city} onChangeValue={(val) => setDataAsist("city", val)} />
             </div>
             <div className='w-100 row' >
-                <InputFloatingLabel className='col-lg' lineCount='1' label='GPA' type='text'
+                <InputFloatingLabel className='col-lg' lineCount='1' label='GPA' type='FloatNumber'
                     value={tempData.gpa} onChangeValue={(val) => setDataAsist("gpa", val)} />
                 <OptionalQuestion className='col-lg pt-4' title="I'm still student"
                     trueOption='Yes' falseOption='No'

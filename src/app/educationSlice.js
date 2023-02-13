@@ -1,5 +1,36 @@
 import { createSlice } from "@reduxjs/toolkit";
 
+export const sampleEducationalState = [
+    {
+        id: 0,
+        degree: 'Bachelor',
+        university: 'Kharazmi',
+        major: 'Math',
+        orientation: 'Applied Mathematics',
+        country: 'IR',
+        state: 'Alborz',
+        city: 'Karaj',
+        gpa: '16.70',
+        stillStudent: false,
+        startDate: 1095811200000,
+        endDate: 1216598400000,
+    },
+    {
+        id: 1,
+        degree: 'Master',
+        university: 'Iran University of Science and Technology',
+        major: 'Industrial Engineering',
+        orientation: 'Economical and Social Systems',
+        country: 'IR',
+        state: 'Tehran',
+        city: 'Tehran',
+        gpa: '18.23',
+        stillStudent: false,
+        startDate: 1222041600000,
+        endDate: 1311292800000,
+    },
+]
+
 
 export const educationInitialStateSingle = {
     id: -1,

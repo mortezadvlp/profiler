@@ -18,7 +18,7 @@ export default function CustomButton({ className = '', maxWidthPx = 0,
                 {svg}
             </button>
         :
-            <button className={`${class_name} px-3 py-2 `} style={{maxWidth: maxWidthPx > 0 ? `${maxWidthPx}px` : '100%'}} >
+            <button className={`${class_name} px-3 py-2 `} style={{maxWidth: maxWidthPx > 0 ? `${maxWidthPx}px` : '100%'}} onClick={onClick} >
                 {text}
             </button>
         }

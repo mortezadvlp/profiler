@@ -15,7 +15,7 @@ import SelectFloatingLabel from '../../components/SelectFloatingLabel/SelectFloa
 import './PersonalInfoPage.css';
 
 
-export default function PersonalInfoPage ({ onShowMessage = () => {}, onDone = () => {} }) {
+export default function PersonalInfoPage ({ smallView = false, onShowMessage = () => {}, onDone = () => {} }) {
 
     const stateData = useSelector(state => state.personal);
     const [data, setData] = useState(personalInitialState);
@@ -33,7 +33,7 @@ export default function PersonalInfoPage ({ onShowMessage = () => {}, onDone = (
             mobileValue: mobile.number,
         }
         setData(temp);
-    }, [])
+    }, [stateData])
 
     const setDataAsist = (field, value) => {
         setData({
@@ -67,8 +67,8 @@ export default function PersonalInfoPage ({ onShowMessage = () => {}, onDone = (
             onShowMessage('Birth date is not in correct format');
             return;
         }
-        if(data.birthDate && !validatePersianDate(data.birthDate)) {
-            onShowMessage('Enter a valid birth date');
+        if(data.zipCode && data.zipCode.length > 10) {
+            onShowMessage('Enter a valid Zip Code');
             return;
         }
 
@@ -87,7 +87,7 @@ export default function PersonalInfoPage ({ onShowMessage = () => {}, onDone = (
     }
 
     return (
-        <PageTemplate title='Personal Information' className='' >
+        <PageTemplate smallView={smallView} title='Personal Information' className='' >
             <div className='w-100 row' >
                 <InputFloatingLabel className='col-lg' lineCount='1' label='First Name' type='text'
                     value={data.firstName} onChangeValue={(val) => setDataAsist("firstName", val)} />
@@ -130,7 +130,7 @@ export default function PersonalInfoPage ({ onShowMessage = () => {}, onDone = (
             <div className='w-100 row' >
                 <InputFloatingLabel className='col-lg' lineCount='1' label='Email Address' type='email'
                     value={data.email} onChangeValue={(val) => setDataAsist("email", val)} />
-                <InputFloatingLabel className='col-lg' lineCount='1' label='Zip Code' type='text'
+                <InputFloatingLabel className='col-lg' lineCount='1' label='Zip Code' type='IntNumber'
                     value={data.zipCode} onChangeValue={(val) => setDataAsist("zipCode", val)} />
             </div>
             <div className='w-100 row' >

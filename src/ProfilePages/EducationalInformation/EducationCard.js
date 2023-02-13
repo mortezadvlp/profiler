@@ -33,11 +33,9 @@ export default function EducationCard({ data = null, className = '', onEditClick
 
     return (
         <div className={`w-100 bg-primary d-flex flex-row gap-2 p-3 rounded-4 ${className}`} >
-            <div className="w-100 d-flex flex-column gap-2" >
-                <div className="d-flex flex-column flex-sm-row gap-2" >
-                    <span className="text-white fw-bold" >{`${inData?.degree}`}</span>
-                    <span className="text-white fw-bold" >{`${inData?.major} ${inData?.orientation && inData?.orientation !== '-' ? ` / ${inData?.orientation}` : ''}`}</span>
-                </div>
+            <div className="w-100 d-flex flex-column gap-1" >
+                <span className="text-white fw-bold" >{`${inData?.degree}`}</span>
+                <span className="text-white fw-bold" >{`${inData?.major} ${inData?.orientation && inData?.orientation !== '-' ? ` / ${inData?.orientation}` : ''}`}</span>
                 <span className="text-white" >{`${getCountryLabel(inData?.country)} / ${inData?.university}`}</span>
                 <span className="text-white" >{`From ${inData?.startDate} to ${inData?.stillStudent ? 'Now' : inData?.endDate}`}</span>
             </div>

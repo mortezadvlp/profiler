@@ -6,12 +6,23 @@ import MessageBox from './components/MessageBox/MessageBox';
 import IconMessageBox from './components/MessageBox/IconMessageBox';
 import WideView from './views/WideView/WideView';
 import SmallView from './views/SmallView/SmallView';
+import { useSelector } from 'react-redux';
 
 function App() {
   const widthBound = 726;
   const [smallView, setSmallView] = useState(window.innerWidth <= widthBound);
   const [messageToShow, setMessageToShow] = useState('');
   const [showDone, setShowDone] = useState(false);
+  const initAvatar = useSelector(state => state.personal.avatar);
+
+  useEffect(() => {
+    if(initAvatar.toLowerCase().startsWith("http")) {
+      localStorage.setItem('avatar', '');
+    }
+    else {
+      localStorage.setItem('avatar', initAvatar);
+    }
+  }, [])
 
   const showMessage = (text) => {
     setMessageToShow(text);
