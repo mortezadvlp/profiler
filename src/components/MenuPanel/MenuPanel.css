@@ -12,3 +12,22 @@
     margin-right: auto;
     z-index: 10;
 }
+
+.tab-button-inactive {
+    animation: anim-small 0.5s linear;
+    animation-fill-mode: forwards;
+}
+
+.tab-button-activeee {
+    animation: anim-wide 0.5s linear;
+    animation-fill-mode: forwards;
+}
+
+@keyframes anim-wide {
+    from {width: 75%;}
+    to {width: 100%;}
+}
+@keyframes anim-small {
+    from {width: 100%;}
+    to {width: 75%;}
+}

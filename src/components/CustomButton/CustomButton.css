@@ -1,7 +1,33 @@
 
-.custom-button {
-    box-shadow: 0 0.2rem 0.5rem rgba(0, 0, 0, 0.4);
-}
 .custom-button:hover {
     background-color: rgb(200, 235, 255) !important;
 }
+
+.custom-button {
+    box-shadow: 0 0.2rem 0.5rem rgba(0, 0, 0, 0.4);
+    position: relative;
+    text-align: center;
+    -webkit-transition-duration: 0.4s; /* Safari */
+    transition-duration: 0.4s;
+    overflow: hidden;
+  }
+  
+  .custom-button:after {
+    content: "";
+    background: white;
+    display: block;
+    position: absolute;
+    padding-top: 300%;
+    padding-left: 350%;
+    margin-left: -20px!important;
+    margin-top: -120%;
+    opacity: 0;
+    transition: all 0.8s
+  }
+  
+  .custom-button:active:after {
+    padding: 0;
+    margin: 0;
+    opacity: 1;
+    transition: 0s
+  }
