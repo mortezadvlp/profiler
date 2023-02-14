@@ -2,7 +2,7 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { SvgCalendar, SvgOK } from '../../app/constantComponents';
-import { countries, primaryColor } from '../../app/constants';
+import { countries, defaultCountryDialCode, primaryColor } from '../../app/constants';
 import { personalInitialState, updateAll } from '../../app/personalSlice';
 import { fromPersianDateStr, separatePhoneAndCode, toPersianDateDate, validateEmail, validatePersianDate, validatePersianDateFormat, validatePhone } from '../../app/utilities';
 import CustomButton from '../../components/CustomButton/CustomButton';
@@ -47,14 +47,6 @@ export default function PersonalInfoPage ({ smallView = false, onShowMessage = (
             onShowMessage('Enter a valid email address');
             return;
         }
-        if(data.mobileValue && !data.mobileCountryCode) {
-            onShowMessage('Select an area code for mobile number');
-            return;
-        }
-        if(data.phoneValue && !data.phoneCountryCode) {
-            onShowMessage('Select an area code for phone number');
-            return;
-        }
         if(data.mobileValue && !validatePhone(data.mobileValue)) {
             onShowMessage('Enter a valid mobile number');
             return;
@@ -71,12 +63,21 @@ export default function PersonalInfoPage ({ smallView = false, onShowMessage = (
             onShowMessage('Enter a valid Zip Code');
             return;
         }
-
-        const temp = {
+        
+        let temp = {
             ...data,
             birthDate: data.birthDate === '' ? 0 : new Date(fromPersianDateStr(data.birthDate)).getTime(),
-            mobile: data.mobileValue ? `${data.mobileCountryCode}${data.mobileValue}` : '',
-            phone: data.phoneValue ? `${data.phoneCountryCode}${data.phoneValue}` : '',
+        };
+        if(temp.mobileValue && !temp.mobileCountryCode) {
+            temp.mobileCountryCode = defaultCountryDialCode;
+        }
+        if(temp.phoneValue && !temp.phoneCountryCode) {
+            temp.phoneCountryCode = defaultCountryDialCode;
+        }
+        temp = {
+            ...temp,
+            mobile: temp.mobileValue ? `${temp.mobileCountryCode}${temp.mobileValue}` : '',
+            phone: temp.phoneValue ? `${temp.phoneCountryCode}${temp.phoneValue}` : '',
         };
         delete temp.mobileCountryCode;
         delete temp.mobileValue;
