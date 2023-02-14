@@ -1,5 +1,5 @@
 
-import { SvgCamera, SvgOK } from '../../app/constantComponents';
+import { SvgCamera } from '../../app/constantComponents';
 import './MenuPanel.css';
 import user_default from '../../images/user_default.png';
 import { useDispatch, useSelector } from 'react-redux';

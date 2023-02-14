@@ -12,7 +12,7 @@ export const samplePersonalState = {
     married: true,
     numberOfChildren: 0,
     phone: '',
-    mobile: '09123456789',
+    mobile: '+989123456789',
     email: 'morteza@sample.com',
     zipCode: '',
     address: 'Tehran',
