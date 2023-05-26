@@ -4,8 +4,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { SvgOK } from '../../app/constantComponents';
 import { updateAll } from '../../app/privacySlice';
 import CustomButton from '../../components/CustomButton/CustomButton';
-import CustomCheckBox from '../../components/CustomCheckBox/CustomCheckBox';
-import InputFloatingLabel from '../../components/InputFloatingLabel/InputFloatingLabel';
 import PageTemplate from '../../components/PageTemplate/PageTemplate';
 import './PrivacyPage.css'
 import 'reactjs-floating-label-inputs/dist/index.css';
