@@ -1,5 +1,9 @@
 
 .text-vertical-center {
-    top: 35%;
+    top: 55%;
     transform: translateY(-50%);
+}
+
+.w-50 {
+    width: 50%;
 }

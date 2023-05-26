@@ -150,7 +150,7 @@ export const SvgPageHeader = ({ width = '100%', height = '70px', fillColor = "cu
     return (
         <svg preserveAspectRatio='none' width={width} height={height} fill={fillColor} className={className} 
                 xmlns="http://www.w3.org/2000/svg" viewBox="0 0 34 4" >
-            <path d="M 0 0 L 0 1 C 1 1 1 1 2 2 C 7 5 16 2 17 4 C 18 2 28 5 32 2 C 33 1 33 1 34 1 L 34 0 Z"/>
+            <path d="M 0 0 L 7 0 C 10 0 14 0 18 2 C 22 4 25 4 27 4 L 34 4 L 34 0 Z"/>
         </svg>
     );
 }

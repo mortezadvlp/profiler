@@ -30,9 +30,6 @@ export default function PersonalInfoPage ({ smallView = false, onShowMessage = (
             mobileCountryCode: mobile.code,
             mobileValue: mobile.number,
         }
-        console.log("----------------")
-        console.log(stateData.phone, phone)
-        console.log(stateData.mobile, mobile)
         setData(temp);
     }, [stateData])
 

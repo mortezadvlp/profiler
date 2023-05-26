@@ -12,7 +12,7 @@ export default function WideView({ showDone, showMessage }) {
     const [currentTab, setCurrentTab] = useState(0);
 
     return (
-        <div className="App d-flex flex-row align-content-stretch vh-100 overflow-auto container-md">
+        <div className="d-flex flex-row align-content-stretch h-100 overflow-auto w-100">
             <MenuPanel className='h-100' currentTab={currentTab} onChangeCurrentTab={setCurrentTab} />
             {(currentTab === 0)
             ?
