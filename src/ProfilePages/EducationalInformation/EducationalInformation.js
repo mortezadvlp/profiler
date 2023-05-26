@@ -1,19 +1,18 @@
 
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { SvgCalendar, SvgCancel, SvgClear, SvgOK } from '../../app/constantComponents';
-import { countries, DegreeList, disabledColor, primaryColor } from '../../app/constants';
+import { SvgCancel, SvgClear, SvgOK } from '../../app/constantComponents';
+import { countries, DegreeList, minInputsHeight, primaryColor } from '../../app/constants';
 import { addDegree, deleteDegree, editDegree, educationInitialStateSingle } from '../../app/educationSlice';
 import { fromPersianDateStr, toPersianDateDate, validateFloatNumber, validatePersianDate, validatePersianDateFormat } from '../../app/utilities';
 import CustomButton from '../../components/CustomButton/CustomButton';
-import DateFloatingLabel from '../../components/DateFloatingLabel/DateFloatingLabel';
-import InputFloatingLabel from '../../components/InputFloatingLabel/InputFloatingLabel';
 import MessageBox from '../../components/MessageBox/MessageBox';
-import OptionalQuestion from '../../components/OptionalQuestion/OptionalQuestion';
 import PageTemplate from '../../components/PageTemplate/PageTemplate';
-import SelectFloatingLabel from '../../components/SelectFloatingLabel/SelectFloatingLabel';
 import './EducationalInformation.css';
 import EducationCard from './EducationCard';
+import 'reactjs-floating-label-inputs/dist/index.css'
+import { SelectInputFloatingLabel, NormalInputFloatingLabel, QuestionInputFloatingLabel,
+        DateInputFloatingLabel } from 'reactjs-floating-label-inputs';
 
 export default function EducationalInformation({ smallView = false, onShowMessage = () => {}, onDone = () => {} }) {
 
@@ -111,40 +110,40 @@ export default function EducationalInformation({ smallView = false, onShowMessag
         <>
         <PageTemplate smallView={smallView} title='Educational Information' className='' >
             <div className='w-100 row' >
-                <SelectFloatingLabel className='col-lg' label='Degree'
+                <SelectInputFloatingLabel className='col-lg' label='Degree' minHeight={minInputsHeight} colorPrimary={primaryColor}
                     value={tempData.degree} onChangeValue={(val) => setDataAsist("degree", val)}
                     options={DegreeList} />
-                <InputFloatingLabel className='col-lg' lineCount='1' label='University/College/Institue' type='text'
+                <NormalInputFloatingLabel className='col-lg' label='University/College/Institue' type='text' minHeight={minInputsHeight}
                     value={tempData.university} onChangeValue={(val) => setDataAsist("university", val)} />
             </div>
             <div className='w-100 row' >
-                <InputFloatingLabel className='col-lg' lineCount='1' label='Major' type='text'
+                <NormalInputFloatingLabel className='col-lg' lineCount='1' label='Major' type='text' minHeight={minInputsHeight}
                     value={tempData.major} onChangeValue={(val) => setDataAsist("major", val)} />
-                <InputFloatingLabel className='col-lg' lineCount='1' label='Orientation' type='text'
+                <NormalInputFloatingLabel className='col-lg' lineCount='1' label='Orientation' type='text' minHeight={minInputsHeight}
                     value={tempData.orientation} onChangeValue={(val) => setDataAsist("orientation", val)} />
             </div>
             <div className='w-100 row' >
-                <SelectFloatingLabel className='col-lg' label='Country'
+                <SelectInputFloatingLabel className='col-lg' label='Country' minHeight={minInputsHeight} colorPrimary={primaryColor}
                     value={tempData.country} onChangeValue={(val) => setDataAsist("country", val)}
                     options={countries()} />
-                <InputFloatingLabel className='col-lg' lineCount='1' label='State' type='text'
+                <NormalInputFloatingLabel className='col-lg' lineCount='1' label='State' type='text' minHeight={minInputsHeight}
                     value={tempData.state} onChangeValue={(val) => setDataAsist("state", val)} />
-                <InputFloatingLabel className='col-lg' lineCount='1' label='City' type='text'
+                <NormalInputFloatingLabel className='col-lg' lineCount='1' label='City' type='text' minHeight={minInputsHeight}
                     value={tempData.city} onChangeValue={(val) => setDataAsist("city", val)} />
             </div>
             <div className='w-100 row' >
-                <InputFloatingLabel className='col-lg' lineCount='1' label='GPA' type='FloatNumber'
+                <NormalInputFloatingLabel className='col-lg' label='GPA' type='FloatNumber' minHeight={minInputsHeight}
                     value={tempData.gpa} onChangeValue={(val) => setDataAsist("gpa", val)} />
-                <OptionalQuestion className='col-lg pt-4' title="I'm still student"
+                <QuestionInputFloatingLabel className='col-lg pt-4' title="I'm still student" minHeight={minInputsHeight}
                     trueOption='Yes' falseOption='No'
                     value={tempData.stillStudent} onChangeValue={(val) => setDataAsist("stillStudent", val)} />
             </div>
             <div className='w-100 row' >
-                <DateFloatingLabel className='col-lg' label='Start Date'
-                    value={tempData.startDate} onChangeValue={(val) => setDataAsist("startDate", val)} />
-                <DateFloatingLabel className='col-lg' label='End Date'
+                <DateInputFloatingLabel className='col-lg' label='Start Date' hasIcon={true} minHeight={minInputsHeight}
+                    shamsiMode={true} value={tempData.startDate} onChangeValue={(val) => setDataAsist("startDate", val)} />
+                <DateInputFloatingLabel className='col-lg' label='End Date' hasIcon={true} minHeight={minInputsHeight}
                     value={tempData.endDate} onChangeValue={(val) => setDataAsist("endDate", val)}
-                    disabled={tempData.stillStudent} />
+                    shamsiMode={true} disabled={tempData.stillStudent} />
             </div>
             <div className='w-75 w-sm-40 row justify-content-center' >
                 <CustomButton text={`${editMode ? 'Edit' : 'Add'}`} hasIcon={true} className='col-lg mx-4 mt-4' maxWidthPx={200}

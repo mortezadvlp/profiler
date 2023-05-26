@@ -1,18 +1,16 @@
 
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { SvgCalendar, SvgOK } from '../../app/constantComponents';
-import { countries, defaultCountryDialCode, primaryColor } from '../../app/constants';
+import { SvgOK } from '../../app/constantComponents';
+import { countries, defaultCountryDialCode, minInputsHeight, primaryColor } from '../../app/constants';
 import { personalInitialState, updateAll } from '../../app/personalSlice';
-import { fromPersianDateStr, separatePhoneAndCode, toPersianDateDate, validateEmail, validatePersianDate, validatePersianDateFormat, validatePhone } from '../../app/utilities';
+import { fromPersianDateStr, separatePhoneAndCode, toPersianDateDate, validateEmail, validatePersianDateFormat, validatePhone } from '../../app/utilities';
 import CustomButton from '../../components/CustomButton/CustomButton';
-import DateFloatingLabel from '../../components/DateFloatingLabel/DateFloatingLabel';
-import InputFloatingLabel from '../../components/InputFloatingLabel/InputFloatingLabel';
-import OptionalQuestion from '../../components/OptionalQuestion/OptionalQuestion';
 import PageTemplate from '../../components/PageTemplate/PageTemplate';
-import PhoneFloatingLabel from '../../components/PhoneFloatingLabel/PhoneFloatingLabel';
-import SelectFloatingLabel from '../../components/SelectFloatingLabel/SelectFloatingLabel';
 import './PersonalInfoPage.css';
+import 'reactjs-floating-label-inputs/dist/index.css';
+import { NormalInputFloatingLabel, DateInputFloatingLabel, SelectInputFloatingLabel,
+        QuestionInputFloatingLabel, PhoneInputFloatingLabel, EmailInputFloatingLabel  } from 'reactjs-floating-label-inputs';
 
 
 export default function PersonalInfoPage ({ smallView = false, onShowMessage = () => {}, onDone = () => {} }) {
@@ -32,10 +30,14 @@ export default function PersonalInfoPage ({ smallView = false, onShowMessage = (
             mobileCountryCode: mobile.code,
             mobileValue: mobile.number,
         }
+        console.log("----------------")
+        console.log(stateData.phone, phone)
+        console.log(stateData.mobile, mobile)
         setData(temp);
     }, [stateData])
 
     const setDataAsist = (field, value) => {
+        console.log(field, value)
         setData({
             ...data,
             [field]: value
@@ -90,52 +92,52 @@ export default function PersonalInfoPage ({ smallView = false, onShowMessage = (
     return (
         <PageTemplate smallView={smallView} title='Personal Information' className='' >
             <div className='w-100 row' >
-                <InputFloatingLabel className='col-lg' lineCount='1' label='First Name' type='text'
+                <NormalInputFloatingLabel className='col-lg' label='First Name' type='text' minHeight={minInputsHeight}
                     value={data.firstName} onChangeValue={(val) => setDataAsist("firstName", val)} />
-                <InputFloatingLabel className='col-lg' lineCount='1' label='Last Name' type='text'
+                <NormalInputFloatingLabel className='col-lg' label='Last Name' type='text' minHeight={minInputsHeight}
                     value={data.lastName} onChangeValue={(val) => setDataAsist("lastName", val)} />
             </div>
             <div className='w-100 row' >
-                <DateFloatingLabel className='col-lg' label='Birth Date'
+                <DateInputFloatingLabel className='col-lg' label='Birth Date' hasIcon={true} minHeight={minInputsHeight}
                     value={data.birthDate} onChangeValue={(val) => setDataAsist("birthDate", val)} />
-                <SelectFloatingLabel className='col-lg' label='Nationality'
+                <SelectInputFloatingLabel className='col-lg' label='Nationality' minHeight={minInputsHeight} colorPrimary={primaryColor}
                     value={data.nationality} onChangeValue={(val) => setDataAsist("nationality", val)}
                     options={countries()} />
             </div>
             <div className='w-100 row' >
-                <SelectFloatingLabel className='col-lg' label='Country'
+                <SelectInputFloatingLabel className='col-lg' label='Country' minHeight={minInputsHeight} colorPrimary={primaryColor}
                     value={data.country} onChangeValue={(val) => setDataAsist("country", val)}
                     options={countries()} />
-                <InputFloatingLabel className='col-lg' lineCount='1' label='State' type='text'
+                <NormalInputFloatingLabel className='col-lg' label='State' type='text' minHeight={minInputsHeight}
                     value={data.state} onChangeValue={(val) => setDataAsist("state", val)} />
-                <InputFloatingLabel className='col-lg' lineCount='1' label='City' type='text'
+                <NormalInputFloatingLabel className='col-lg' label='City' type='text' minHeight={minInputsHeight}
                     value={data.city} onChangeValue={(val) => setDataAsist("city", val)} />
             </div>
             <div className='w-100 row' >
-                <OptionalQuestion className='col-lg pt-4' title='Are you married?'
+                <QuestionInputFloatingLabel className='col-lg pt-4' title='Are you married?' minHeight={minInputsHeight}
                     trueOption='Yes' falseOption='No'
                     value={data.married} onChangeValue={(val) => setDataAsist("married", val)} />
-                <InputFloatingLabel className='col-lg' lineCount='1' label='Number of children' type='number'
+                <NormalInputFloatingLabel className='col-lg' label='Number of children' type='number' minHeight={minInputsHeight}
                     value={data.numberOfChildren} onChangeValue={(val) => setDataAsist("numberOfChildren", val)} />
             </div>
             <div className='w-100 row' >
-                <PhoneFloatingLabel className='col-lg' label='Mobile Number' 
-                    countryValue={data.mobileCountryCode} phoneValue={data.mobileValue}
+                <PhoneInputFloatingLabel className='col-lg' label='Mobile Number' minHeight={minInputsHeight}
+                    countryValue={data.mobileCountryCode} phoneValue={data.mobileValue} useDialCode
                     onChangeCountryValue={(val) => setDataAsist("mobileCountryCode", val)}
                     onChangePhoneValue={(val) => setDataAsist("mobileValue", val)} />
-                <PhoneFloatingLabel className='col-lg' label='Phone Number'
-                    countryValue={data.phoneCountryCode} phoneValue={data.phoneValue}
+                <PhoneInputFloatingLabel className='col-lg' label='Phone Number' minHeight={minInputsHeight}
+                    countryValue={data.phoneCountryCode} phoneValue={data.phoneValue} useDialCode
                     onChangeCountryValue={(val) => setDataAsist("phoneCountryCode", val)}
                     onChangePhoneValue={(val) => setDataAsist("phoneValue", val)} />
             </div>
             <div className='w-100 row' >
-                <InputFloatingLabel className='col-lg' lineCount='1' label='Email Address' type='email'
+                <EmailInputFloatingLabel  className='col-lg' label='Email Address' type='email' minHeight={minInputsHeight} hasIcon={true}
                     value={data.email} onChangeValue={(val) => setDataAsist("email", val)} />
-                <InputFloatingLabel className='col-lg' lineCount='1' label='Zip Code' type='IntNumber'
+                <NormalInputFloatingLabel className='col-lg' label='Zip Code' type='IntNumber' minHeight={minInputsHeight}
                     value={data.zipCode} onChangeValue={(val) => setDataAsist("zipCode", val)} />
             </div>
             <div className='w-100 row' >
-                <InputFloatingLabel className='col-lg' lineCount='3' label='Address' type='text'
+                <NormalInputFloatingLabel className='col-lg' lineCount='3' label='Address' type='text' minHeight={minInputsHeight}
                     value={data.address} onChangeValue={(val) => setDataAsist("address", val)} />
             </div>
 

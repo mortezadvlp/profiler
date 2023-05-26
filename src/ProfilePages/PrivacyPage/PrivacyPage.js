@@ -8,6 +8,9 @@ import CustomCheckBox from '../../components/CustomCheckBox/CustomCheckBox';
 import InputFloatingLabel from '../../components/InputFloatingLabel/InputFloatingLabel';
 import PageTemplate from '../../components/PageTemplate/PageTemplate';
 import './PrivacyPage.css'
+import 'reactjs-floating-label-inputs/dist/index.css';
+import { NormalInputFloatingLabel, CheckBoxInputFloatingLabel } from 'reactjs-floating-label-inputs';
+import { minInputsHeight } from '../../app/constants';
 
 export default function PrivacyPage({ smallView = false, onShowMessage = () => {}, onDone = () => {} }) {
 
@@ -62,13 +65,13 @@ export default function PrivacyPage({ smallView = false, onShowMessage = () => {
     return (
         <PageTemplate smallView={smallView} title='Privacy' className='' >
             <div className='w-100 row' >
-                <InputFloatingLabel className='col-lg' lineCount='1' label='Username' type='text' disabled
+                <NormalInputFloatingLabel className='col-lg' label='Username' type='text' minHeight={minInputsHeight} disabled
                     value={dataUP.username} />
             </div>
             <div className='w-100 row' >
-                <InputFloatingLabel className='col-lg' lineCount='1' label='New Password' type='password'
+                <NormalInputFloatingLabel className='col-lg' label='New Password' type='password' minHeight={minInputsHeight}
                     value={dataUP.password} onChangeValue={(val) => setDataUPAsist("password", val)} />
-                <InputFloatingLabel className='col-lg' lineCount='1' label='Repeat New Password' type='password'
+                <NormalInputFloatingLabel className='col-lg' label='Repeat New Password' type='password' minHeight={minInputsHeight}
                     value={dataUP.repeatPassword} onChangeValue={(val) => setDataUPAsist("repeatPassword", val)} />
             </div>
             <div className='w-100 row justify-content-center' >
@@ -77,9 +80,9 @@ export default function PrivacyPage({ smallView = false, onShowMessage = () => {
                     onClick={() => onChangePasswordClick()} />
             </div>
             <div className='w-100 d-flex flex-column gap-2 px-3 mt-4' >
-                <CustomCheckBox text='Do not show my email to others (Show only to my contacts)' isChecked={dataOpt.dontShowEmail} onChangeChecked={(val) => setDataOptAsist("dontShowEmail", val)} />
-                <CustomCheckBox text='Send me notification' isChecked={dataOpt.notification} onChangeChecked={(val) => setDataOptAsist("notification", val)} />
-                <CustomCheckBox text='Send me important messages from admin' isChecked={dataOpt.adminMessages} onChangeChecked={(val) => setDataOptAsist("adminMessages", val)} />
+                <CheckBoxInputFloatingLabel text='Do not show my email to others (Show only to my contacts)' isChecked={dataOpt.dontShowEmail} onChangeChecked={(val) => setDataOptAsist("dontShowEmail", val)} />
+                <CheckBoxInputFloatingLabel text='Send me notification' isChecked={dataOpt.notification} onChangeChecked={(val) => setDataOptAsist("notification", val)} />
+                <CheckBoxInputFloatingLabel text='Send me important messages from admin' isChecked={dataOpt.adminMessages} onChangeChecked={(val) => setDataOptAsist("adminMessages", val)} />
             </div>
             <div className='w-100 row justify-content-center' >
                 <CustomButton text='Save Changes' hasIcon={true} className='col-lg mx-4 mt-4' maxWidthPx={200}

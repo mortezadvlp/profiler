@@ -1,19 +1,18 @@
 
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { SvgCalendar, SvgCancel, SvgClear, SvgOK } from '../../app/constantComponents';
-import { countries, disabledColor, primaryColor } from '../../app/constants';
+import { SvgCancel, SvgClear, SvgOK } from '../../app/constantComponents';
+import { countries, minInputsHeight, primaryColor } from '../../app/constants';
 import { fromPersianDateStr, toPersianDateDate, validatePersianDate, validatePersianDateFormat } from '../../app/utilities';
 import { addExperience, deleteExperience, editExperience, workExperienceInitialStateSingle } from '../../app/workExperienceSlice';
 import CustomButton from '../../components/CustomButton/CustomButton';
-import DateFloatingLabel from '../../components/DateFloatingLabel/DateFloatingLabel';
-import InputFloatingLabel from '../../components/InputFloatingLabel/InputFloatingLabel';
 import MessageBox from '../../components/MessageBox/MessageBox';
-import OptionalQuestion from '../../components/OptionalQuestion/OptionalQuestion';
 import PageTemplate from '../../components/PageTemplate/PageTemplate';
-import SelectFloatingLabel from '../../components/SelectFloatingLabel/SelectFloatingLabel';
 import './WorkExperience.css';
 import WorkExperienceCard from './WorkExperienceCard';
+import 'reactjs-floating-label-inputs/dist/index.css';
+import { NormalInputFloatingLabel, DateInputFloatingLabel, SelectInputFloatingLabel,
+        QuestionInputFloatingLabel  } from 'reactjs-floating-label-inputs';
 
 export default function WorkExperience({ smallView = false, onShowMessage = () => {}, onDone = () => {} }) {
 
@@ -107,30 +106,30 @@ export default function WorkExperience({ smallView = false, onShowMessage = () =
         <>
         <PageTemplate smallView={smallView} title='Work Experience' className='' >
             <div className='w-100 row' >
-                <InputFloatingLabel className='col-lg' lineCount='1' label='Job Title' type='text'
+                <NormalInputFloatingLabel className='col-lg' label='Job Title' type='text' minHeight={minInputsHeight}
                     value={tempData.jobTitle} onChangeValue={(val) => setDataAsist("jobTitle", val)} />
-                <InputFloatingLabel className='col-lg' lineCount='1' label='Company / Organization' type='text'
+                <NormalInputFloatingLabel className='col-lg' label='Company / Organization' type='text' minHeight={minInputsHeight}
                     value={tempData.company} onChangeValue={(val) => setDataAsist("company", val)} />
             </div>
             <div className='w-100 row' >
-                <SelectFloatingLabel className='col-lg' label='Country'
+                <SelectInputFloatingLabel className='col-lg' label='Country' minHeight={minInputsHeight} colorPrimary={primaryColor}
                     value={tempData.country} onChangeValue={(val) => setDataAsist("country", val)}
                     options={countries()} />
-                <InputFloatingLabel className='col-lg' lineCount='1' label='State' type='text'
+                <NormalInputFloatingLabel className='col-lg' label='State' type='text' minHeight={minInputsHeight}
                     value={tempData.state} onChangeValue={(val) => setDataAsist("state", val)} />
-                <InputFloatingLabel className='col-lg' lineCount='1' label='City' type='text'
+                <NormalInputFloatingLabel className='col-lg' label='City' type='text' minHeight={minInputsHeight}
                     value={tempData.city} onChangeValue={(val) => setDataAsist("city", val)} />
             </div>
             <div className='w-100 row' >
-                <InputFloatingLabel className='col-lg' lineCount='7' label='Responsibilities / Achievments' type='text'
+                <NormalInputFloatingLabel className='col-lg' lineCount='7' label='Responsibilities / Achievments' type='text' minHeight={minInputsHeight}
                     value={tempData.responsibilities} onChangeValue={(val) => setDataAsist("responsibilities", val)} />
                 <div className='col-lg d-flex flex-column' >
-                    <DateFloatingLabel className='col-lg' label='Start Date'
+                    <DateInputFloatingLabel className='col-lg' label='Start Date' hasIcon={true} minHeight={minInputsHeight}
                         value={tempData.startDate} onChangeValue={(val) => setDataAsist("startDate", val)} />
-                    <DateFloatingLabel className='col-lg' label='End Date'
+                    <DateInputFloatingLabel className='col-lg' label='End Date' hasIcon={true} minHeight={minInputsHeight}
                         value={tempData.endDate} onChangeValue={(val) => setDataAsist("endDate", val)}
                         disabled={tempData.stillWorking} />
-                    <OptionalQuestion className='col-lg pt-4' title="I'm still working at this position"
+                    <QuestionInputFloatingLabel className='col-lg pt-4' title="I'm still working at this position" minHeight={minInputsHeight}
                         trueOption='Yes' falseOption='No'
                         value={tempData.stillWorking} onChangeValue={(val) => setDataAsist("stillWorking", val)} />
                 </div>
