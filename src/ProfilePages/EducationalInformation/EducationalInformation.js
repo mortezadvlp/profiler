@@ -1,8 +1,8 @@
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { SvgCancel, SvgClear, SvgOK } from '../../app/constantComponents';
-import { countries, DegreeList, minInputsHeight, primaryColor } from '../../app/constants';
+import { countries, DegreeList, minInputsHeight, primaryColor, textLabels } from '../../app/constants';
 import { addDegree, deleteDegree, editDegree, educationInitialStateSingle } from '../../app/educationSlice';
 import { fromPersianDateStr, toPersianDateDate, validateFloatNumber, validatePersianDate, validatePersianDateFormat } from '../../app/utilities';
 import CustomButton from '../../components/CustomButton/CustomButton';
@@ -16,11 +16,29 @@ import { SelectInputFloatingLabel, NormalInputFloatingLabel, QuestionInputFloati
 
 export default function EducationalInformation({ smallView = false, onShowMessage = () => {}, onDone = () => {} }) {
 
+    const darkMode = useSelector(state => state.settings.darkMode);
+    const language = useSelector(state => state.settings.language);
     const data = useSelector(state => state.education)
     const [tempData, setTempData] = useState(educationInitialStateSingle)
     const [editMode, setEditMode] = useState(false)
     const [removeMessage, setRemoveMessage] = useState({text: '', id: null});
+    const [langDegreeList, setLangDegreeList] = useState([]);
     const dispatch = useDispatch();
+
+    useEffect(() => {
+        var degrees = [];
+        if (language == 'en') {
+            degrees = DegreeList.map((d) => {
+                return {value: d.value, label: d.label}
+            });
+        }
+        else {
+            degrees = DegreeList.map((d) => {
+                return {value: d.value, label: d.fa}
+            });
+        }
+        setLangDegreeList(degrees);
+    }, [language])
 
     const setDataAsist = (field, value) => {
         setTempData({
@@ -41,28 +59,28 @@ export default function EducationalInformation({ smallView = false, onShowMessag
             || tempData.country === '' || tempData.state === '' || tempData.city === ''
             || tempData.startDate === '' || (!tempData.stillStudent && tempData.endDate === '')) {
 
-            onShowMessage('All fields are needed');
+            onShowMessage(textLabels.allFields[language]);
             return;
         }
         
         if(!validatePersianDateFormat(tempData.startDate)) {
-            onShowMessage('Start date is not in correct format');
+            onShowMessage(textLabels.startDateNotFormat[language]);
             return;
         }
         if(!validatePersianDate(tempData.startDate)) {
-            onShowMessage('Enter a valid start date');
+            onShowMessage(textLabels.startDateValid[language]);
             return;
         }
         if(!tempData.stillStudent && !validatePersianDateFormat(tempData.endDate)) {
-            onShowMessage('End date is not in correct format');
+            onShowMessage(textLabels.endDateNotFormat[language]);
             return;
         }
         if(!tempData.stillStudent && !validatePersianDate(tempData.endDate)) {
-            onShowMessage('Enter a valid end date');
+            onShowMessage(textLabels.endDateValid[language]);
             return;
         }
         if(!validateFloatNumber(tempData.gpa)) {
-            onShowMessage('Enter a valid GPA');
+            onShowMessage(textLabels.gpaValid[language]);
             return;
         }
 
@@ -97,7 +115,7 @@ export default function EducationalInformation({ smallView = false, onShowMessag
     }
 
     const onCardRemoveClick = (id) => {
-        setRemoveMessage({text: 'You are going to remove the card.', id: id})
+        setRemoveMessage({text: textLabels.removeCard[language], id: id})
     }
     const confirmRemove = () => {
         dispatch(deleteDegree(removeMessage.id));
@@ -108,48 +126,48 @@ export default function EducationalInformation({ smallView = false, onShowMessag
 
     return(
         <>
-        <PageTemplate smallView={smallView} title='Educational Information' className='' >
+        <PageTemplate smallView={smallView} title={textLabels.educationTitle[language]} className='' >
             <div className='w-100 row' >
-                <SelectInputFloatingLabel className='col-lg' label='Degree' minHeight={minInputsHeight} colorPrimary={primaryColor}
+                <SelectInputFloatingLabel className='col-lg' label={textLabels.degree[language]} minHeight={minInputsHeight} colorPrimary={primaryColor}
                     value={tempData.degree} onChangeValue={(val) => setDataAsist("degree", val)}
-                    options={DegreeList} />
-                <NormalInputFloatingLabel className='col-lg' label='University/College/Institue' type='text' minHeight={minInputsHeight}
+                    options={langDegreeList} />
+                <NormalInputFloatingLabel className='col-lg' label={textLabels.university[language]} type='text' minHeight={minInputsHeight}
                     value={tempData.university} onChangeValue={(val) => setDataAsist("university", val)} />
             </div>
             <div className='w-100 row' >
-                <NormalInputFloatingLabel className='col-lg' lineCount='1' label='Major' type='text' minHeight={minInputsHeight}
+                <NormalInputFloatingLabel className='col-lg' lineCount='1' label={textLabels.major[language]} type='text' minHeight={minInputsHeight}
                     value={tempData.major} onChangeValue={(val) => setDataAsist("major", val)} />
-                <NormalInputFloatingLabel className='col-lg' lineCount='1' label='Orientation' type='text' minHeight={minInputsHeight}
+                <NormalInputFloatingLabel className='col-lg' lineCount='1' label={textLabels.orientation[language]} type='text' minHeight={minInputsHeight}
                     value={tempData.orientation} onChangeValue={(val) => setDataAsist("orientation", val)} />
             </div>
             <div className='w-100 row' >
-                <SelectInputFloatingLabel className='col-lg' label='Country' minHeight={minInputsHeight} colorPrimary={primaryColor}
+                <SelectInputFloatingLabel className='col-lg' label={textLabels.country[language]} minHeight={minInputsHeight} colorPrimary={primaryColor}
                     value={tempData.country} onChangeValue={(val) => setDataAsist("country", val)}
                     options={countries()} />
-                <NormalInputFloatingLabel className='col-lg' lineCount='1' label='State' type='text' minHeight={minInputsHeight}
+                <NormalInputFloatingLabel className='col-lg' lineCount='1' label={textLabels.state[language]} type='text' minHeight={minInputsHeight}
                     value={tempData.state} onChangeValue={(val) => setDataAsist("state", val)} />
-                <NormalInputFloatingLabel className='col-lg' lineCount='1' label='City' type='text' minHeight={minInputsHeight}
+                <NormalInputFloatingLabel className='col-lg' lineCount='1' label={textLabels.city[language]} type='text' minHeight={minInputsHeight}
                     value={tempData.city} onChangeValue={(val) => setDataAsist("city", val)} />
             </div>
             <div className='w-100 row' >
-                <NormalInputFloatingLabel className='col-lg' label='GPA' type='FloatNumber' minHeight={minInputsHeight}
+                <NormalInputFloatingLabel className='col-lg' label={textLabels.gpa[language]} type='FloatNumber' minHeight={minInputsHeight}
                     value={tempData.gpa} onChangeValue={(val) => setDataAsist("gpa", val)} />
-                <QuestionInputFloatingLabel className='col-lg pt-4' title="I'm still student" minHeight={minInputsHeight}
-                    trueOption='Yes' falseOption='No'
+                <QuestionInputFloatingLabel className='col-lg pt-4' title={textLabels.stillStudent[language]} minHeight={minInputsHeight}
+                    trueOption={textLabels.yes[language]} falseOption={textLabels.no[language]}
                     value={tempData.stillStudent} onChangeValue={(val) => setDataAsist("stillStudent", val)} />
             </div>
             <div className='w-100 row' >
-                <DateInputFloatingLabel className='col-lg' label='Start Date' hasIcon={true} minHeight={minInputsHeight}
+                <DateInputFloatingLabel className='col-lg' label={textLabels.startDate[language]} hasIcon={true} minHeight={minInputsHeight}
                     shamsiMode={true} value={tempData.startDate} onChangeValue={(val) => setDataAsist("startDate", val)} />
-                <DateInputFloatingLabel className='col-lg' label='End Date' hasIcon={true} minHeight={minInputsHeight}
+                <DateInputFloatingLabel className='col-lg' label={textLabels.endDate[language]} hasIcon={true} minHeight={minInputsHeight}
                     value={tempData.endDate} onChangeValue={(val) => setDataAsist("endDate", val)}
                     shamsiMode={true} disabled={tempData.stillStudent} />
             </div>
             <div className='w-75 w-sm-40 row justify-content-center' >
-                <CustomButton text={`${editMode ? 'Edit' : 'Add'}`} hasIcon={true} className='col-lg mx-4 mt-4' maxWidthPx={200}
+                <CustomButton text={`${editMode ? textLabels.edit[language] : textLabels.add[language]}`} hasIcon={true} className='col-lg mx-4 mt-4' maxWidthPx={200}
                     svg={<SvgOK className='text-primary' width='32px' height='32px' />}
                     onClick={() => onAddEditClick()} />
-                <CustomButton text={`${editMode ? 'Cancel' : 'Clear Form'}`} hasIcon={true} className='col-lg mx-4 mt-4' maxWidthPx={200}
+                <CustomButton text={`${editMode ? textLabels.cancel[language] : textLabels.clearForm[language]}`} hasIcon={true} className='col-lg mx-4 mt-4' maxWidthPx={200}
                     svg={editMode ? <SvgCancel className='text-primary' width='32px' height='32px' /> : <SvgClear className='text-primary' width='32px' height='32px' />}
                     onClick={() => onClearFormClick()} />
             </div>

@@ -1,8 +1,16 @@
+import { useDispatch, useSelector } from 'react-redux';
 import './LightDark.css';
+import { changeDarkMode } from '../../app/settingsSlice';
 
 
-export default function LightDark({checked = false, setChecked = ()=>{}}) {
+export default function LightDark() {
 
+    const dispatch = useDispatch();
+    const darkMode = useSelector(state => state.settings.darkMode);
+
+    const changeMode = (val) => {
+        dispatch(changeDarkMode(val));
+    }
 
     return (
         <div >
@@ -31,7 +39,7 @@ export default function LightDark({checked = false, setChecked = ()=>{}}) {
                         </path>
                     </svg>
                 </span>   
-                <input type="checkbox" className="ld-input" value={checked} onChange={() => setChecked()} />
+                <input type="checkbox" className="ld-input" value={darkMode} onChange={(e) => changeMode(e.target.checked)} />
                 <span className="ld-slider"></span>
             </label>
         </div>

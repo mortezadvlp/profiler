@@ -8,10 +8,12 @@ import PageTemplate from '../../components/PageTemplate/PageTemplate';
 import './PrivacyPage.css'
 import 'reactjs-floating-label-inputs/dist/index.css';
 import { NormalInputFloatingLabel, CheckBoxInputFloatingLabel } from 'reactjs-floating-label-inputs';
-import { minInputsHeight } from '../../app/constants';
+import { minInputsHeight, textLabels } from '../../app/constants';
 
 export default function PrivacyPage({ smallView = false, onShowMessage = () => {}, onDone = () => {} }) {
 
+    const darkMode = useSelector(state => state.settings.darkMode);
+    const language = useSelector(state => state.settings.language);
     const data = useSelector(state => state.privacy);
     const [dataUP, setDataUP] = useState({
         username: data.username,
@@ -40,11 +42,11 @@ export default function PrivacyPage({ smallView = false, onShowMessage = () => {
 
     const onChangePasswordClick = () => {
         if(dataUP.password.length < 5) {
-            onShowMessage("Password must be at least 5 characters");
+            onShowMessage(textLabels.smallPassword[language]);
             return;
         }
         if(dataUP.password !== dataUP.repeatPassword) {
-            onShowMessage("Password and its repeat are not the same");
+            onShowMessage(textLabels.passwordRepeat[language]);
             return;
         }
         setDataUP({
@@ -63,27 +65,27 @@ export default function PrivacyPage({ smallView = false, onShowMessage = () => {
     return (
         <PageTemplate smallView={smallView} title='Privacy' className='' >
             <div className='w-100 row' >
-                <NormalInputFloatingLabel className='col-lg' label='Username' type='text' minHeight={minInputsHeight} disabled
+                <NormalInputFloatingLabel className='col-lg' label={textLabels.username[language]} type='text' minHeight={minInputsHeight} disabled
                     value={dataUP.username} />
             </div>
             <div className='w-100 row' >
-                <NormalInputFloatingLabel className='col-lg' label='New Password' type='password' minHeight={minInputsHeight}
+                <NormalInputFloatingLabel className='col-lg' label={textLabels.newpassword[language]} type='password' minHeight={minInputsHeight}
                     value={dataUP.password} onChangeValue={(val) => setDataUPAsist("password", val)} />
-                <NormalInputFloatingLabel className='col-lg' label='Repeat New Password' type='password' minHeight={minInputsHeight}
+                <NormalInputFloatingLabel className='col-lg' label={textLabels.repeatNewPassword[language]} type='password' minHeight={minInputsHeight}
                     value={dataUP.repeatPassword} onChangeValue={(val) => setDataUPAsist("repeatPassword", val)} />
             </div>
             <div className='w-100 row justify-content-center' >
-                <CustomButton text='Change Password' hasIcon={true} className='col-lg mx-4 mt-4' maxWidthPx={200}
+                <CustomButton text={textLabels.changePass[language]} hasIcon={true} className='col-lg mx-4 mt-4' maxWidthPx={200}
                     svg={<SvgOK className='text-primary' width='32px' height='32px' />}
                     onClick={() => onChangePasswordClick()} />
             </div>
             <div className='w-100 d-flex flex-column gap-2 px-3 mt-4' >
-                <CheckBoxInputFloatingLabel text='Do not show my email to others (Show only to my contacts)' isChecked={dataOpt.dontShowEmail} onChangeChecked={(val) => setDataOptAsist("dontShowEmail", val)} />
-                <CheckBoxInputFloatingLabel text='Send me notification' isChecked={dataOpt.notification} onChangeChecked={(val) => setDataOptAsist("notification", val)} />
-                <CheckBoxInputFloatingLabel text='Send me important messages from admin' isChecked={dataOpt.adminMessages} onChangeChecked={(val) => setDataOptAsist("adminMessages", val)} />
+                <CheckBoxInputFloatingLabel text={textLabels.dontShowEmail[language]} isChecked={dataOpt.dontShowEmail} onChangeChecked={(val) => setDataOptAsist("dontShowEmail", val)} />
+                <CheckBoxInputFloatingLabel text={textLabels.sendNotif[language]} isChecked={dataOpt.notification} onChangeChecked={(val) => setDataOptAsist("notification", val)} />
+                <CheckBoxInputFloatingLabel text={textLabels.sendAdminMessages[language]} isChecked={dataOpt.adminMessages} onChangeChecked={(val) => setDataOptAsist("adminMessages", val)} />
             </div>
             <div className='w-100 row justify-content-center' >
-                <CustomButton text='Save Changes' hasIcon={true} className='col-lg mx-4 mt-4' maxWidthPx={200}
+                <CustomButton text={textLabels.saveChanges[language]} hasIcon={true} className='col-lg mx-4 mt-4' maxWidthPx={200}
                     svg={<SvgOK className='text-primary' width='32px' height='32px' />}
                     onClick={() => onSaveChangesClick()} />
             </div>

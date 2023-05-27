@@ -3,6 +3,7 @@ import personalReducer from './personalSlice';
 import educationReducer from './educationSlice';
 import workExperienceReducer from './workExperienceSlice';
 import privacyReducer from './privacySlice';
+import settingsReducer from './settingsSlice';
 
 
 export default configureStore({
@@ -10,6 +11,7 @@ export default configureStore({
         personal: personalReducer,
         education: educationReducer,
         workExperience: workExperienceReducer,
-        privacy: privacyReducer
+        privacy: privacyReducer,
+        settings: settingsReducer
     }
 })

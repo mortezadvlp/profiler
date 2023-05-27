@@ -101,7 +101,7 @@
   }
   
   .lw-button .lw-checkbox:checked + .lw-knobs:before {
-    content: "Fa";
+    content: "فا";
     left: 40px;
     background-color: #03a9f4;
   }

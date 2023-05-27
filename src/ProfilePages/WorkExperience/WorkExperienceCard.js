@@ -1,10 +1,14 @@
 import { useEffect, useState } from "react";
 import { SvgEdit, SvgRemove } from "../../app/constantComponents";
 import { getCountryLabel, toPersianDateDate } from "../../app/utilities";
+import { useSelector } from "react-redux";
+import { textLabels } from "../../app/constants";
 
 
 export default function WorkExperienceCard({ data = null, className = '', onEditClick, onRemoveClick }) {
 
+    const darkMode = useSelector(state => state.settings.darkMode);
+    const language = useSelector(state => state.settings.language);
     const [inData, setInData] = useState(null);
 
     useEffect(() => {
@@ -36,7 +40,9 @@ export default function WorkExperienceCard({ data = null, className = '', onEdit
                 <span className="text-white fw-bold" >{`${inData?.jobTitle}`}</span>
                 <span className="text-white" >{`${getCountryLabel(inData?.country)} / ${inData?.city}`}</span>
                 <span className="text-white" >{`${inData?.company}`}</span>
-                <span className="text-white" >{`From ${inData?.startDate} to ${inData?.stillWorking ? 'Now' : inData?.endDate}`}</span>
+                <span className="text-white" >
+                    {`${textLabels.from[language]} ${inData?.startDate} ${textLabels.to[language]} ${inData?.stillWorking ? textLabels.now[language] : inData?.endDate}`}
+                </span>
             </div>
             <div className="d-flex flex-column gap-2" >
                 <button className="custom-button bg-white border-0 rounded-circle p-2" onClick={() => onEditClick(inData?.id)} >

@@ -15,6 +15,21 @@ export const sampleWorkState = [
     }
 ]
 
+export const sampleWorkStateFa = [
+    {
+        id: 0,
+        jobTitle: 'توسعه دهنده نرم افزار',
+        company: 'خود اشتغال',
+        country: 'IR',
+        state: 'تهران',
+        city: 'تهران',
+        responsibilities: 'C# programmer, ASP.Net programmer, Android programmer, Qt programmer, Front-end developer',
+        stillWorking: true,
+        startDate: 1398038400000,
+        endDate: 0,
+    }
+]
+
 export const workExperienceInitialStateSingle = {
     id: -1,
     jobTitle: '',

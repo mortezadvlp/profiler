@@ -19,6 +19,24 @@ export const samplePersonalState = {
     avatar: 'https://media.licdn.com/dms/image/C4E03AQHtQEtNPHZSMw/profile-displayphoto-shrink_200_200/0/1649337603238?e=1681948800&v=beta&t=ltujekYJ3G5Ocrn2YoV0sjav32iEbdsasK4p7xgQ-5w',
 }
 
+export const samplePersonalStateFa = {
+    firstName: 'مرتضی',
+    lastName: 'م',
+    birthDate: 523584000000,
+    nationality: 'IR',
+    country: 'IR',
+    state: 'تهران',
+    city: 'تهران',
+    married: true,
+    numberOfChildren: 0,
+    phone: '',
+    mobile: '+989123456789',
+    email: 'morteza@sample.com',
+    zipCode: '',
+    address: 'تهران',
+    avatar: 'https://media.licdn.com/dms/image/C4E03AQHtQEtNPHZSMw/profile-displayphoto-shrink_200_200/0/1649337603238?e=1681948800&v=beta&t=ltujekYJ3G5Ocrn2YoV0sjav32iEbdsasK4p7xgQ-5w',
+}
+
 const initialState = {
     firstName: '',
     lastName: '',

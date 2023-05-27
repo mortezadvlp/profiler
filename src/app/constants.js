@@ -237,11 +237,110 @@ const countryCodesFunction = () => {
 export const countryCodes = countryCodesFunction();
 
 export const DegreeList = [
-    {value: "Diploma", label: "Diploma"},
-    {value: "Associate", label: "Associate's Degree"},
-    {value: "Bachelor", label: "Bachelor's Degree"},
-    {value: "Master", label: "Master's Degree"},
-    {value: "Doctoral", label: "Doctoral"},
-    {value: "PhD", label: "Doctor of Philosophy"},
-    {value: "PostDoc", label: "Postdoctoral"},
+    {value: "Diploma", label: "Diploma", fa: "دیپلم"},
+    {value: "Associate", label: "Associate's Degree", fa: "فوق دیپلم"},
+    {value: "Bachelor", label: "Bachelor's Degree", fa: "کارشناسی"},
+    {value: "Master", label: "Master's Degree", fa: "کارشناسی ارشد"},
+    {value: "Doctoral", label: "Doctoral", fa: "پزشکی"},
+    {value: "PhD", label: "Doctor of Philosophy", fa: "دکترای حرفه ای"},
+    {value: "PostDoc", label: "Postdoctoral", fa: "پست دکتری"},
 ]
+
+export const textLabels = {
+    from: {en: 'From', fa: 'از'},
+    to: {en: 'to', fa: 'تا'},
+    now: {en: 'Now', fa: 'کنون'},
+    ok: {en: 'OK', fa: 'تأیید'},
+    cancel: {en: 'Cancel', fa: 'لغو'},
+    add: {en: 'Add', fa: 'افزودن'},
+    edit: {en: 'Edit', fa: 'ویرایش'},
+    saveChanges: {en: 'Save Changes', fa: 'ذخیره تغییرات'},
+    clearForm: {en: 'Clear Form', fa: 'پاک کردن فرم'},
+    changePass: {en: 'Change Password', fa: 'تغییر کلمه عبور'},
+    fillSample: {en: 'Fill Sample', fa: 'نمونه پر شده'},
+
+    personal: {en: 'Personal Info', fa: 'مشخصات فردی'},
+    personalTitle: {en: 'Personal Information', fa: 'مشخصات فردی'},
+    education: {en: 'Educational Info', fa: 'اطلاعات تحصیلی'},
+    educationTitle: {en: 'Educational Information', fa: 'اطلاعات تحصیلی'},
+    workExp: {en: 'Work Experiences', fa: 'سوابق کاری'},
+    privacy: {en: 'Privacy', fa: 'حریم خصوصی'},
+
+    country: {en: 'Country', fa: 'کشور'},
+    state: {en: 'State', fa: 'استان'},
+    city: {en: 'City', fa: 'شهر'},
+    startDate: {en: 'Start Date', fa: 'تاریخ شروع'},
+    endDate: {en: 'End Date', fa: 'تاریخ پایان'},
+    yes: {en: 'Yes', fa: 'بلی'},
+    no: {en: 'No', fa: 'خیر'},
+
+    firstName: {en: 'First Name', fa: 'نام'},
+    lastName: {en: 'Last Name', fa: 'نام خانوادگی'},
+    birthDate: {en: 'Birth Date', fa: 'تاریخ تولد'},
+    nationality: {en: 'Nationality', fa: 'ملیت'},
+    married: {en: 'Are you married', fa: 'آیا ازدواج کرده اید؟'},
+    children: {en: 'Number of Children', fa: 'تعداد فرزندان'},
+    mobileNumber: {en: 'Mobile Number', fa: 'شماره تلفن همراه'},
+    phoneNumber: {en: 'Phone Number', fa: 'شماره تلفن'},
+    email: {en: 'Email Address', fa: 'آدرس پست الکترونیک'},
+    zipCode: {en: 'Zip Code', fa: 'کد پستی'},
+    address: {en: 'Address', fa: 'آدرس'},
+
+    degree: {en: 'Degree', fa: 'مدرک تحصیلی'},
+    university: {en: 'University/College/Institue', fa: 'دانشگاه / مؤسسه'},
+    major: {en: 'Major', fa: 'رشته'},
+    orientation: {en: 'Orientation', fa: 'گرایش'},
+    gpa: {en: 'GPA', fa: 'معدل'},
+    stillStudent: {en: "I'm still student", fa: 'هنوز دانشجو / دانش آموز هستم'},
+
+    job: {en: 'Job Title', fa: 'عنوان شغلی'},
+    organization: {en: 'Company / Organization', fa: 'شرکت / سازمان / کارخانه'},
+    responsibilities: {en: 'Responsibilities / Achievments', fa: 'مسئولیت ها / دستاوردها'},
+    stillWorking: {en: "I'm still working at this position", fa: 'هنوز مشول به کار هستم'},
+
+    username: {en: 'Username', fa: 'نام کاربری'},
+    newpassword: {en: 'New Password', fa: 'کلمه عبور جدید'},
+    repeatNewPassword: {en: 'Repeat New Password', fa: 'تکرار کلمه عبور جدید'},
+    dontShowEmail: {
+        en: 'Do not show my email to others (Show only to my contacts)', 
+        fa: 'آدرس پست الکترونیک من فقط به مخاطبین من نشان داده شود'
+    },
+    sendNotif: {en: 'Send me notification', fa: 'اعلانات برای من ارسال شود'},
+    sendAdminMessages: {
+        en: 'Send me important messages from admin',
+        fa: 'پیام های مهم مدیر برای من ارسال شود'
+    },
+
+    allFields:  {en: 'All fields are needed', fa: 'تمامی فیلدها باید تکمیل شوند'},
+    startDateNotFormat:  {
+        en: 'Start date is not in correct format', 
+        fa: 'تاریخ شروع در فرمت مناسب نیست'
+    },
+    startDateValid:  {en: 'Enter a valid start date', fa: 'یک تاریخ شروع معتبر وارد نمایید'},
+    endDateNotFormat:  {
+        en: 'End date is not in correct format', 
+        fa: 'تاریخ پایان در فرمت مناسب نیست'
+    },
+    endDateValid:  {en: 'Enter a valid end date', fa: 'یک تاریخ پایان معتبر وارد نمایید'},
+    gpaValid:  {en: 'Enter a valid GPA', fa: 'یک مقدار معتبر برای معدل وارد نمایید'},
+    removeCard:  {
+        en: 'You are going to remove the card.', 
+        fa: 'شما در حال حذف کارت هستید.'
+    },
+    emailValid:  {en: 'Enter a valid email address', fa: 'یک آدرس پست الکترونیک معتبر وارد نمایید'},
+    mobileValid:  {en: 'Enter a valid mobile number', fa: 'یک شماره تلفن همراه معتبر وارد نمایید'},
+    phoneValid:  {en: 'Enter a valid phone number', fa: 'یک شماره تلفن معتبر وارد نمایید'},
+    birthDateValid:  {en: 'Birth date is not in correct format', fa: 'تاریخ تولد در فرمت مناسب نیست'},
+    zipCodeValid:  {en: 'Enter a valid Zip Code', fa: 'یک کد پستی معتبر وارد نمایید'},
+    smallPassword:  {en: 'Password must be at least 5 characters', fa: 'کلمه عبور باید حداقل 5 کاراکتر داشته باشد'},
+    passwordRepeat:  {en: 'Password and its repeat are not the same', fa: 'کلمه عبور و تکرار آن با هم یکسان نیستند'},
+}
+
+export const modeClasses = {
+    textColorPrimary: {light: 'color-primary', dark: 'color-white'},
+    textColor: {light: 'color-dark', dark: 'color-white'},
+    textColorWhite: {light: 'color-white', dark: 'color-dark'},
+    bgNormal: {light: '', dark: 'bg-dark'},
+    to: {light: '', dark: ''},
+
+}

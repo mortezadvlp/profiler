@@ -12,11 +12,11 @@ import LanguageSwitch from './components/LanguageSwitch/LanguageSwitch';
 
 function App() {
   const widthBound = 726;
+  const darkMode = useSelector(state => state.settings.darkMode);
+  const language = useSelector(state => state.settings.language);
   const [smallView, setSmallView] = useState(window.innerWidth <= widthBound);
   const [messageToShow, setMessageToShow] = useState('');
   const [showDone, setShowDone] = useState(false);
-  const [darkMode, setDarkMode] = useState(false);
-  const [faLang, setFaLang] = useState(false);
   const initAvatar = useSelector(state => state.personal.avatar);
 
   useEffect(() => {
@@ -53,12 +53,14 @@ function App() {
     return () => window.removeEventListener("resize", updateWidth);
   })
 
+  
+
   return (
-    <>
+    <div dir={language == 'en' ? 'ltr' : 'rtl'} >
     <div className={`${smallView ? 'w-100' : 'container-md vh-100'} d-flex flex-column`} >
-      <div className='w-100 bg-primary d-flex flex-row justify-content-evenly align-items-center' style={{height: '60px'}} >
-        <LanguageSwitch checked={faLang} setChecked={() => setFaLang(!faLang)} />
-        <LightDark checked={darkMode} setChecked={() => setDarkMode(!darkMode)} />
+      <div dir='ltr' className='w-100 bg-primary d-flex flex-row justify-content-evenly align-items-center' style={{height: '60px'}} >
+        <LanguageSwitch />
+        <LightDark />
       </div>
       {smallView
       ?
@@ -74,7 +76,7 @@ function App() {
     {showDone&&
       <IconMessageBox onClose={() => setShowDone(false)} />
     }
-    </>
+    </div>
   );
 }
 

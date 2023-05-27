@@ -31,6 +31,37 @@ export const sampleEducationalState = [
     },
 ]
 
+export const sampleEducationalStateFa = [
+    {
+        id: 0,
+        degree: 'Bachelor',
+        university: 'دانشگاه خوارزمی',
+        major: 'ریاضی',
+        orientation: 'ریاضی کاربردی',
+        country: 'IR',
+        state: 'البرز',
+        city: 'کرج',
+        gpa: '16.70',
+        stillStudent: false,
+        startDate: 1095811200000,
+        endDate: 1216598400000,
+    },
+    {
+        id: 1,
+        degree: 'Master',
+        university: 'دانشگاه علم و صنعت ایران',
+        major: 'مهندسی صنایع',
+        orientation: 'مهندسی سیستم های اقتصادی و اجتماعی',
+        country: 'IR',
+        state: 'تهران',
+        city: 'نهران',
+        gpa: '18.23',
+        stillStudent: false,
+        startDate: 1222041600000,
+        endDate: 1311292800000,
+    },
+]
+
 
 export const educationInitialStateSingle = {
     id: -1,

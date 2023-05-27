@@ -4,18 +4,19 @@ import './MenuPanel.css';
 import user_default from '../../images/user_default.png';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useRef, useState } from 'react';
-import { samplePersonalState, updateAll as updatePersonalAll, updateAvatar } from '../../app/personalSlice';
+import { samplePersonalState, updateAll as updatePersonalAll, updateAvatar, samplePersonalStateFa } from '../../app/personalSlice';
 import CustomButton from '../CustomButton/CustomButton';
 import { samplePrivacyState, updateAll as updatePrivacyAll } from '../../app/privacySlice';
-import { addDegree, sampleEducationalState } from '../../app/educationSlice';
-import { addExperience, sampleWorkState } from '../../app/workExperienceSlice';
+import { addDegree, sampleEducationalState, sampleEducationalStateFa } from '../../app/educationSlice';
+import { addExperience, sampleWorkState, sampleWorkStateFa } from '../../app/workExperienceSlice';
+import { textLabels } from '../../app/constants';
 
 const TabButton = ({ text = 'Tab Button', onClick, isSelected = false, className = '' }) => {
 
 
     return (
         <div className={`w-100 bg-transparent ${className}`} >
-            <button className={`${isSelected ? 'w-100 bg-white' : 'w-75 tab-button-light'} border-0 px-2 py-3 rounded-pill`}
+            <button className={`${isSelected ? 'w-100 bg-white' : 'w-75 tab-button-light'} border-0 px-2 py-2 rounded-pill`}
                 onClick={() => isSelected ? {} : onClick()} >
                 <span className='m-auto fw-bold' >{text}</span>
             </button>
@@ -25,6 +26,8 @@ const TabButton = ({ text = 'Tab Button', onClick, isSelected = false, className
 
 export default function MenuPanel({ currentTab = 0, onChangeCurrentTab, className = '' }) {
 
+    const darkMode = useSelector(state => state.settings.darkMode);
+    const language = useSelector(state => state.settings.language);
     const inputAvatar = useRef(null);
     const initAvatar = useSelector(state => state.personal.avatar);
     const [avatar, setAvatar] = useState(initAvatar.toLowerCase().startsWith("http") ? initAvatar : localStorage.getItem('avatar'));
@@ -46,15 +49,15 @@ export default function MenuPanel({ currentTab = 0, onChangeCurrentTab, classNam
     }
 
     const fillSampleClick = () => {
-        dispatch(updatePersonalAll(samplePersonalState));
-        dispatch(updateAvatar(samplePersonalState.avatar));
-        dispatch(addDegree(sampleEducationalState[0]));
-        dispatch(addDegree(sampleEducationalState[1]));
-        dispatch(addExperience(sampleWorkState[0]));
+        dispatch(updatePersonalAll(language==='en' ? samplePersonalState : samplePersonalStateFa));
+        dispatch(updateAvatar(language==='en' ? samplePersonalState.avatar : samplePersonalStateFa.avatar));
+        dispatch(addDegree(language==='en' ? sampleEducationalState[0] : sampleEducationalStateFa[0]));
+        dispatch(addDegree(language==='en' ? sampleEducationalState[1] : sampleEducationalStateFa[1]));
+        dispatch(addExperience(language==='en' ? sampleWorkState[0] : sampleWorkStateFa[0]));
         dispatch(updatePrivacyAll(samplePrivacyState));
     }
 
-    const tabNames = ['Personal Info', 'Educational Info', 'Work Experiances', 'Privacy'];
+    const tabNames = [textLabels.personal[language], textLabels.education[language], textLabels.workExp[language], textLabels.privacy[language]];
 
     return (
         <aside className={`d-flex flex-column ${className}`} style={{minWidth:'300px'}} >
@@ -76,7 +79,7 @@ export default function MenuPanel({ currentTab = 0, onChangeCurrentTab, classNam
                     <TabButton key={index} text={tn} isSelected={currentTab === index} 
                         onClick={() => onChangeCurrentTab(index)} />
                 )}
-                <CustomButton className='mt-5' text='Fill Sample' onClick={() => fillSampleClick()} />
+                <CustomButton className='mt-3' text={textLabels.fillSample[language]} onClick={() => fillSampleClick()} />
             </div>
         </aside>
     );
