@@ -108,30 +108,30 @@ export default function WorkExperience({ smallView = false, onShowMessage = () =
         <>
         <PageTemplate smallView={smallView} title={textLabels.workExp[language]} className='' >
             <div className='w-100 row' >
-                <NormalInputFloatingLabel className='col-lg' label={textLabels.job[language]} type='text' minHeight={minInputsHeight}
+                <NormalInputFloatingLabel className='col-lg' label={textLabels.job[language]} type='text' minHeight={minInputsHeight} dark={darkMode}
                     value={tempData.jobTitle} onChangeValue={(val) => setDataAsist("jobTitle", val)} />
-                <NormalInputFloatingLabel className='col-lg' label={textLabels.organization[language]} type='text' minHeight={minInputsHeight}
+                <NormalInputFloatingLabel className='col-lg' label={textLabels.organization[language]} type='text' minHeight={minInputsHeight} dark={darkMode}
                     value={tempData.company} onChangeValue={(val) => setDataAsist("company", val)} />
             </div>
             <div className='w-100 row' >
                 <SelectInputFloatingLabel className='col-lg' label={textLabels.country[language]} minHeight={minInputsHeight} colorPrimary={primaryColor}
-                    value={tempData.country} onChangeValue={(val) => setDataAsist("country", val)}
+                    value={tempData.country} onChangeValue={(val) => setDataAsist("country", val)} dark={darkMode}
                     options={countries()} />
-                <NormalInputFloatingLabel className='col-lg' label={textLabels.state[language]} type='text' minHeight={minInputsHeight}
+                <NormalInputFloatingLabel className='col-lg' label={textLabels.state[language]} type='text' minHeight={minInputsHeight} dark={darkMode}
                     value={tempData.state} onChangeValue={(val) => setDataAsist("state", val)} />
-                <NormalInputFloatingLabel className='col-lg' label={textLabels.city[language]} type='text' minHeight={minInputsHeight}
+                <NormalInputFloatingLabel className='col-lg' label={textLabels.city[language]} type='text' minHeight={minInputsHeight} dark={darkMode}
                     value={tempData.city} onChangeValue={(val) => setDataAsist("city", val)} />
             </div>
             <div className='w-100 row' >
-                <NormalInputFloatingLabel className='col-lg' lineCount='7' label={textLabels.responsibilities[language]} type='text' minHeight={minInputsHeight}
+                <NormalInputFloatingLabel className='col-lg' lineCount='7' label={textLabels.responsibilities[language]} type='text' minHeight={minInputsHeight} dark={darkMode}
                     value={tempData.responsibilities} onChangeValue={(val) => setDataAsist("responsibilities", val)} />
                 <div className='col-lg d-flex flex-column' >
-                    <DateInputFloatingLabel className='col-lg' label={textLabels.startDate[language]} hasIcon={true} minHeight={minInputsHeight}
+                    <DateInputFloatingLabel className='col-lg' label={textLabels.startDate[language]} hasIcon={true} minHeight={minInputsHeight} dark={darkMode}
                         value={tempData.startDate} onChangeValue={(val) => setDataAsist("startDate", val)} />
-                    <DateInputFloatingLabel className='col-lg' label={textLabels.endDate[language]} hasIcon={true} minHeight={minInputsHeight}
+                    <DateInputFloatingLabel className='col-lg' label={textLabels.endDate[language]} hasIcon={true} minHeight={minInputsHeight} dark={darkMode}
                         value={tempData.endDate} onChangeValue={(val) => setDataAsist("endDate", val)}
                         disabled={tempData.stillWorking} />
-                    <QuestionInputFloatingLabel className='col-lg pt-4' title={textLabels.stillWorking[language]} minHeight={minInputsHeight}
+                    <QuestionInputFloatingLabel className='col-lg pt-4' title={textLabels.stillWorking[language]} minHeight={minInputsHeight} dark={darkMode}
                         trueOption={textLabels.yes[language]} falseOption={textLabels.no[language]}
                         value={tempData.stillWorking} onChangeValue={(val) => setDataAsist("stillWorking", val)} />
                 </div>

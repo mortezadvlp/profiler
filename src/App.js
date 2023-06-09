@@ -56,19 +56,19 @@ function App() {
   
 
   return (
-    <div dir={language == 'en' ? 'ltr' : 'rtl'} >
-    <div className={`${smallView ? 'w-100' : 'container-md vh-100'} d-flex flex-column`} >
-      <div dir='ltr' className='w-100 bg-primary d-flex flex-row justify-content-evenly align-items-center' style={{height: '60px'}} >
-        <LanguageSwitch />
-        <LightDark />
+    <div dir={language == 'en' ? 'ltr' : 'rtl'} style={{backgroundColor: darkMode ? 'black' : 'white'}} >
+      <div className={`${smallView ? 'w-100' : 'container-md vh-100'} d-flex flex-column`} >
+        <div dir='ltr' className='w-100 bg-primary d-flex flex-row justify-content-evenly align-items-center' style={{height: '60px'}} >
+          <LanguageSwitch />
+          <LightDark />
+        </div>
+        {smallView
+        ?
+          <SmallView showDone={() => showDoneHandler()} showMessage={(msg) => showMessage(msg)} />
+        :
+          <WideView showDone={() => showDoneHandler()} showMessage={(msg) => showMessage(msg)} />
+        }
       </div>
-      {smallView
-      ?
-        <SmallView showDone={() => showDoneHandler()} showMessage={(msg) => showMessage(msg)} />
-      :
-        <WideView showDone={() => showDoneHandler()} showMessage={(msg) => showMessage(msg)} />
-      }
-    </div>
     
     {messageToShow&&
       <MessageBox text={messageToShow} onClose={() => showMessage('')} onDone={() => showDoneHandler()} />

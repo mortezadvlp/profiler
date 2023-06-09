@@ -129,37 +129,37 @@ export default function EducationalInformation({ smallView = false, onShowMessag
         <PageTemplate smallView={smallView} title={textLabels.educationTitle[language]} className='' >
             <div className='w-100 row' >
                 <SelectInputFloatingLabel className='col-lg' label={textLabels.degree[language]} minHeight={minInputsHeight} colorPrimary={primaryColor}
-                    value={tempData.degree} onChangeValue={(val) => setDataAsist("degree", val)}
+                    value={tempData.degree} onChangeValue={(val) => setDataAsist("degree", val)} dark={darkMode}
                     options={langDegreeList} />
-                <NormalInputFloatingLabel className='col-lg' label={textLabels.university[language]} type='text' minHeight={minInputsHeight}
+                <NormalInputFloatingLabel className='col-lg' label={textLabels.university[language]} type='text' minHeight={minInputsHeight} dark={darkMode}
                     value={tempData.university} onChangeValue={(val) => setDataAsist("university", val)} />
             </div>
             <div className='w-100 row' >
-                <NormalInputFloatingLabel className='col-lg' lineCount='1' label={textLabels.major[language]} type='text' minHeight={minInputsHeight}
+                <NormalInputFloatingLabel className='col-lg' lineCount='1' label={textLabels.major[language]} type='text' minHeight={minInputsHeight} dark={darkMode}
                     value={tempData.major} onChangeValue={(val) => setDataAsist("major", val)} />
-                <NormalInputFloatingLabel className='col-lg' lineCount='1' label={textLabels.orientation[language]} type='text' minHeight={minInputsHeight}
+                <NormalInputFloatingLabel className='col-lg' lineCount='1' label={textLabels.orientation[language]} type='text' minHeight={minInputsHeight} dark={darkMode}
                     value={tempData.orientation} onChangeValue={(val) => setDataAsist("orientation", val)} />
             </div>
             <div className='w-100 row' >
                 <SelectInputFloatingLabel className='col-lg' label={textLabels.country[language]} minHeight={minInputsHeight} colorPrimary={primaryColor}
-                    value={tempData.country} onChangeValue={(val) => setDataAsist("country", val)}
+                    value={tempData.country} onChangeValue={(val) => setDataAsist("country", val)} dark={darkMode}
                     options={countries()} />
-                <NormalInputFloatingLabel className='col-lg' lineCount='1' label={textLabels.state[language]} type='text' minHeight={minInputsHeight}
+                <NormalInputFloatingLabel className='col-lg' lineCount='1' label={textLabels.state[language]} type='text' minHeight={minInputsHeight} dark={darkMode}
                     value={tempData.state} onChangeValue={(val) => setDataAsist("state", val)} />
-                <NormalInputFloatingLabel className='col-lg' lineCount='1' label={textLabels.city[language]} type='text' minHeight={minInputsHeight}
+                <NormalInputFloatingLabel className='col-lg' lineCount='1' label={textLabels.city[language]} type='text' minHeight={minInputsHeight} dark={darkMode}
                     value={tempData.city} onChangeValue={(val) => setDataAsist("city", val)} />
             </div>
             <div className='w-100 row' >
-                <NormalInputFloatingLabel className='col-lg' label={textLabels.gpa[language]} type='FloatNumber' minHeight={minInputsHeight}
+                <NormalInputFloatingLabel className='col-lg' label={textLabels.gpa[language]} type='FloatNumber' minHeight={minInputsHeight} dark={darkMode}
                     value={tempData.gpa} onChangeValue={(val) => setDataAsist("gpa", val)} />
-                <QuestionInputFloatingLabel className='col-lg pt-4' title={textLabels.stillStudent[language]} minHeight={minInputsHeight}
+                <QuestionInputFloatingLabel className='col-lg pt-4' title={textLabels.stillStudent[language]} minHeight={minInputsHeight} dark={darkMode}
                     trueOption={textLabels.yes[language]} falseOption={textLabels.no[language]}
                     value={tempData.stillStudent} onChangeValue={(val) => setDataAsist("stillStudent", val)} />
             </div>
             <div className='w-100 row' >
-                <DateInputFloatingLabel className='col-lg' label={textLabels.startDate[language]} hasIcon={true} minHeight={minInputsHeight}
+                <DateInputFloatingLabel className='col-lg' label={textLabels.startDate[language]} hasIcon={true} minHeight={minInputsHeight} dark={darkMode}
                     shamsiMode={true} value={tempData.startDate} onChangeValue={(val) => setDataAsist("startDate", val)} />
-                <DateInputFloatingLabel className='col-lg' label={textLabels.endDate[language]} hasIcon={true} minHeight={minInputsHeight}
+                <DateInputFloatingLabel className='col-lg' label={textLabels.endDate[language]} hasIcon={true} minHeight={minInputsHeight} dark={darkMode}
                     value={tempData.endDate} onChangeValue={(val) => setDataAsist("endDate", val)}
                     shamsiMode={true} disabled={tempData.stillStudent} />
             </div>

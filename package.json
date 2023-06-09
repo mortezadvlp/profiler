@@ -16,7 +16,7 @@
     "react-scripts": "5.0.1",
     "react-select": "^5.7.0",
     "react-simple-phone-input": "^5.0.0",
-    "reactjs-floating-label-inputs": "^2.6.0",
+    "reactjs-floating-label-inputs": "^3.1.2",
     "web-vitals": "^2.1.4"
   },
   "scripts": {

@@ -90,52 +90,52 @@ export default function PersonalInfoPage ({ smallView = false, onShowMessage = (
     return (
         <PageTemplate smallView={smallView} title={textLabels.personalTitle[language]} className='' >
             <div className='w-100 row' >
-                <NormalInputFloatingLabel className='col-lg' label={textLabels.firstName[language]} type='text' minHeight={minInputsHeight}
+                <NormalInputFloatingLabel className='col-lg' label={textLabels.firstName[language]} type='text' minHeight={minInputsHeight} dark={darkMode}
                     value={data.firstName} onChangeValue={(val) => setDataAsist("firstName", val)} />
-                <NormalInputFloatingLabel className='col-lg' label={textLabels.lastName[language]} type='text' minHeight={minInputsHeight}
+                <NormalInputFloatingLabel className='col-lg' label={textLabels.lastName[language]} type='text' minHeight={minInputsHeight} dark={darkMode}
                     value={data.lastName} onChangeValue={(val) => setDataAsist("lastName", val)} />
             </div>
             <div className='w-100 row' >
-                <DateInputFloatingLabel className='col-lg' label={textLabels.birthDate[language]} hasIcon={true} minHeight={minInputsHeight}
+                <DateInputFloatingLabel className='col-lg' label={textLabels.birthDate[language]} hasIcon={true} minHeight={minInputsHeight} dark={darkMode}
                     value={data.birthDate} onChangeValue={(val) => setDataAsist("birthDate", val)} />
                 <SelectInputFloatingLabel className='col-lg' label={textLabels.nationality[language]} minHeight={minInputsHeight} colorPrimary={primaryColor}
-                    value={data.nationality} onChangeValue={(val) => setDataAsist("nationality", val)}
+                    value={data.nationality} onChangeValue={(val) => setDataAsist("nationality", val)} dark={darkMode}
                     options={countries()} />
             </div>
             <div className='w-100 row' >
                 <SelectInputFloatingLabel className='col-lg' label={textLabels.country[language]} minHeight={minInputsHeight} colorPrimary={primaryColor}
-                    value={data.country} onChangeValue={(val) => setDataAsist("country", val)}
+                    value={data.country} onChangeValue={(val) => setDataAsist("country", val)} dark={darkMode}
                     options={countries()} />
-                <NormalInputFloatingLabel className='col-lg' label={textLabels.state[language]} type='text' minHeight={minInputsHeight}
+                <NormalInputFloatingLabel className='col-lg' label={textLabels.state[language]} type='text' minHeight={minInputsHeight} dark={darkMode}
                     value={data.state} onChangeValue={(val) => setDataAsist("state", val)} />
-                <NormalInputFloatingLabel className='col-lg' label={textLabels.city[language]} type='text' minHeight={minInputsHeight}
+                <NormalInputFloatingLabel className='col-lg' label={textLabels.city[language]} type='text' minHeight={minInputsHeight} dark={darkMode}
                     value={data.city} onChangeValue={(val) => setDataAsist("city", val)} />
             </div>
             <div className='w-100 row' >
-                <QuestionInputFloatingLabel className='col-lg pt-4' title={textLabels.married[language]} minHeight={minInputsHeight}
+                <QuestionInputFloatingLabel className='col-lg pt-4' title={textLabels.married[language]} minHeight={minInputsHeight} dark={darkMode}
                     trueOption={textLabels.yes[language]} falseOption={textLabels.no[language]}
                     value={data.married} onChangeValue={(val) => setDataAsist("married", val)} />
-                <NormalInputFloatingLabel className='col-lg' label={textLabels.children[language]} type='number' minHeight={minInputsHeight}
+                <NormalInputFloatingLabel className='col-lg' label={textLabels.children[language]} type='number' minHeight={minInputsHeight} dark={darkMode}
                     value={data.numberOfChildren} onChangeValue={(val) => setDataAsist("numberOfChildren", val)} />
             </div>
             <div className='w-100 row' >
-                <PhoneInputFloatingLabel className='col-lg' label={textLabels.mobileNumber[language]} minHeight={minInputsHeight}
+                <PhoneInputFloatingLabel className='col-lg' label={textLabels.mobileNumber[language]} minHeight={minInputsHeight} dark={darkMode}
                     countryValue={data.mobileCountryCode} phoneValue={data.mobileValue} useDialCode
                     onChangeCountryValue={(val) => setDataAsist("mobileCountryCode", val)}
                     onChangePhoneValue={(val) => setDataAsist("mobileValue", val)} />
-                <PhoneInputFloatingLabel className='col-lg' label={textLabels.phoneNumber[language]} minHeight={minInputsHeight}
+                <PhoneInputFloatingLabel className='col-lg' label={textLabels.phoneNumber[language]} minHeight={minInputsHeight} dark={darkMode}
                     countryValue={data.phoneCountryCode} phoneValue={data.phoneValue} useDialCode
                     onChangeCountryValue={(val) => setDataAsist("phoneCountryCode", val)}
                     onChangePhoneValue={(val) => setDataAsist("phoneValue", val)} />
             </div>
             <div className='w-100 row' >
-                <EmailInputFloatingLabel  className='col-lg' label={textLabels.email[language]} type='email' minHeight={minInputsHeight} hasIcon={true}
+                <EmailInputFloatingLabel  className='col-lg' label={textLabels.email[language]} type='email' minHeight={minInputsHeight} hasIcon={true} dark={darkMode}
                     value={data.email} onChangeValue={(val) => setDataAsist("email", val)} />
-                <NormalInputFloatingLabel className='col-lg' label={textLabels.zipCode[language]} type='IntNumber' minHeight={minInputsHeight}
+                <NormalInputFloatingLabel className='col-lg' label={textLabels.zipCode[language]} type='IntNumber' minHeight={minInputsHeight} dark={darkMode}
                     value={data.zipCode} onChangeValue={(val) => setDataAsist("zipCode", val)} />
             </div>
             <div className='w-100 row' >
-                <NormalInputFloatingLabel className='col-lg' lineCount='3' label={textLabels.address[language]} type='text' minHeight={minInputsHeight}
+                <NormalInputFloatingLabel className='col-lg' lineCount='3' label={textLabels.address[language]} type='text' minHeight={minInputsHeight} dark={darkMode}
                     value={data.address} onChangeValue={(val) => setDataAsist("address", val)} />
             </div>
 
