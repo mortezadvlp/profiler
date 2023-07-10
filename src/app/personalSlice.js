@@ -16,7 +16,7 @@ export const samplePersonalState = {
     email: 'morteza@sample.com',
     zipCode: '',
     address: 'Tehran',
-    avatar: 'https://media.licdn.com/dms/image/C4E03AQHtQEtNPHZSMw/profile-displayphoto-shrink_200_200/0/1649337603238?e=1681948800&v=beta&t=ltujekYJ3G5Ocrn2YoV0sjav32iEbdsasK4p7xgQ-5w',
+    avatar: 'https://simacoders.ir/static/media/MyProfile.png',
 }
 
 export const samplePersonalStateFa = {
@@ -34,7 +34,7 @@ export const samplePersonalStateFa = {
     email: 'morteza@sample.com',
     zipCode: '',
     address: 'تهران',
-    avatar: 'https://media.licdn.com/dms/image/C4E03AQHtQEtNPHZSMw/profile-displayphoto-shrink_200_200/0/1649337603238?e=1681948800&v=beta&t=ltujekYJ3G5Ocrn2YoV0sjav32iEbdsasK4p7xgQ-5w',
+    avatar: 'https://simacoders.ir/static/media/MyProfile.png',
 }
 
 const initialState = {
