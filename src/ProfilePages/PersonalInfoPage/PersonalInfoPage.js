@@ -26,7 +26,7 @@ export default function PersonalInfoPage ({ smallView = false, onShowMessage = (
         const mobile = separatePhoneAndCode(stateData.mobile);
         const temp = {
             ...stateData,
-            birthDate: stateData.birthDate === 0 ? '' : toPersianDateDate(new Date(stateData.birthDate)),
+            birthDate: stateData.birthDate === 0 ? '' : language === 'fa' ? toPersianDateDate(new Date(stateData.birthDate)) : new Date(stateData.birthDate),
             phoneCountryCode: phone.code,
             phoneValue: phone.number,
             mobileCountryCode: mobile.code,
@@ -66,7 +66,7 @@ export default function PersonalInfoPage ({ smallView = false, onShowMessage = (
         
         let temp = {
             ...data,
-            birthDate: data.birthDate === '' ? 0 : new Date(fromPersianDateStr(data.birthDate)).getTime(),
+            birthDate: data.birthDate === '' ? 0 : new Date(language === 'fa' ? fromPersianDateStr(data.birthDate) : data.birthDate).getTime(),
         };
         if(temp.mobileValue && !temp.mobileCountryCode) {
             temp.mobileCountryCode = defaultCountryDialCode;
@@ -97,7 +97,7 @@ export default function PersonalInfoPage ({ smallView = false, onShowMessage = (
             </div>
             <div className='w-100 row' >
                 <DateInputFloatingLabel className='col-lg' label={textLabels.birthDate[language]} hasIcon={true} minHeight={minInputsHeight} dark={darkMode}
-                    value={data.birthDate} onChangeValue={(val) => setDataAsist("birthDate", val)} />
+                    shamsiMode={language === 'fa'} value={data.birthDate} onChangeValue={(val) => setDataAsist("birthDate", val)} />
                 <SelectInputFloatingLabel className='col-lg' label={textLabels.nationality[language]} minHeight={minInputsHeight} colorPrimary={primaryColor}
                     value={data.nationality} onChangeValue={(val) => setDataAsist("nationality", val)} dark={darkMode}
                     options={countries()} />

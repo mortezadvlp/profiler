@@ -24,7 +24,7 @@ const TabButton = ({ text = 'Tab Button', onClick, isSelected = false, className
     );
 }
 
-export default function MenuPanel({ currentTab = 0, onChangeCurrentTab, className = '' }) {
+export default function MenuPanel({ currentTab = 0, onChangeCurrentTab, className = '', onPrintProfile }) {
 
     const darkMode = useSelector(state => state.settings.darkMode);
     const language = useSelector(state => state.settings.language);
@@ -79,7 +79,8 @@ export default function MenuPanel({ currentTab = 0, onChangeCurrentTab, classNam
                     <TabButton key={index} text={tn} isSelected={currentTab === index} 
                         onClick={() => onChangeCurrentTab(index)} />
                 )}
-                <CustomButton className='mt-3' text={textLabels.fillSample[language]} onClick={() => fillSampleClick()} />
+                <CustomButton className='mt-3' text={textLabels.printProfile[language]} onClick={() => onPrintProfile()} />
+                <CustomButton className='mt-1' text={textLabels.fillSample[language]} onClick={() => fillSampleClick()} />
             </div>
         </aside>
     );

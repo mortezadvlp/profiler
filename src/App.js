@@ -9,6 +9,7 @@ import SmallView from './views/SmallView/SmallView';
 import { useSelector } from 'react-redux';
 import LightDark from './components/LightDark/LightDark';
 import LanguageSwitch from './components/LanguageSwitch/LanguageSwitch';
+import PrintProfile from './components/PrintProfile/PrintProfile';
 
 function App() {
   const widthBound = 726;
@@ -17,6 +18,7 @@ function App() {
   const [smallView, setSmallView] = useState(window.innerWidth <= widthBound);
   const [messageToShow, setMessageToShow] = useState('');
   const [showDone, setShowDone] = useState(false);
+  const [printProfile, setPrintProfile] = useState(false);
   const initAvatar = useSelector(state => state.personal.avatar);
 
   useEffect(() => {
@@ -53,6 +55,13 @@ function App() {
     return () => window.removeEventListener("resize", updateWidth);
   })
 
+  const printProfileHandler = () => {
+    setPrintProfile(true);
+  }
+  const printDoneHandler = () => {
+    setPrintProfile(false);
+  }
+
   
 
   return (
@@ -64,9 +73,9 @@ function App() {
         </div>
         {smallView
         ?
-          <SmallView showDone={() => showDoneHandler()} showMessage={(msg) => showMessage(msg)} />
+          <SmallView showDone={() => showDoneHandler()} showMessage={(msg) => showMessage(msg)} onPrintProfile={() => printProfileHandler()} />
         :
-          <WideView showDone={() => showDoneHandler()} showMessage={(msg) => showMessage(msg)} />
+          <WideView showDone={() => showDoneHandler()} showMessage={(msg) => showMessage(msg)} onPrintProfile={() => printProfileHandler()} />
         }
       </div>
     
@@ -75,6 +84,9 @@ function App() {
     }
     {showDone&&
       <IconMessageBox onClose={() => setShowDone(false)} />
+    }
+    {printProfile&&
+      <PrintProfile onPrintDone={() => printDoneHandler()} />
     }
     </div>
   );

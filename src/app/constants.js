@@ -311,29 +311,42 @@ export const textLabels = {
         fa: 'پیام های مهم مدیر برای من ارسال شود'
     },
 
-    allFields:  {en: 'All fields are needed', fa: 'تمامی فیلدها باید تکمیل شوند'},
-    startDateNotFormat:  {
+    allFields: {en: 'All fields are needed', fa: 'تمامی فیلدها باید تکمیل شوند'},
+    startDateNotFormat: {
         en: 'Start date is not in correct format', 
         fa: 'تاریخ شروع در فرمت مناسب نیست'
     },
-    startDateValid:  {en: 'Enter a valid start date', fa: 'یک تاریخ شروع معتبر وارد نمایید'},
-    endDateNotFormat:  {
+    startDateValid: {en: 'Enter a valid start date', fa: 'یک تاریخ شروع معتبر وارد نمایید'},
+    endDateNotFormat: {
         en: 'End date is not in correct format', 
         fa: 'تاریخ پایان در فرمت مناسب نیست'
     },
-    endDateValid:  {en: 'Enter a valid end date', fa: 'یک تاریخ پایان معتبر وارد نمایید'},
-    gpaValid:  {en: 'Enter a valid GPA', fa: 'یک مقدار معتبر برای معدل وارد نمایید'},
-    removeCard:  {
+    endDateValid: {en: 'Enter a valid end date', fa: 'یک تاریخ پایان معتبر وارد نمایید'},
+    gpaValid: {en: 'Enter a valid GPA', fa: 'یک مقدار معتبر برای معدل وارد نمایید'},
+    removeCard: {
         en: 'You are going to remove the card.', 
         fa: 'شما در حال حذف کارت هستید.'
     },
-    emailValid:  {en: 'Enter a valid email address', fa: 'یک آدرس پست الکترونیک معتبر وارد نمایید'},
-    mobileValid:  {en: 'Enter a valid mobile number', fa: 'یک شماره تلفن همراه معتبر وارد نمایید'},
-    phoneValid:  {en: 'Enter a valid phone number', fa: 'یک شماره تلفن معتبر وارد نمایید'},
-    birthDateValid:  {en: 'Birth date is not in correct format', fa: 'تاریخ تولد در فرمت مناسب نیست'},
-    zipCodeValid:  {en: 'Enter a valid Zip Code', fa: 'یک کد پستی معتبر وارد نمایید'},
-    smallPassword:  {en: 'Password must be at least 5 characters', fa: 'کلمه عبور باید حداقل 5 کاراکتر داشته باشد'},
-    passwordRepeat:  {en: 'Password and its repeat are not the same', fa: 'کلمه عبور و تکرار آن با هم یکسان نیستند'},
+    emailValid: {en: 'Enter a valid email address', fa: 'یک آدرس پست الکترونیک معتبر وارد نمایید'},
+    mobileValid: {en: 'Enter a valid mobile number', fa: 'یک شماره تلفن همراه معتبر وارد نمایید'},
+    phoneValid: {en: 'Enter a valid phone number', fa: 'یک شماره تلفن معتبر وارد نمایید'},
+    birthDateValid: {en: 'Birth date is not in correct format', fa: 'تاریخ تولد در فرمت مناسب نیست'},
+    zipCodeValid: {en: 'Enter a valid Zip Code', fa: 'یک کد پستی معتبر وارد نمایید'},
+    smallPassword: {en: 'Password must be at least 5 characters', fa: 'کلمه عبور باید حداقل 5 کاراکتر داشته باشد'},
+    passwordRepeat: {en: 'Password and its repeat are not the same', fa: 'کلمه عبور و تکرار آن با هم یکسان نیستند'},
+
+    contactInfo: {en: 'Contact Info', fa: 'اطلاعات تماس'},
+    printProfile: {en: 'Print Profile', fa: 'چاپ پروفایل'},
+    marriedStatus: {en: 'Married', fa: 'متأهل'},
+    notMarriedStatus: {en: 'Unmarried', fa: 'مجرد'},
+
+    diploma: {en: "Diploma", fa: "دیپلم"},
+    associate: {en: "Associate's Degree", fa: "فوق دیپلم"},
+    bachelor: {en: "Bachelor's Degree", fa: "کارشناسی"},
+    master: {en: "Master's Degree", fa: "کارشناسی ارشد"},
+    doctoral: {en: "Doctoral", fa: "پزشکی"},
+    phD: {en: "Doctor of Philosophy", fa: "دکترای حرفه ای"},
+    postDoc: {en: "Postdoctoral", fa: "پست دکتری"},
 }
 
 export const modeClasses = {

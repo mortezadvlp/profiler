@@ -86,8 +86,8 @@ export default function EducationalInformation({ smallView = false, onShowMessag
 
         const temp = {
             ...tempData,
-            startDate: new Date(fromPersianDateStr(tempData.startDate)).getTime(),
-            endDate: tempData.stillStudent ? 0 : new Date(fromPersianDateStr(tempData.endDate)).getTime()
+            startDate: new Date(language === 'fa' ? fromPersianDateStr(tempData.startDate) : tempData.startDate).getTime(),
+            endDate: tempData.stillStudent ? 0 : new Date(language === 'fa' ? fromPersianDateStr(tempData.endDate) : tempData.endDate).getTime(),
         };
         if(editMode) {
             dispatch(editDegree(temp));
@@ -106,8 +106,8 @@ export default function EducationalInformation({ smallView = false, onShowMessag
         if(dd) {
             const temp = {
                 ...dd,
-                startDate: dd.startDate === 0 ? '' : toPersianDateDate(new Date(dd.startDate)),
-                endDate: dd.endDate === 0 ? '' : toPersianDateDate(new Date(dd.endDate))
+                startDate: dd.startDate === 0 ? '' : language === 'fa' ? toPersianDateDate(new Date(dd.startDate)) : new Date(dd.startDate),
+                endDate: dd.endDate === 0 ? '' : language === 'fa' ? toPersianDateDate(new Date(dd.endDate)) : new Date(dd.endDate),
             }
             setTempData(temp);
             setEditMode(true);
@@ -158,10 +158,10 @@ export default function EducationalInformation({ smallView = false, onShowMessag
             </div>
             <div className='w-100 row' >
                 <DateInputFloatingLabel className='col-lg' label={textLabels.startDate[language]} hasIcon={true} minHeight={minInputsHeight} dark={darkMode}
-                    shamsiMode={true} value={tempData.startDate} onChangeValue={(val) => setDataAsist("startDate", val)} />
+                    shamsiMode={language === 'fa'} value={tempData.startDate} onChangeValue={(val) => setDataAsist("startDate", val)} />
                 <DateInputFloatingLabel className='col-lg' label={textLabels.endDate[language]} hasIcon={true} minHeight={minInputsHeight} dark={darkMode}
                     value={tempData.endDate} onChangeValue={(val) => setDataAsist("endDate", val)}
-                    shamsiMode={true} disabled={tempData.stillStudent} />
+                    shamsiMode={language === 'fa'} disabled={tempData.stillStudent} />
             </div>
             <div className='w-75 w-sm-40 row justify-content-center' >
                 <CustomButton text={`${editMode ? textLabels.edit[language] : textLabels.add[language]}`} hasIcon={true} className='col-lg mx-4 mt-4' maxWidthPx={200}

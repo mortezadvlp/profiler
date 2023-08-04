@@ -15,7 +15,7 @@ import { addDegree, sampleEducationalState } from '../../app/educationSlice';
 import { addExperience, sampleWorkState } from '../../app/workExperienceSlice';
 import CustomButton from '../../components/CustomButton/CustomButton';
 
-export default function SmallView({ showDone, showMessage }) {
+export default function SmallView({ showDone, showMessage, onPrintProfile }) {
 
     const inputAvatar = useRef(null);
     const initAvatar = useSelector(state => state.personal.avatar);
@@ -48,7 +48,10 @@ export default function SmallView({ showDone, showMessage }) {
 
     return (
         <div className='d-flex flex-column' >
-            <CustomButton className='mx-auto mt-3' text='Fill Sample' onClick={() => fillSampleClick()} />
+            <div className='mx-auto mt-3 d-flex flex-row gap-3' >
+                <CustomButton className='' text='Fill Sample' onClick={() => fillSampleClick()} />
+                <CustomButton className='' text='Print Profile' onClick={() => onPrintProfile()} />
+            </div>
             <div className='mx-auto position-relative pt-3 pb-4' >
                 <div className='rounded-circle border overflow-hidden bg-white'>
                     <img className='' style={{width:'128px', height:'128px'}}

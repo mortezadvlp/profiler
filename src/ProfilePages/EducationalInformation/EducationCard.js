@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { SvgEdit, SvgRemove } from "../../app/constantComponents";
-import { getCountryLabel, toPersianDateDate } from "../../app/utilities";
+import { getCountryLabel, getDateString, toPersianDateDate } from "../../app/utilities";
 import { useSelector } from "react-redux";
 import { DegreeList, textLabels } from "../../app/constants";
 
@@ -28,8 +28,8 @@ export default function EducationCard({ data = null, className = '', onEditClick
         else {
             const temp = {
                 ...data, 
-                startDate: data.startDate === 0 ? '' : toPersianDateDate(new Date(data.startDate)),
-                endDate: data.endDate === 0 ? '' : toPersianDateDate(new Date(data.endDate))
+                startDate: data.startDate === 0 ? '' : language === 'fa' ? toPersianDateDate(new Date(data.startDate)) : getDateString(new Date(data.startDate)),
+                endDate: data.endDate === 0 ? '' : language === 'fa' ? toPersianDateDate(new Date(data.endDate)) : getDateString(new Date(data.endDate)),
             }
             setInData(temp);
         }

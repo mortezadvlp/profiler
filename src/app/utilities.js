@@ -207,6 +207,13 @@ export const fromPersianDateStr = (strDate) => {
     return fromPersianDate(Number(arr[0]), Number(arr[1]), Number(arr[2]));
 }
 
+export const getDateString = (inDate) => {
+    const y = inDate.getFullYear();
+    const m = inDate.getMonth() + 1;
+    const d = inDate.getDate();
+    return `${y.toString().padStart(4, "0")}/${m.toString().padStart(2, "0")}/${d.toString().padStart(2, "0")}`;
+}
+
 export const validateIntNumber = (val) => {
     const regex = /^\d+$/;
     return regex.test(val);

@@ -66,8 +66,8 @@ export default function WorkExperience({ smallView = false, onShowMessage = () =
 
         const temp = {
             ...tempData,
-            startDate: new Date(fromPersianDateStr(tempData.startDate)).getTime(),
-            endDate: tempData.stillWorking ? 0 : new Date(fromPersianDateStr(tempData.endDate)).getTime()
+            startDate: new Date(language === 'fa' ? fromPersianDateStr(tempData.startDate) : tempData.startDate).getTime(),
+            endDate: tempData.stillWorking ? 0 : new Date(language === 'fa' ? fromPersianDateStr(tempData.endDate) : tempData.endDate).getTime(),
         };
         if(editMode) {
             dispatch(editExperience(temp));
@@ -86,8 +86,8 @@ export default function WorkExperience({ smallView = false, onShowMessage = () =
         if(dd) {
             const temp = {
                 ...dd,
-                startDate: dd.startDate === 0 ? '' : toPersianDateDate(new Date(dd.startDate)),
-                endDate: dd.endDate === 0 ? '' : toPersianDateDate(new Date(dd.endDate))
+                startDate: dd.startDate === 0 ? '' : language === 'fa' ? toPersianDateDate(new Date(dd.startDate)) : new Date(dd.startDate),
+                endDate: dd.endDate === 0 ? '' : language === 'fa' ? toPersianDateDate(new Date(dd.endDate)) : new Date(dd.endDate),
             }
             setTempData(temp);
             setEditMode(true);
@@ -127,9 +127,9 @@ export default function WorkExperience({ smallView = false, onShowMessage = () =
                     value={tempData.responsibilities} onChangeValue={(val) => setDataAsist("responsibilities", val)} />
                 <div className='col-lg d-flex flex-column' >
                     <DateInputFloatingLabel className='col-lg' label={textLabels.startDate[language]} hasIcon={true} minHeight={minInputsHeight} dark={darkMode}
-                        value={tempData.startDate} onChangeValue={(val) => setDataAsist("startDate", val)} />
+                        shamsiMode={language === 'fa'} value={tempData.startDate} onChangeValue={(val) => setDataAsist("startDate", val)} />
                     <DateInputFloatingLabel className='col-lg' label={textLabels.endDate[language]} hasIcon={true} minHeight={minInputsHeight} dark={darkMode}
-                        value={tempData.endDate} onChangeValue={(val) => setDataAsist("endDate", val)}
+                        shamsiMode={language === 'fa'} value={tempData.endDate} onChangeValue={(val) => setDataAsist("endDate", val)}
                         disabled={tempData.stillWorking} />
                     <QuestionInputFloatingLabel className='col-lg pt-4' title={textLabels.stillWorking[language]} minHeight={minInputsHeight} dark={darkMode}
                         trueOption={textLabels.yes[language]} falseOption={textLabels.no[language]}
