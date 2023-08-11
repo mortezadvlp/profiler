@@ -10,6 +10,7 @@ import { useSelector } from 'react-redux';
 import LightDark from './components/LightDark/LightDark';
 import LanguageSwitch from './components/LanguageSwitch/LanguageSwitch';
 import PrintProfile from './components/PrintProfile/PrintProfile';
+import { darkBackColor } from './app/constants';
 
 function App() {
   const widthBound = 726;
@@ -65,7 +66,7 @@ function App() {
   
 
   return (
-    <div dir={language == 'en' ? 'ltr' : 'rtl'} style={{backgroundColor: darkMode ? 'black' : 'white'}} >
+    <div dir={language == 'en' ? 'ltr' : 'rtl'} style={{backgroundColor: darkMode ? darkBackColor : 'white'}} >
       <div className={`${smallView ? 'w-100' : 'container-md vh-100'} d-flex flex-column`} >
         <div dir='ltr' className='w-100 bg-primary d-flex flex-row justify-content-evenly align-items-center' style={{height: '60px'}} >
           <LanguageSwitch />

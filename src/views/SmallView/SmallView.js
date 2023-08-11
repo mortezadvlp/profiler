@@ -14,7 +14,7 @@ import { samplePrivacyState, updateAll as updatePrivacyAll } from '../../app/pri
 import { addDegree, sampleEducationalState } from '../../app/educationSlice';
 import { addExperience, sampleWorkState } from '../../app/workExperienceSlice';
 import CustomButton from '../../components/CustomButton/CustomButton';
-import { textLabels } from '../../app/constants';
+import { darkBackColor, textLabels } from '../../app/constants';
 
 export default function SmallView({ showDone, showMessage, onPrintProfile }) {
 
@@ -62,32 +62,32 @@ export default function SmallView({ showDone, showMessage, onPrintProfile }) {
                 </div>
                 <button className='camera-on-avatar-small border-0 bg-transparent'
                     onClick={() => inputAvatar.current?.click()} >
-                    <SvgCamera width='48px' height='48px' className='text-dark' />
+                    <SvgCamera width='48px' height='48px' className={darkMode ? 'text-light' : 'text-dark'} />
                 </button>
                 <input type='file' ref={inputAvatar} style={{display: 'none'}} onChange={() => saveAvatar()} />
             </div>
             <Accordion >
                 <Accordion.Item eventKey="0" >
                     <Accordion.Header className={`${language === 'fa' ? 'accodrion-rtl' : ''}`} >{textLabels.personalTitle[language]}</Accordion.Header>
-                    <Accordion.Body style={{backgroundColor: darkMode ? 'black' : 'white'}} >
+                    <Accordion.Body style={{backgroundColor: darkMode ? darkBackColor : 'white'}} >
                         <PersonalInfoPage smallView onShowMessage={(msg) => showMessage(msg)} onDone={() => showDone()} />
                     </Accordion.Body>
                 </Accordion.Item>
                 <Accordion.Item eventKey="1" style={{marginTop:5}} >
                     <Accordion.Header className={`${language === 'fa' ? 'accodrion-rtl' : ''}`} >{textLabels.educationTitle[language]}</Accordion.Header>
-                    <Accordion.Body style={{backgroundColor: darkMode ? 'black' : 'white'}} >
+                    <Accordion.Body style={{backgroundColor: darkMode ? darkBackColor : 'white'}} >
                         <EducationalInformation smallView onShowMessage={(msg) => showMessage(msg)} onDone={() => showDone()} />
                     </Accordion.Body>
                 </Accordion.Item>
                 <Accordion.Item eventKey="2" style={{marginTop:5}} >
                     <Accordion.Header className={`${language === 'fa' ? 'accodrion-rtl' : ''}`} >{textLabels.workExp[language]}</Accordion.Header>
-                    <Accordion.Body style={{backgroundColor: darkMode ? 'black' : 'white'}} >
+                    <Accordion.Body style={{backgroundColor: darkMode ? darkBackColor : 'white'}} >
                         <WorkExperience smallView onShowMessage={(msg) => showMessage(msg)} onDone={() => showDone()} />
                     </Accordion.Body>
                 </Accordion.Item>
                 <Accordion.Item eventKey="3" style={{marginTop:5}} >
                     <Accordion.Header className={`${language === 'fa' ? 'accodrion-rtl' : ''}`} >{textLabels.privacy[language]}</Accordion.Header>
-                    <Accordion.Body style={{backgroundColor: darkMode ? 'black' : 'white'}} >
+                    <Accordion.Body style={{backgroundColor: darkMode ? darkBackColor : 'white'}} >
                         <PrivacyPage smallView onShowMessage={(msg) => showMessage(msg)} onDone={() => showDone()} />
                     </Accordion.Body>
                 </Accordion.Item>

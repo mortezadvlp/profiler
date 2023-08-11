@@ -6,6 +6,7 @@ export const disabledColor = '#A9A9A9';
 export const inputComponentHeight = '38px';
 export const defaultCountryDialCode = '+98';
 export const minInputsHeight = 40;
+export const darkBackColor = '#222';
 
 export const countries0 = [
     {value: 0, label: 'Afghanistan'},

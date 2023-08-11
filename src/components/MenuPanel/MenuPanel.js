@@ -68,7 +68,7 @@ export default function MenuPanel({ currentTab = 0, onChangeCurrentTab, classNam
                             src={avatar ? avatar : user_default} />
                         <button className='camera-on-avatar border-0 bg-transparent'
                             onClick={() => inputAvatar.current?.click()} >
-                            <SvgCamera width='64px' height='64px' className='text-dark' />
+                            <SvgCamera width='64px' height='64px' className={darkMode ? 'text-light' : 'text-dark'} />
                         </button>
                         <input type='file' ref={inputAvatar} style={{display: 'none'}} onChange={() => saveAvatar()} />
                     </div>
