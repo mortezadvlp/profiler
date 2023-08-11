@@ -23,6 +23,20 @@ export default function PrintProfile( {onPrintDone} ) {
         handlePrint();
     }, [])
 
+    const marginTop="40px"
+    const marginRight="40px"
+    const marginBottom="50px"
+    const marginLeft="40px"
+    const getPageMargins = () => {
+        return `@page { margin: ${marginTop} ${marginRight} ${marginBottom} ${marginLeft} !important;
+                        counter-increment: page;
+                        counter-reset: page 1;
+                        @top-right {
+                            content: "Page " counter(page) " of " counter(pages);
+                        }
+                    }`;
+    };
+
     const handlePrint = useReactToPrint({
         content: () => divRef.current,
         documentTitle: 'PrintProfile',
@@ -32,26 +46,30 @@ export default function PrintProfile( {onPrintDone} ) {
 
     return (
         <div className='d-none' >
-            <div className='w-100 p-5' ref={divRef} dir={language == 'en' ? 'ltr' : 'rtl'} >
-                <div className='w-100 border border-1 border-primary d-flex flex-row gap-0 row' >
-                    <aside className='d-flex flex-column gap-2 col-4 bg-print py-3' >
+            <div className='w-100' ref={divRef} dir={language == 'en' ? 'ltr' : 'rtl'} >
+                <style>{getPageMargins()}</style>
+                <div className='w-100 d-flex flex-row gap-0 row' >
+                    <aside className='d-flex flex-column gap-2 col-4 bg-print py-3 px-4 vh-100 position-fixed' >
                         <div className='mx-auto rounded-circle border overflow-hidden ratio-1x1'>
                             <img className='mx-auto' style={{width:'180px', height:'180px'}}
                                 src={avatar ? avatar : user_default} />
                         </div>
                         <span className='mt-4' >{textLabels.firstName[language]}:</span>
-                        <span className='ms-2' >{personalData.firstName}</span>
+                        <span className='ms-2 fw-bold' >{personalData.firstName}</span>
                         <span className='mt-2' >{textLabels.lastName[language]}:</span>
-                        <span className='ms-2' >{personalData.lastName}</span>
+                        <span className='ms-2 fw-bold' >{personalData.lastName}</span>
                         <span className='mt-2' >{textLabels.birthDate[language]}:</span>
-                        <span className='ms-2' >{personalData.birthDate === 0 ? '' : language === 'fa' ? toPersianDateDate(new Date(personalData.birthDate)) : getDateString(new Date(personalData.birthDate))}</span>
-                        <span className='ms-2 mt-2' >{personalData.married ? textLabels.marriedStatus[language] : textLabels.notMarriedStatus[language]}</span>
+                        <span className='ms-2 fw-bold' >{personalData.birthDate === 0 ? '' : language === 'fa' ? toPersianDateDate(new Date(personalData.birthDate)) : getDateString(new Date(personalData.birthDate))}</span>
+                        <span className='ms-2 mt-2 fw-bold' >{personalData.married ? textLabels.marriedStatus[language] : textLabels.notMarriedStatus[language]}</span>
                         <span className='mt-5' >{textLabels.contactInfo[language]}:</span>
-                        {personalData.mobile&& <span className='ms-2' >{personalData.mobile}</span>}
-                        {(!personalData.mobile && personalData.phone)&& <span className='ms-2' >{personalData.phone}</span>}
-                        <span className='ms-2 text-break' >{personalData.email}</span>
+                        {personalData.mobile&& <span className='ms-2 fw-bold' >{personalData.mobile}</span>}
+                        {(!personalData.mobile && personalData.phone)&& <span className='ms-2 fw-bold' >{personalData.phone}</span>}
+                        <span className='ms-2 text-break fw-bold' >{personalData.email}</span>
                         <span className='ms-2 text-wrap' >{personalData.address}</span>
                     </aside>
+                    <div className='col-4' >
+
+                    </div>
                     <div className='d-flex flex-column gap-4 col-8 p-0' >
                         <section className='w-100 d-flex flex-column gap-2 ' >
                             <div className='w-100 bg-print p-2' >
@@ -97,7 +115,7 @@ export default function PrintProfile( {onPrintDone} ) {
                                         </div>
                                         <span className={language === 'fa' ? 'me-3' : 'ms-3'} >{`${(data?.country === 'IR' && language === 'fa') ? data?.state : getCountryLabel(data?.country)} / ${data?.city}`}</span>
                                         <span className={language === 'fa' ? 'me-3' : 'ms-3'} >{`${data?.company}`}</span>
-                                        <span className={`${language === 'fa' ? 'me-3' : 'ms-3'} text-wrap`} >{`${data?.responsibilities}`}</span>
+                                        <span className={`${language === 'fa' ? 'me-3' : 'ms-3'} text-wrap`} >{`Responsibilities: ${data?.responsibilities}`}</span>
                                     </div>
                                 )}
                             </div>
