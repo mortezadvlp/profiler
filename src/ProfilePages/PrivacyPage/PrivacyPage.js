@@ -63,7 +63,7 @@ export default function PrivacyPage({ smallView = false, onShowMessage = () => {
     }
 
     return (
-        <PageTemplate smallView={smallView} title='Privacy' className='' >
+        <PageTemplate smallView={smallView} title={textLabels.privacy[language]} className='' >
             <div className='w-100 row' >
                 <NormalInputFloatingLabel className='col-lg' label={textLabels.username[language]} type='text' minHeight={minInputsHeight} disabled dark={darkMode}
                     value={dataUP.username} />

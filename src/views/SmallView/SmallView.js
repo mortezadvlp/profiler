@@ -14,11 +14,14 @@ import { samplePrivacyState, updateAll as updatePrivacyAll } from '../../app/pri
 import { addDegree, sampleEducationalState } from '../../app/educationSlice';
 import { addExperience, sampleWorkState } from '../../app/workExperienceSlice';
 import CustomButton from '../../components/CustomButton/CustomButton';
+import { textLabels } from '../../app/constants';
 
 export default function SmallView({ showDone, showMessage, onPrintProfile }) {
 
     const inputAvatar = useRef(null);
     const initAvatar = useSelector(state => state.personal.avatar);
+    const darkMode = useSelector(state => state.settings.darkMode);
+    const language = useSelector(state => state.settings.language);
     const [avatar, setAvatar] = useState(initAvatar.toLowerCase().startsWith("http") ? initAvatar : localStorage.getItem('avatar'));
     const dispatch = useDispatch();
 
@@ -47,10 +50,10 @@ export default function SmallView({ showDone, showMessage, onPrintProfile }) {
     }
 
     return (
-        <div className='d-flex flex-column' >
+        <div className='d-flex flex-column min-vh-100' >
             <div className='mx-auto mt-3 d-flex flex-row gap-3' >
-                <CustomButton className='' text='Fill Sample' onClick={() => fillSampleClick()} />
-                <CustomButton className='' text='Print Profile' onClick={() => onPrintProfile()} />
+                <CustomButton className='' text={textLabels.fillSample[language]} onClick={() => fillSampleClick()} />
+                <CustomButton className='' text={textLabels.printProfile[language]} onClick={() => onPrintProfile()} />
             </div>
             <div className='mx-auto position-relative pt-3 pb-4' >
                 <div className='rounded-circle border overflow-hidden bg-white'>
@@ -65,26 +68,26 @@ export default function SmallView({ showDone, showMessage, onPrintProfile }) {
             </div>
             <Accordion >
                 <Accordion.Item eventKey="0" >
-                    <Accordion.Header >Personal Info</Accordion.Header>
-                    <Accordion.Body >
+                    <Accordion.Header className={`${language === 'fa' ? 'accodrion-rtl' : ''}`} >{textLabels.personalTitle[language]}</Accordion.Header>
+                    <Accordion.Body style={{backgroundColor: darkMode ? 'black' : 'white'}} >
                         <PersonalInfoPage smallView onShowMessage={(msg) => showMessage(msg)} onDone={() => showDone()} />
                     </Accordion.Body>
                 </Accordion.Item>
                 <Accordion.Item eventKey="1" style={{marginTop:5}} >
-                    <Accordion.Header >Educational Info</Accordion.Header>
-                    <Accordion.Body >
+                    <Accordion.Header className={`${language === 'fa' ? 'accodrion-rtl' : ''}`} >{textLabels.educationTitle[language]}</Accordion.Header>
+                    <Accordion.Body style={{backgroundColor: darkMode ? 'black' : 'white'}} >
                         <EducationalInformation smallView onShowMessage={(msg) => showMessage(msg)} onDone={() => showDone()} />
                     </Accordion.Body>
                 </Accordion.Item>
                 <Accordion.Item eventKey="2" style={{marginTop:5}} >
-                    <Accordion.Header >Work Experiences</Accordion.Header>
-                    <Accordion.Body >
+                    <Accordion.Header className={`${language === 'fa' ? 'accodrion-rtl' : ''}`} >{textLabels.workExp[language]}</Accordion.Header>
+                    <Accordion.Body style={{backgroundColor: darkMode ? 'black' : 'white'}} >
                         <WorkExperience smallView onShowMessage={(msg) => showMessage(msg)} onDone={() => showDone()} />
                     </Accordion.Body>
                 </Accordion.Item>
                 <Accordion.Item eventKey="3" style={{marginTop:5}} >
-                    <Accordion.Header >Privacy</Accordion.Header>
-                    <Accordion.Body >
+                    <Accordion.Header className={`${language === 'fa' ? 'accodrion-rtl' : ''}`} >{textLabels.privacy[language]}</Accordion.Header>
+                    <Accordion.Body style={{backgroundColor: darkMode ? 'black' : 'white'}} >
                         <PrivacyPage smallView onShowMessage={(msg) => showMessage(msg)} onDone={() => showDone()} />
                     </Accordion.Body>
                 </Accordion.Item>
