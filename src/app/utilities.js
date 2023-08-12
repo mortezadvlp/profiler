@@ -214,6 +214,19 @@ export const getDateString = (inDate) => {
     return `${y.toString().padStart(4, "0")}/${m.toString().padStart(2, "0")}/${d.toString().padStart(2, "0")}`;
 }
 
+const convertEnDigitToFa = (a) => {
+    var enArr = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
+    if (enArr.indexOf(a.toString()) < 0) {
+        return a;
+    }
+    return ['۰', '۱', '۲', '۳', '۴', '۵', '۶', '۷', '۸', '۹'][Number(a)];
+}
+
+export const convertEnNumToFa = (txt) => {
+    var fa = (txt.toString().split('').map((chr, indx) => convertEnDigitToFa(chr))).join('');
+    return fa;
+}
+
 export const validateIntNumber = (val) => {
     const regex = /^\d+$/;
     return regex.test(val);

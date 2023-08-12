@@ -6,7 +6,7 @@ import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { DegreeList, textLabels } from '../../app/constants';
 import user_default from '../../images/user_default.png';
-import { getCountryLabel, getDateString, toPersianDateDate } from '../../app/utilities';
+import { convertEnNumToFa, getCountryLabel, getDateString, toPersianDateDate } from '../../app/utilities';
 
 
 export default function PrintProfile( {onPrintDone} ) {
@@ -59,13 +59,13 @@ export default function PrintProfile( {onPrintDone} ) {
                         <span className='mt-2' >{textLabels.lastName[language]}:</span>
                         <span className='ms-2 fw-bold' >{personalData.lastName}</span>
                         <span className='mt-2' >{textLabels.birthDate[language]}:</span>
-                        <span className='ms-2 fw-bold' >{personalData.birthDate === 0 ? '' : language === 'fa' ? toPersianDateDate(new Date(personalData.birthDate)) : getDateString(new Date(personalData.birthDate))}</span>
+                        <span className='ms-2 fw-bold' >{personalData.birthDate === 0 ? '' : language === 'fa' ? convertEnNumToFa(toPersianDateDate(new Date(personalData.birthDate))) : getDateString(new Date(personalData.birthDate))}</span>
                         <span className='ms-2 mt-2 fw-bold' >{personalData.married ? textLabels.marriedStatus[language] : textLabels.notMarriedStatus[language]}</span>
                         <span className='mt-5' >{textLabels.contactInfo[language]}:</span>
-                        {personalData.mobile&& <span className='ms-2 fw-bold' >{personalData.mobile}</span>}
-                        {(!personalData.mobile && personalData.phone)&& <span className='ms-2 fw-bold' >{personalData.phone}</span>}
+                        {personalData.mobile&& <span className='ms-2 fw-bold' >{convertEnNumToFa(personalData.mobile)}</span>}
+                        {(!personalData.mobile && personalData.phone)&& <span className='ms-2 fw-bold' >{convertEnNumToFa(personalData.phone)}</span>}
                         <span className='ms-2 text-break fw-bold' >{personalData.email}</span>
-                        <span className='ms-2 text-wrap' >{personalData.address}</span>
+                        <span className='ms-2 text-wrap' >{convertEnNumToFa(personalData.address)}</span>
                     </aside>
                     <div className='col-4' >
 
@@ -86,9 +86,9 @@ export default function PrintProfile( {onPrintDone} ) {
                                             </span>
                                             <span >
                                                 {`${textLabels.from[language]} 
-                                                    ${language === 'fa' ? toPersianDateDate(new Date(data?.startDate)) : getDateString(new Date(data?.startDate))} 
+                                                    ${language === 'fa' ? convertEnNumToFa(toPersianDateDate(new Date(data?.startDate))) : getDateString(new Date(data?.startDate))} 
                                                     ${textLabels.to[language]} 
-                                                    ${data?.stillStudent ? textLabels.now[language] : language === 'fa' ? toPersianDateDate(new Date(data?.endDate)) : getDateString(new Date(data?.endDate))}`}
+                                                    ${data?.stillStudent ? textLabels.now[language] : language === 'fa' ? convertEnNumToFa(toPersianDateDate(new Date(data?.endDate))) : getDateString(new Date(data?.endDate))}`}
                                                 </span>
                                         </div>
                                         <span className={language === 'fa' ? 'me-3' : 'ms-3'} >{`${data?.major} ${data?.orientation && data?.orientation !== '-' ? ` / ${data?.orientation}` : ''}`}</span>
@@ -108,9 +108,9 @@ export default function PrintProfile( {onPrintDone} ) {
                                             <span className='fw-bold' >{data.jobTitle}</span>
                                             <span >
                                                 {`${textLabels.from[language]} 
-                                                    ${language === 'fa' ? toPersianDateDate(new Date(data?.startDate)) : getDateString(new Date(data?.startDate))} 
+                                                    ${language === 'fa' ? convertEnNumToFa(toPersianDateDate(new Date(data?.startDate))) : getDateString(new Date(data?.startDate))} 
                                                     ${textLabels.to[language]} 
-                                                    ${data?.stillWorking ? textLabels.now[language] : language === 'fa' ? toPersianDateDate(new Date(data?.endDate)) : getDateString(new Date(data?.endDate))}`}
+                                                    ${data?.stillWorking ? textLabels.now[language] : language === 'fa' ? convertEnNumToFa(toPersianDateDate(new Date(data?.endDate))) : getDateString(new Date(data?.endDate))}`}
                                                 </span>
                                         </div>
                                         <span className={language === 'fa' ? 'me-3' : 'ms-3'} >{`${(data?.country === 'IR' && language === 'fa') ? data?.state : getCountryLabel(data?.country)} / ${data?.city}`}</span>
